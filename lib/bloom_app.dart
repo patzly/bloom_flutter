@@ -1,38 +1,42 @@
-import 'package:bloom_flutter/screens/home_screen.dart';
-import 'package:bloom_flutter/screens/settings_screen.dart';
+import 'package:bloom_flutter/navigation/router.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class BloomApp extends StatelessWidget {
   const BloomApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final GoRouter router = GoRouter(
-      initialLocation: '/',
-      routes: [
-        GoRoute(
-          path: '/',
-          builder: (context, state) => const HomeScreen(),
+    return DynamicColorBuilder(builder: (lightColorScheme, darkColorScheme) {
+      final defaultLightColorScheme = ColorScheme.fromSwatch(
+          primarySwatch: Colors.green
+      );
+      final defaultDarkColorScheme = ColorScheme.fromSwatch(
+          primarySwatch: Colors.green,
+          brightness: Brightness.dark
+      );
+
+      return MaterialApp.router(
+        title: 'Bloom',
+        routerConfig: router,
+        theme: ThemeData(
+          colorScheme: lightColorScheme ?? defaultLightColorScheme,
+          pageTransitionsTheme: const PageTransitionsTheme(
+            builders: {
+              TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
+            },
+          ),
         ),
-        GoRoute(
-          path: '/settings',
-          builder: (context, state) => const SettingsScreen(),
+        darkTheme: ThemeData(
+          colorScheme: darkColorScheme ?? defaultDarkColorScheme,
+          pageTransitionsTheme: const PageTransitionsTheme(
+            builders: {
+              TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
+            },
+          ),
         ),
-      ],
-    );
-    return MaterialApp.router(
-      title: 'Bloom',
-      routerConfig: router,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        pageTransitionsTheme: const PageTransitionsTheme(
-          builders: {
-            TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
-          },
-        ),
-      ),
-      debugShowCheckedModeBanner: false,
-    );
+        debugShowCheckedModeBanner: false,
+      );
+    });
   }
 }
