@@ -18,9 +18,9 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   void openShowcasePage() {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const SettingsScreen()),
-    );
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => const SettingsScreen()));
   }
 
   @override
@@ -35,13 +35,12 @@ class HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text('You have pushed the button this many times:'),
-            Text('$counter',
-                style: Theme.of(context).textTheme.headlineMedium),
+            Text('$counter', style: Theme.of(context).textTheme.headlineMedium),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: openShowcasePage,
               child: const Text("Show Widget Variants"),
-            )
+            ),
           ],
         ),
       ),
