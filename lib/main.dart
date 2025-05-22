@@ -1,6 +1,6 @@
-import 'package:bloom_flutter/bloom.dart';
+import 'package:bloom_flutter/bloom_app.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const Bloom());
+  runApp(const BloomApp());
 }
