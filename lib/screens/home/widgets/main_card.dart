@@ -1,64 +1,47 @@
-import 'package:bloom_flutter/screens/settings_screen.dart';
+import 'package:bloom_flutter/screens/home/model/home_model.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class MainCard extends StatelessWidget {
+  final HomeModel model;
 
-  @override
-  State<HomeScreen> createState() => HomeScreenState();
-}
-
-class HomeScreenState extends State<HomeScreen> {
-  void openShowcasePage() {
-    Navigator.of(
-      context,
-    ).push(MaterialPageRoute(builder: (_) => const SettingsScreen()));
-  }
+  const MainCard({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          title: Text("Bloom"),
-          centerTitle: true,
-          elevation: 3
+    return Card.outlined(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(
+          color: Theme.of(context).colorScheme.outlineVariant,
+          width: 1,
+        ),
       ),
-      body: Column(
-        children: <Widget>[
+      child: Column(
+        children: [
           Padding(
-            padding: const EdgeInsets.all(16),
-            child: SizedBox(
-              width: double.infinity,
-              child: Card.outlined(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  side: BorderSide(
-                    color: Theme.of(context).colorScheme.outlineVariant,
-                    width: 1,
-                  ),
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildTextBlock(
+                  context,
+                  'Your flower needs water!',
+                  'Put your phone away for at least 10 minutes so that it gets sufficiently watered. Otherwise it will dry out in 2 minutes.',
                 ),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildTextBlock(context, 'Your flower needs water!', 'Put your phone away for at least 10 minutes so that it gets sufficiently watered. Otherwise it will dry out in 2 minutes.'),
-                          _buildTitleBlock(context, "Session time"),
-                          _buildTimeRow(context, '15 minutes', '15 minutes'),
-                          _buildProgressBar(context, 1.0),
-                          _buildExceededBlock(context, '2:35 minutes exceeded', '5 minutes', 0.2),
-                          _buildTitleBlock(context, "Screen time"),
-                          _buildTimeRow(context, '30 minutes', '2 hours'),
-                          _buildProgressBar(context, 0.25),
-                          _buildChips(),
-                        ],
-                      ),
-                    )
-                  ],
+                _buildTitleBlock(context, "Session time"),
+                _buildTimeRow(context, '15 minutes', '15 minutes'),
+                _buildProgressBar(context, 1.0),
+                _buildExceededBlock(
+                  context,
+                  '2:35 minutes exceeded',
+                  '5 minutes',
+                  0.2,
                 ),
-              ),
+                _buildTitleBlock(context, "Screen time"),
+                _buildTimeRow(context, '30 minutes', '2 hours'),
+                _buildProgressBar(context, 0.25),
+                _buildChips(),
+              ],
             ),
           ),
         ],
@@ -66,7 +49,11 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildTextBlock(BuildContext context, String title, String description) {
+  Widget _buildTextBlock(
+    BuildContext context,
+    String title,
+    String description,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -91,11 +78,7 @@ class HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
-        children: [
-          Text(left),
-          Spacer(),
-          Text(right, textAlign: TextAlign.end),
-        ],
+        children: [Text(left), Spacer(), Text(right, textAlign: TextAlign.end)],
       ),
     );
   }
@@ -115,7 +98,12 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildExceededBlock(BuildContext context, String left, String right, double value) {
+  Widget _buildExceededBlock(
+    BuildContext context,
+    String left,
+    String right,
+    double value,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Column(
@@ -123,9 +111,16 @@ class HomeScreenState extends State<HomeScreen> {
         children: [
           Row(
             children: [
-              Text(left, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+              Text(
+                left,
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
               Spacer(),
-              Text(right, textAlign: TextAlign.end, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+              Text(
+                right,
+                textAlign: TextAlign.end,
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
             ],
           ),
           const SizedBox(height: 4),
@@ -159,7 +154,10 @@ class HomeScreenState extends State<HomeScreen> {
           const SizedBox(width: 8),
           Chip(
             label: Text("2 drops of water"),
-            avatar: Icon(Icons.water_drop_rounded, color: Colors.lightBlue.shade700),
+            avatar: Icon(
+              Icons.water_drop_rounded,
+              color: Colors.lightBlue.shade700,
+            ),
             backgroundColor: Colors.lightBlue.shade100,
           ),
         ],
