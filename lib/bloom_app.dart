@@ -21,6 +21,7 @@ class BloomApp extends StatelessWidget {
           title: 'Bloom',
           routerConfig: router,
           theme: ThemeData(
+            fontFamily: 'Jost',
             colorScheme: lightColorScheme ?? defaultLightColorScheme,
             pageTransitionsTheme: const PageTransitionsTheme(
               builders: {
@@ -29,6 +30,7 @@ class BloomApp extends StatelessWidget {
             ),
           ),
           darkTheme: ThemeData(
+            fontFamily: 'Jost',
             colorScheme: darkColorScheme ?? defaultDarkColorScheme,
             pageTransitionsTheme: const PageTransitionsTheme(
               builders: {
