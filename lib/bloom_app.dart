@@ -9,11 +9,11 @@ class BloomApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DynamicColorBuilder(
       builder: (lightColorScheme, darkColorScheme) {
-        final defaultLightColorScheme = ColorScheme.fromSwatch(
-          primarySwatch: Colors.green,
+        final defaultLightColorScheme = ColorScheme.fromSeed(
+          seedColor: Colors.green,
         );
-        final defaultDarkColorScheme = ColorScheme.fromSwatch(
-          primarySwatch: Colors.green,
+        final defaultDarkColorScheme = ColorScheme.fromSeed(
+          seedColor: Colors.green,
           brightness: Brightness.dark,
         );
 

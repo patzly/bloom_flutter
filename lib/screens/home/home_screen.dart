@@ -24,16 +24,14 @@ class HomeScreen extends StatelessWidget {
             if (state is HomeLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is HomeLoaded) {
-              return Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: MainCard(model: state.data),
-                    ),
+              return SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 600),
+                    child: MainCard(model: state.data),
                   ),
-                ],
+                ),
               );
             }
             return const Center(child: Text('Willkommen bei Bloom'));
