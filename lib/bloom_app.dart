@@ -11,10 +11,12 @@ class BloomApp extends StatelessWidget {
       builder: (lightColorScheme, darkColorScheme) {
         final defaultLightColorScheme = ColorScheme.fromSeed(
           seedColor: Colors.green,
+          contrastLevel: 0,
         );
         final defaultDarkColorScheme = ColorScheme.fromSeed(
           seedColor: Colors.green,
           brightness: Brightness.dark,
+          contrastLevel: 0,
         );
 
         return MaterialApp.router(
@@ -22,7 +24,8 @@ class BloomApp extends StatelessWidget {
           routerConfig: router,
           theme: ThemeData(
             fontFamily: 'Jost',
-            colorScheme: /*lightColorScheme ??*/ defaultLightColorScheme,
+            // optional: use lightColorScheme for dynamic color
+            colorScheme: defaultLightColorScheme.harmonized(),
             pageTransitionsTheme: const PageTransitionsTheme(
               builders: {
                 TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
@@ -31,7 +34,8 @@ class BloomApp extends StatelessWidget {
           ),
           darkTheme: ThemeData(
             fontFamily: 'Jost',
-            colorScheme: /*darkColorScheme ??*/ defaultDarkColorScheme,
+            // optional: use darkColorScheme for dynamic color
+            colorScheme: defaultDarkColorScheme.harmonized(),
             pageTransitionsTheme: const PageTransitionsTheme(
               builders: {
                 TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),

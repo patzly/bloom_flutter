@@ -1,4 +1,5 @@
 import 'package:bloom_flutter/screens/home/model/home_model.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 
 class MainCard extends StatelessWidget {
@@ -40,7 +41,7 @@ class MainCard extends StatelessWidget {
                 _buildTitleBlock(context, "Screen time"),
                 _buildTimeRow(context, '30 minutes', '2 hours'),
                 _buildProgressBar(context, 0.25),
-                _buildChips(),
+                _buildChips(context, '2 days', '2 drops of water'),
               ],
             ),
           ),
@@ -140,25 +141,70 @@ class MainCard extends StatelessWidget {
     );
   }
 
-  Widget _buildChips() {
+  Widget _buildChips(BuildContext context, String daysText, String dropsText) {
+    final theme = Theme.of(context);
+
+    final yellowColorScheme = ColorScheme.fromSeed(
+      seedColor: Colors.amber.harmonizeWith(theme.colorScheme.primary),
+      brightness: theme.brightness,
+    );
+    final yellowThemeData = ThemeData(
+      colorScheme: yellowColorScheme,
+      splashColor: yellowColorScheme.primary,
+      textTheme: theme.textTheme,
+    );
+
+    final blueColorScheme = ColorScheme.fromSeed(
+      seedColor: Colors.blue.harmonizeWith(theme.colorScheme.primary),
+      brightness: theme.brightness,
+    );
+    final blueThemeData = ThemeData(
+      colorScheme: blueColorScheme,
+      splashColor: blueColorScheme.primary,
+      textTheme: theme.textTheme,
+    );
+
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
       child: Row(
         children: [
-          Chip(
-            label: Text("2 days"),
-            avatar: Icon(Icons.wb_sunny_rounded, color: Colors.amber.shade900),
-            backgroundColor: Colors.amber.shade100,
+          Theme(
+            data: yellowThemeData,
+            child: ActionChip(
+              label: Text(daysText),
+              labelStyle: TextStyle(
+                color: yellowColorScheme.onPrimaryContainer,
+              ),
+              avatar: Icon(
+                Icons.wb_sunny_rounded,
+                color: yellowColorScheme.onPrimaryContainer,
+              ),
+              backgroundColor: yellowColorScheme.primaryContainer,
+              side: BorderSide(color: Colors.transparent, width: 0),
+              materialTapTargetSize: MaterialTapTargetSize.padded,
+              onPressed: () {
+                // Handle tap
+              },
+            ), // Use SizedBox to avoid rendering issues
           ),
           const SizedBox(width: 8),
-          Chip(
-            label: Text("2 drops of water"),
-            avatar: Icon(
-              Icons.water_drop_rounded,
-              color: Colors.lightBlue.shade700,
+          Theme(
+            data: blueThemeData,
+            child: ActionChip(
+              label: Text(dropsText),
+              labelStyle: TextStyle(color: blueColorScheme.onPrimaryContainer),
+              avatar: Icon(
+                Icons.water_drop_rounded,
+                color: blueColorScheme.onPrimaryContainer,
+              ),
+              backgroundColor: blueColorScheme.primaryContainer,
+              side: BorderSide(color: Colors.transparent, width: 0),
+              materialTapTargetSize: MaterialTapTargetSize.padded,
+              onPressed: () {
+                // Handle tap
+              },
             ),
-            backgroundColor: Colors.lightBlue.shade100,
           ),
         ],
       ),

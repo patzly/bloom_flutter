@@ -13,16 +13,10 @@ class HomeScreen extends StatelessWidget {
     return BlocProvider(
       create: (_) => HomeCubit(SettingsService()),
       child: Scaffold(
-        appBar: AppBar(
-            title: Text("Bloom"),
-            centerTitle: true,
-            elevation: 3
-        ),
+        appBar: AppBar(title: Text("Bloom"), centerTitle: true, elevation: 3),
         body: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
-            return SelectionArea(
-                child: _buildBody(context, state)
-            );
+            return _buildBody(context, state);
           },
         ),
       ),
