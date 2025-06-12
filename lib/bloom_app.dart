@@ -22,7 +22,7 @@ class BloomApp extends StatelessWidget {
           routerConfig: router,
           theme: ThemeData(
             fontFamily: 'Jost',
-            colorScheme: lightColorScheme ?? defaultLightColorScheme,
+            colorScheme: /*lightColorScheme ??*/ defaultLightColorScheme,
             pageTransitionsTheme: const PageTransitionsTheme(
               builders: {
                 TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
@@ -31,7 +31,7 @@ class BloomApp extends StatelessWidget {
           ),
           darkTheme: ThemeData(
             fontFamily: 'Jost',
-            colorScheme: darkColorScheme ?? defaultDarkColorScheme,
+            colorScheme: /*darkColorScheme ??*/ defaultDarkColorScheme,
             pageTransitionsTheme: const PageTransitionsTheme(
               builders: {
                 TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
