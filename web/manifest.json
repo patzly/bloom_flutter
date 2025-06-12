@@ -1,11 +1,11 @@
 {
-  "name": "bloom_flutter",
-  "short_name": "bloom_flutter",
+  "name": "Bloom: Digital Balance",
+  "short_name": "Bloom",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#0175C2",
-  "theme_color": "#0175C2",
-  "description": "A new Flutter project.",
+  "background_color": "#4CAF50",
+  "theme_color": "#4CAF50",
+  "description": "Eine App zur Unterstützung der Einhaltung anpassbarer Bildschirmzeiten pro Session und Tag inklusive minimaler Pausendauer, visualisiert durch Zeichnungen frischer, verwelkender oder vertrockneter Blumen.",
   "orientation": "portrait-primary",
   "prefer_related_applications": false,
   "icons": [

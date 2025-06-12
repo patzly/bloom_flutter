@@ -7,7 +7,7 @@ plugins {
 
 android {
   namespace = "com.patrickzedler.bloom_flutter"
-  compileSdk = flutter.compileSdkVersion
+  compileSdk = 36
   ndkVersion = flutter.ndkVersion
 
   compileOptions {
@@ -24,8 +24,8 @@ android {
     applicationId = "com.patrickzedler.bloom_flutter"
     // You can update the following values to match your application needs.
     // For more information, see: https://flutter.dev/to/review-gradle-config.
-    minSdk = flutter.minSdkVersion
-    targetSdk = flutter.targetSdkVersion
+    minSdk = 31
+    targetSdk = 36
     versionCode = flutter.versionCode
     versionName = flutter.versionName
   }
