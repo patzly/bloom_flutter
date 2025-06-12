@@ -150,7 +150,7 @@ class MainCard extends StatelessWidget {
     );
     final yellowThemeData = ThemeData(
       colorScheme: yellowColorScheme,
-      splashColor: yellowColorScheme.primary,
+      splashColor: yellowColorScheme.primary.withAlpha((0.32 * 255).toInt()),
       textTheme: theme.textTheme,
     );
 
@@ -160,7 +160,7 @@ class MainCard extends StatelessWidget {
     );
     final blueThemeData = ThemeData(
       colorScheme: blueColorScheme,
-      splashColor: blueColorScheme.primary,
+      splashColor: blueColorScheme.primary.withAlpha((0.32 * 255).toInt()),
       textTheme: theme.textTheme,
     );
 
