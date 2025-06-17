@@ -1,7 +1,7 @@
-import 'package:bloom_flutter/screens/home/state/home_cubit.dart';
-import 'package:bloom_flutter/screens/home/state/home_state.dart';
+import 'package:bloom_flutter/screens/home/model/home_model.dart';
+import 'package:bloom_flutter/screens/home/state/home_controller_impl.dart';
 import 'package:bloom_flutter/screens/home/widgets/main_card.dart';
-import 'package:bloom_flutter/services/settings_service.dart';
+import 'package:bloom_flutter/services/navigation/navigation_service_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,32 +11,57 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => HomeCubit(SettingsService()),
-      child: Scaffold(
-        appBar: AppBar(title: Text("Bloom"), centerTitle: true, elevation: 3),
-        body: BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
-            return _buildBody(context, state);
-          },
-        ),
+      create:
+          (_) => HomeControllerImpl(
+            navigationService: NavigationServiceImpl(context),
+          ),
+      child: BlocBuilder<HomeControllerImpl, HomeModel>(
+        builder: (context, model) {
+          return Scaffold(
+            appBar: _buildAppBar(context),
+            body: _buildBody(context, model),
+          );
+        },
       ),
     );
   }
 
-  Widget _buildBody(BuildContext context, HomeState state) {
-    if (state is HomeLoading) {
-      return const Center(child: CircularProgressIndicator());
-    } else if (state is HomeLoaded) {
-      return SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 600),
-            child: MainCard(model: state.data),
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    return AppBar(
+      leading: Padding(
+        padding: const EdgeInsets.all(12),
+        child: ColorFiltered(
+          colorFilter: ColorFilter.mode(
+            Theme.of(context).colorScheme.onSurfaceVariant,
+            BlendMode.srcIn,
           ),
+          child: Image.asset('assets/icon/monochrome.png'),
         ),
-      );
-    }
-    return const Center(child: Text('Willkommen bei Bloom'));
+      ),
+      title: Text("Bloom"),
+      centerTitle: true,
+      elevation: 3,
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.settings),
+          onPressed: () {
+            context.read<HomeControllerImpl>().navigateToSettings();
+          },
+        ),
+      ],
+      actionsPadding: const EdgeInsets.only(right: 8),
+    );
+  }
+
+  Widget _buildBody(BuildContext context, HomeModel model) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: MainCard(model: model),
+        ),
+      ),
+    );
   }
 }

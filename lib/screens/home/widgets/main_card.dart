@@ -202,7 +202,6 @@ class MainCard extends StatelessWidget {
               side: BorderSide(color: Colors.transparent, width: 0),
               materialTapTargetSize: MaterialTapTargetSize.padded,
               onPressed: () {
-                // Handle tap
               },
             ),
           ),
