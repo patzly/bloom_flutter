@@ -1,5 +1,5 @@
+import 'package:bloom_flutter/screens/home/controller/home_controller.dart';
 import 'package:bloom_flutter/screens/home/model/home_model.dart';
-import 'package:bloom_flutter/screens/home/state/home_controller.dart';
 import 'package:bloom_flutter/services/navigation/navigation_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

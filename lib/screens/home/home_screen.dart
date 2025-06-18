@@ -1,5 +1,6 @@
+import 'package:bloom_flutter/screens/home/controller/home_controller.dart';
+import 'package:bloom_flutter/screens/home/controller/home_controller_impl.dart';
 import 'package:bloom_flutter/screens/home/model/home_model.dart';
-import 'package:bloom_flutter/screens/home/state/home_controller_impl.dart';
 import 'package:bloom_flutter/screens/home/widgets/main_card.dart';
 import 'package:bloom_flutter/services/navigation/navigation_service_impl.dart';
 import 'package:flutter/material.dart';
@@ -10,13 +11,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider<HomeController>(
       create:
-          (_) => HomeControllerImpl(
+          (BuildContext context) => HomeControllerImpl(
             navigationService: NavigationServiceImpl(context),
           ),
-      child: BlocBuilder<HomeControllerImpl, HomeModel>(
-        builder: (context, model) {
+      child: BlocBuilder<HomeController, HomeModel>(
+        builder: (BuildContext context, HomeModel model) {
           return Scaffold(
             appBar: _buildAppBar(context),
             body: _buildBody(context, model),
@@ -27,6 +28,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
+    final controller = BlocProvider.of<HomeController>(context);
     return AppBar(
       leading: Padding(
         padding: const EdgeInsets.all(12),
@@ -45,7 +47,7 @@ class HomeScreen extends StatelessWidget {
         IconButton(
           icon: const Icon(Icons.settings),
           onPressed: () {
-            context.read<HomeControllerImpl>().navigateToSettings();
+            controller.navigateToSettings();
           },
         ),
       ],
