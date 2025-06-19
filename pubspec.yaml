@@ -39,6 +39,7 @@ dependencies:
   flutter_bloc: ^9.0.0
   flutter_launcher_icons: ^0.14.4
   flutter_native_splash: ^2.4.6
+  flutter_foreground_task: ^9.1.0
 
 dev_dependencies:
   flutter_test:

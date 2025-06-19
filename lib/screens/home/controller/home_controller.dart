@@ -5,4 +5,6 @@ abstract class HomeController extends Cubit<HomeModel> {
   HomeController(super.initialState);
 
   void navigateToSettings();
+  void startService();
+  void stopService();
 }

@@ -2,10 +2,10 @@ import 'package:bloom_flutter/screens/home/model/home_model.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 
-class MainCard extends StatelessWidget {
+class PhoneTimeCard extends StatelessWidget {
   final HomeModel model;
 
-  const MainCard({super.key, required this.model});
+  const PhoneTimeCard({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -201,8 +201,7 @@ class MainCard extends StatelessWidget {
               backgroundColor: blueColorScheme.primaryContainer,
               side: BorderSide(color: Colors.transparent, width: 0),
               materialTapTargetSize: MaterialTapTargetSize.padded,
-              onPressed: () {
-              },
+              onPressed: () {},
             ),
           ),
         ],
