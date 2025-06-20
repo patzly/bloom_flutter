@@ -3,47 +3,13 @@ import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:bloom_flutter/screens/home/widgets/phone_time_card.dart';
 import 'package:bloom_flutter/screens/home/widgets/service_card.dart';
 import 'package:bloom_flutter/services/foreground/phone_time_service.dart';
-import 'package:bloom_flutter/services/foreground/phone_time_service_impl.dart';
+import 'package:bloom_flutter/services/foreground/phone_time_service_default_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  PhoneTimeService _phoneTimeService = PhoneTimeServiceImpl.instance;
-
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _phoneTimeService.init((Object data) {
-        if (data is Map<String, dynamic>) {
-          final timestampMillis = data["timestampMillis"];
-          if (timestampMillis != null) {
-            final DateTime timestamp = DateTime.fromMillisecondsSinceEpoch(
-              timestampMillis as int,
-              isUtc: true,
-            );
-            print('timestamp: ${timestamp.toString()}');
-          }
-        }
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    _phoneTimeService.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

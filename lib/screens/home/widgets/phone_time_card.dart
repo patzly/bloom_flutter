@@ -146,7 +146,7 @@ class PhoneTimeCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     final yellowColorScheme = ColorScheme.fromSeed(
-      seedColor: Colors.amber.harmonizeWith(theme.colorScheme.primary),
+      seedColor: Colors.yellow.harmonizeWith(theme.colorScheme.primary),
       brightness: theme.brightness,
     );
     final yellowThemeData = ThemeData(

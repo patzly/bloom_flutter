@@ -1,25 +1,33 @@
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
+import 'package:bloom_flutter/services/foreground/phone_time_service.dart';
 import 'package:bloom_flutter/services/navigation/navigation_service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 
 class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   final NavigationService navigationService;
+  final PhoneTimeService phoneTimeService;
 
   @override
-  BloomControllerImpl({required this.navigationService})
-    : super(
-        BloomModel(
-          sessionTime: const Duration(minutes: 15),
-          screenTime: const Duration(minutes: 30),
-          exceededTime: const Duration(minutes: 2, seconds: 35),
-        ),
-      ) {
-    FlutterForegroundTask.isRunningService.then((value) {
+  BloomControllerImpl({
+    required this.navigationService,
+    required this.phoneTimeService,
+  }) : super(
+         BloomModel(
+           sessionTime: const Duration(minutes: 15),
+           screenTime: const Duration(minutes: 30),
+           exceededTime: const Duration(minutes: 2, seconds: 35),
+         ),
+       ) {
+    phoneTimeService.isRunning().then((value) {
       emit(state.copyWith(isServiceRunning: value));
     });
+  }
+
+  @override
+  void dispose() {
+    phoneTimeService.dispose();
+    super.close();
   }
 
   @override
@@ -28,27 +36,34 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   }
 
   @override
-  Future<void> startService() async {
-    final result = await FlutterForegroundTask.startService(
-      notificationTitle: "hello",
-      notificationText: "hello",
-      // meta data added in android manifest
-      notificationIcon: NotificationIcon(metaDataName: "notification_icon")
-    );
-    if (result is ServiceRequestSuccess) {
+  Future<void> initService() async {
+    await phoneTimeService.init((Object data) {
+      if (data is Map<String, dynamic>) {
+        final timestampMillis = data["timestampMillis"];
+        if (timestampMillis != null) {
+          final DateTime timestamp = DateTime.fromMillisecondsSinceEpoch(
+            timestampMillis as int,
+            isUtc: true,
+          );
+          print('timestamp: ${timestamp.toString()}');
+        }
+      }
+    });
+  }
+
+  @override
+  void startService() async {
+    final result = await phoneTimeService.start();
+    if (result) {
       emit(state.copyWith(isServiceRunning: true));
-    } else if (result is ServiceRequestFailure) {
-      debugPrint('Error starting the service: ${result.error}');
     }
   }
 
   @override
-  Future<void> stopService() async {
-    final result = await FlutterForegroundTask.stopService();
-    if (result is ServiceRequestSuccess) {
+  void stopService() async {
+    final success = await phoneTimeService.stop();
+    if (success) {
       emit(state.copyWith(isServiceRunning: false));
-    } else if (result is ServiceRequestFailure) {
-      debugPrint('Error stopping the service: ${result.error}');
     }
   }
 }

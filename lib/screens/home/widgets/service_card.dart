@@ -27,20 +27,25 @@ class ServiceCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "hihu",
+                "Background service not running",
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 4),
-              Text("huhu"),
+              Text(
+                "The service is required for screen time measurement and displays a permanent low priority notification to stay alive.",
+              ),
+              const SizedBox(height: 8),
               Align(
                 alignment: Alignment.centerRight,
                 child: FilledButton.tonal(
                   onPressed: () {
-                    controller.startService();
+                    controller.initService().then((_) {
+                      controller.startService();
+                    });
                   },
-                  child: Text("Start"),
+                  child: Text("Start service"),
                 ),
               ),
             ],
