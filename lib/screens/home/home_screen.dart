@@ -1,11 +1,9 @@
-import 'package:bloom_flutter/screens/home/controller/home_controller.dart';
-import 'package:bloom_flutter/screens/home/controller/home_controller_impl.dart';
-import 'package:bloom_flutter/screens/home/model/home_model.dart';
+import 'package:bloom_flutter/controller/bloom_controller.dart';
+import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:bloom_flutter/screens/home/widgets/phone_time_card.dart';
 import 'package:bloom_flutter/screens/home/widgets/service_card.dart';
 import 'package:bloom_flutter/services/foreground/phone_time_service.dart';
 import 'package:bloom_flutter/services/foreground/phone_time_service_impl.dart';
-import 'package:bloom_flutter/services/navigation/navigation_service_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,24 +46,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<HomeController>(
-      create:
-          (BuildContext context) => HomeControllerImpl(
-        navigationService: NavigationServiceImpl(context),
-      ),
-      child: BlocBuilder<HomeController, HomeModel>(
-        builder: (BuildContext context, HomeModel model) {
-          return Scaffold(
-            appBar: _buildAppBar(context),
-            body: _buildBody(context, model),
-          );
-        },
-      ),
+    return BlocBuilder<BloomController, BloomModel>(
+      builder: (context, model) {
+        return Scaffold(
+          appBar: _buildAppBar(context),
+          body: _buildBody(context, model),
+        );
+      },
     );
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
-    final controller = BlocProvider.of<HomeController>(context);
+    final controller = BlocProvider.of<BloomController>(context);
     return AppBar(
       leading: Padding(
         padding: const EdgeInsets.all(14),
@@ -92,15 +84,19 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildBody(BuildContext context, HomeModel model) {
+  Widget _buildBody(BuildContext context, BloomModel model) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 600),
-          child: model.isServiceRunning
-              ? PhoneTimeCard(model: model)
-              : ServiceCard(model: model,),
+      child: SizedBox(
+        width: double.infinity,
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 600),
+            child:
+                model.isServiceRunning
+                    ? PhoneTimeCard(model: model)
+                    : ServiceCard(model: model),
+          ),
         ),
       ),
     );

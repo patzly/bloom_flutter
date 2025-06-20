@@ -1,9 +1,9 @@
-import 'package:bloom_flutter/screens/home/model/home_model.dart';
+import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 
 class PhoneTimeCard extends StatelessWidget {
-  final HomeModel model;
+  final BloomModel model;
 
   const PhoneTimeCard({super.key, required this.model});
 

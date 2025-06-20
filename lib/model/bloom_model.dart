@@ -1,23 +1,23 @@
-class HomeModel {
+class BloomModel {
   final Duration sessionTime;
   final Duration screenTime;
   final Duration exceededTime;
   final bool isServiceRunning;
 
-  HomeModel({
+  BloomModel({
     required this.sessionTime,
     required this.screenTime,
     required this.exceededTime,
     this.isServiceRunning = false,
   });
 
-  HomeModel copyWith({
+  BloomModel copyWith({
     Duration? sessionTime,
     Duration? screenTime,
     Duration? exceededTime,
     bool? isServiceRunning,
   }) {
-    return HomeModel(
+    return BloomModel(
       sessionTime: sessionTime ?? this.sessionTime,
       screenTime: screenTime ?? this.screenTime,
       exceededTime: exceededTime ?? this.exceededTime,

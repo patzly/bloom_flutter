@@ -1,22 +1,22 @@
-import 'package:bloom_flutter/screens/home/controller/home_controller.dart';
-import 'package:bloom_flutter/screens/home/model/home_model.dart';
+import 'package:bloom_flutter/controller/bloom_controller.dart';
+import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:bloom_flutter/services/navigation/navigation_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 
-class HomeControllerImpl extends Cubit<HomeModel> implements HomeController {
+class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   final NavigationService navigationService;
 
   @override
-  HomeControllerImpl({required this.navigationService})
-      : super(
-    HomeModel(
-      sessionTime: const Duration(minutes: 15),
-      screenTime: const Duration(minutes: 30),
-      exceededTime: const Duration(minutes: 2, seconds: 35),
-    ),
-  ) {
+  BloomControllerImpl({required this.navigationService})
+    : super(
+        BloomModel(
+          sessionTime: const Duration(minutes: 15),
+          screenTime: const Duration(minutes: 30),
+          exceededTime: const Duration(minutes: 2, seconds: 35),
+        ),
+      ) {
     FlutterForegroundTask.isRunningService.then((value) {
       emit(state.copyWith(isServiceRunning: value));
     });
@@ -29,7 +29,10 @@ class HomeControllerImpl extends Cubit<HomeModel> implements HomeController {
 
   @override
   Future<void> startService() async {
-    final result = await FlutterForegroundTask.startService(notificationTitle: "hello", notificationText: "hello");
+    final result = await FlutterForegroundTask.startService(
+      notificationTitle: "hello",
+      notificationText: "hello",
+    );
     if (result is ServiceRequestSuccess) {
       emit(state.copyWith(isServiceRunning: true));
     } else if (result is ServiceRequestFailure) {
