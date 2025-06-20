@@ -45,6 +45,8 @@
         android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
         android:value="Service for continuous screen time measurement" />
     </service>
+    <meta-data android:name="notification_icon"
+      android:resource="@drawable/ic_rounded_potted_plant" />
   </application>
   <!-- Required to query activities that can process text, see:
        https://developer.android.com/training/package-visibility and

@@ -6,6 +6,7 @@ import 'package:bloom_flutter/services/foreground/phone_time_service.dart';
 import 'package:bloom_flutter/services/foreground/phone_time_service_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -60,10 +61,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final controller = BlocProvider.of<BloomController>(context);
     return AppBar(
       leading: Padding(
-        padding: const EdgeInsets.all(14),
+        padding: const EdgeInsets.all(13),
         child: ColorFiltered(
           colorFilter: ColorFilter.mode(
-            Theme.of(context).colorScheme.onSurfaceVariant,
+            Theme.of(context).colorScheme.primary,
             BlendMode.srcIn,
           ),
           child: Image.asset('assets/icon/monochrome.png'),
@@ -74,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
       elevation: 3,
       actions: [
         IconButton(
-          icon: const Icon(Icons.settings),
+          icon: const Icon(Symbols.settings_rounded),
           onPressed: () {
             controller.navigateToSettings();
           },

@@ -1,6 +1,7 @@
 import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 class PhoneTimeCard extends StatelessWidget {
   final BloomModel model;
@@ -152,6 +153,7 @@ class PhoneTimeCard extends StatelessWidget {
       colorScheme: yellowColorScheme,
       splashColor: yellowColorScheme.primary.withAlpha((0.32 * 255).toInt()),
       textTheme: theme.textTheme,
+      iconTheme: theme.iconTheme,
     );
 
     final blueColorScheme = ColorScheme.fromSeed(
@@ -162,6 +164,7 @@ class PhoneTimeCard extends StatelessWidget {
       colorScheme: blueColorScheme,
       splashColor: blueColorScheme.primary.withAlpha((0.32 * 255).toInt()),
       textTheme: theme.textTheme,
+      iconTheme: theme.iconTheme,
     );
 
     return SingleChildScrollView(
@@ -177,8 +180,10 @@ class PhoneTimeCard extends StatelessWidget {
                 color: yellowColorScheme.onPrimaryContainer,
               ),
               avatar: Icon(
-                Icons.wb_sunny_rounded,
+                Symbols.wb_sunny_rounded,
                 color: yellowColorScheme.onPrimaryContainer,
+                opticalSize: 18,
+                weight: 550,
               ),
               backgroundColor: yellowColorScheme.primaryContainer,
               side: BorderSide(color: Colors.transparent, width: 0),
@@ -195,8 +200,10 @@ class PhoneTimeCard extends StatelessWidget {
               label: Text(dropsText),
               labelStyle: TextStyle(color: blueColorScheme.onPrimaryContainer),
               avatar: Icon(
-                Icons.water_drop_rounded,
+                Symbols.water_drop_rounded,
                 color: blueColorScheme.onPrimaryContainer,
+                opticalSize: 18,
+                weight: 550,
               ),
               backgroundColor: blueColorScheme.primaryContainer,
               side: BorderSide(color: Colors.transparent, width: 0),

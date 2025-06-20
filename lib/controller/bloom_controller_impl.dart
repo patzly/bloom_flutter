@@ -32,6 +32,8 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
     final result = await FlutterForegroundTask.startService(
       notificationTitle: "hello",
       notificationText: "hello",
+      // meta data added in android manifest
+      notificationIcon: NotificationIcon(metaDataName: "notification_icon")
     );
     if (result is ServiceRequestSuccess) {
       emit(state.copyWith(isServiceRunning: true));

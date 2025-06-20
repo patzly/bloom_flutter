@@ -17,10 +17,7 @@ class BloomApp extends StatelessWidget {
     final routerConfig = GoRouter(
       initialLocation: '/',
       routes: [
-        GoRoute(
-          path: '/',
-          builder: (context, state) => const HomeScreen(),
-        ),
+        GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
         GoRoute(
           path: '/settings',
           builder: (context, state) => const SettingsScreen(),
@@ -45,6 +42,7 @@ class BloomApp extends StatelessWidget {
                 fontFamily: 'Jost',
                 // optional: use lightColorScheme for dynamic color
                 colorScheme: defaultLightColorScheme.harmonized(),
+                iconTheme: const IconThemeData(opticalSize: 24, grade: 0),
                 pageTransitionsTheme: const PageTransitionsTheme(
                   builders: {
                     TargetPlatform.android:
@@ -62,6 +60,7 @@ class BloomApp extends StatelessWidget {
                 fontFamily: 'Jost',
                 // optional: use darkColorScheme for dynamic color
                 colorScheme: defaultDarkColorScheme.harmonized(),
+                iconTheme: const IconThemeData(opticalSize: 24, grade: -25),
                 pageTransitionsTheme: const PageTransitionsTheme(
                   builders: {
                     TargetPlatform.android:
