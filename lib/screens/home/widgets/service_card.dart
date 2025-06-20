@@ -26,7 +26,12 @@ class ServiceCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("hihu", style: Theme.of(context).textTheme.headlineSmall),
+              Text(
+                "hihu",
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 4),
               Text("huhu"),
               Align(
@@ -37,11 +42,11 @@ class ServiceCard extends StatelessWidget {
                   },
                   child: Text("Start"),
                 ),
-              )
+              ),
             ],
           ),
         ),
-      )
+      ),
     );
   }
 }

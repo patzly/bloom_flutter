@@ -78,10 +78,10 @@ flutter:
   # https://flutter.dev/to/asset-from-package
 
   fonts:
-    - family: Jost
+    - family: Quicksand
       fonts:
-        - asset: assets/fonts/Jost-Regular.ttf
-        - asset: assets/fonts/Jost-Medium.ttf
+        - asset: assets/fonts/Quicksand-Medium.ttf
+        - asset: assets/fonts/Quicksand-SemiBold.ttf
           weight: 600
 
   # To add custom fonts to your application, add a fonts section here,

@@ -47,7 +47,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return BlocBuilder<BloomController, BloomModel>(
       builder: (context, model) {
         return Scaffold(
-          appBar: AppBar(title: const Text('Settings'), centerTitle: true,),
+          appBar: AppBar(title: Text('Settings'), centerTitle: true),
           body: _buildBody(context, model),
         );
       },

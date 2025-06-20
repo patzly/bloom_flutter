@@ -34,12 +34,25 @@ class BloomApp extends StatelessWidget {
         builder: (BuildContext context, BloomModel model) {
           return DynamicColorBuilder(
             builder: (lightColorScheme, darkColorScheme) {
+              final textTheme = TextTheme(
+                labelLarge: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+                titleLarge: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+                headlineSmall: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              );
+
               final defaultLightColorScheme = ColorScheme.fromSeed(
                 seedColor: Colors.green,
                 contrastLevel: 0,
               );
               final themeDataLight = ThemeData(
-                fontFamily: 'Jost',
+                fontFamily: 'Quicksand',
+                textTheme: textTheme,
                 // optional: use lightColorScheme for dynamic color
                 colorScheme: defaultLightColorScheme.harmonized(),
                 iconTheme: const IconThemeData(opticalSize: 24, grade: 0),
@@ -57,7 +70,8 @@ class BloomApp extends StatelessWidget {
                 contrastLevel: 0,
               );
               final themeDataDark = ThemeData(
-                fontFamily: 'Jost',
+                fontFamily: 'Quicksand',
+                textTheme: textTheme,
                 // optional: use darkColorScheme for dynamic color
                 colorScheme: defaultDarkColorScheme.harmonized(),
                 iconTheme: const IconThemeData(opticalSize: 24, grade: -25),
