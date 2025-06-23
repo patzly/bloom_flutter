@@ -1,8 +1,17 @@
-import 'package:bloom_flutter/services/foreground/phone_time_service.dart';
+import 'package:bloom_flutter/services/foreground/foreground_service.dart';
+import 'package:bloom_flutter/services/foreground/task/foreground_task_handler.dart';
+import 'package:bloom_flutter/services/time/time_service_impl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 
-class PhoneTimeServiceAndroidImpl implements PhoneTimeService {
+@pragma('vm:entry-point')
+void startCallback() {
+  FlutterForegroundTask.setTaskHandler(
+    ForegroundTaskHandler(TimeServiceImpl()),
+  );
+}
+
+class ForegroundServiceAndroidImpl implements ForegroundService {
   late void Function(Object data) _callback;
 
   @override
@@ -37,9 +46,10 @@ class PhoneTimeServiceAndroidImpl implements PhoneTimeService {
     final result = await FlutterForegroundTask.startService(
       notificationTitle: "Screen time service is running",
       notificationText:
-          "This notification is required to keep the service alive.",
+          "This notification is required to keep the service alive",
       // meta data added in android manifest
       notificationIcon: NotificationIcon(metaDataName: "notification_icon"),
+      callback: startCallback,
     );
     if (result is ServiceRequestFailure) {
       debugPrint('Error starting the service: ${result.error}');
@@ -78,53 +88,5 @@ class PhoneTimeServiceAndroidImpl implements PhoneTimeService {
       // This function requires `android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` permission.
       await FlutterForegroundTask.requestIgnoreBatteryOptimization();
     }
-  }
-}
-
-@pragma('vm:entry-point')
-void startCallback() {
-  FlutterForegroundTask.setTaskHandler(PhoneTimeTaskHandler());
-}
-
-class PhoneTimeTaskHandler extends TaskHandler {
-  @override
-  Future<void> onStart(DateTime timestamp, TaskStarter starter) async {
-    print('onStart(starter: ${starter.name})');
-  }
-
-  // Called based on the eventAction set in ForegroundTaskOptions.
-  @override
-  void onRepeatEvent(DateTime timestamp) {
-    // Send data to main isolate.
-    final Map<String, dynamic> data = {
-      "timestampMillis": timestamp.millisecondsSinceEpoch,
-    };
-    FlutterForegroundTask.sendDataToMain(data);
-  }
-
-  @override
-  Future<void> onDestroy(DateTime timestamp, bool isTimeout) async {
-    print('onDestroy(isTimeout: $isTimeout)');
-  }
-
-  // Called when data is sent using `FlutterForegroundTask.sendDataToTask`.
-  @override
-  void onReceiveData(Object data) {
-    print('onReceiveData: $data');
-  }
-
-  @override
-  void onNotificationButtonPressed(String id) {
-    print('onNotificationButtonPressed: $id');
-  }
-
-  @override
-  void onNotificationPressed() {
-    print('onNotificationPressed');
-  }
-
-  @override
-  void onNotificationDismissed() {
-    print('onNotificationDismissed');
   }
 }

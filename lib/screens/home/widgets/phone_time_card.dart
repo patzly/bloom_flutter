@@ -40,7 +40,7 @@ class PhoneTimeCard extends StatelessWidget {
                   0.2,
                 ),
                 _buildTitleBlock(context, "Screen time"),
-                _buildTimeRow(context, '30 minutes', '2 hours'),
+                _buildTimeRow(context, model.sessionTime.inSeconds.toString(), '2 hours'),
                 _buildProgressBar(context, 0.25),
                 _buildChips(context, '2 days', '2 drops of water'),
               ],

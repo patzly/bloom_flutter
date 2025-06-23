@@ -1,9 +1,6 @@
-import 'dart:io';
+import 'package:bloom_flutter/services/foreground/foreground_service.dart';
 
-import 'package:bloom_flutter/services/foreground/phone_time_service.dart';
-import 'package:bloom_flutter/services/foreground/phone_time_service_android_impl.dart';
-
-class PhoneTimeServiceDefaultImpl implements PhoneTimeService {
+class ForegroundServiceDefaultImpl implements ForegroundService {
   late void Function(Object data) _callback;
 
   @override

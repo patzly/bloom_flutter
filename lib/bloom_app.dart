@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/controller/bloom_controller_impl.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:bloom_flutter/screens/home/home_screen.dart';
 import 'package:bloom_flutter/screens/settings/settings_screen.dart';
-import 'package:bloom_flutter/services/foreground/phone_time_service.dart';
+import 'package:bloom_flutter/services/foreground/foreground_service_android_impl.dart';
+import 'package:bloom_flutter/services/foreground/foreground_service_default_impl.dart';
 import 'package:bloom_flutter/services/navigation/navigation_service_impl.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +41,10 @@ class _BloomAppState extends State<BloomApp> {
 
     _controller = BloomControllerImpl(
       navigationService: NavigationServiceImpl(_router),
-      phoneTimeService: PhoneTimeService(),
+      foregroundService:
+          Platform.isAndroid
+              ? ForegroundServiceAndroidImpl()
+              : ForegroundServiceDefaultImpl(),
     );
   }
 

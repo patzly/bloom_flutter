@@ -1,17 +1,17 @@
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
-import 'package:bloom_flutter/services/foreground/phone_time_service.dart';
+import 'package:bloom_flutter/services/foreground/foreground_service.dart';
 import 'package:bloom_flutter/services/navigation/navigation_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   final NavigationService navigationService;
-  final PhoneTimeService phoneTimeService;
+  final ForegroundService foregroundService;
 
   @override
   BloomControllerImpl({
     required this.navigationService,
-    required this.phoneTimeService,
+    required this.foregroundService,
   }) : super(
          BloomModel(
            sessionTime: const Duration(minutes: 15),
@@ -19,14 +19,14 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
            exceededTime: const Duration(minutes: 2, seconds: 35),
          ),
        ) {
-    phoneTimeService.isRunning().then((value) {
+    foregroundService.isRunning().then((value) {
       emit(state.copyWith(isServiceRunning: value));
     });
   }
 
   @override
   void dispose() {
-    phoneTimeService.dispose();
+    foregroundService.dispose();
     super.close();
   }
 
@@ -37,7 +37,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
 
   @override
   Future<void> initService() async {
-    await phoneTimeService.init((Object data) {
+    await foregroundService.init((Object data) {
       if (data is Map<String, dynamic>) {
         final timestampMillis = data["timestampMillis"];
         if (timestampMillis != null) {
@@ -45,7 +45,11 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
             timestampMillis as int,
             isUtc: true,
           );
-          print('timestamp: ${timestamp.toString()}');
+          emit(
+            state.copyWith(
+              sessionTime: state.sessionTime + Duration(seconds: 1),
+            ),
+          );
         }
       }
     });
@@ -53,7 +57,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
 
   @override
   void startService() async {
-    final result = await phoneTimeService.start();
+    final result = await foregroundService.start();
     if (result) {
       emit(state.copyWith(isServiceRunning: true));
     }
@@ -61,7 +65,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
 
   @override
   void stopService() async {
-    final success = await phoneTimeService.stop();
+    final success = await foregroundService.stop();
     if (success) {
       emit(state.copyWith(isServiceRunning: false));
     }
