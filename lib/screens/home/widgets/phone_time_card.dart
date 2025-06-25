@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
@@ -32,16 +34,16 @@ class PhoneTimeCard extends StatelessWidget {
                 ),
                 _buildTitleBlock(context, "Session time"),
                 _buildTimeRow(context, '15 minutes', '15 minutes'),
-                _buildProgressBar(context, 1.0),
+                _buildProgressBar(context, model.sessionTimeFraction),
                 _buildExceededBlock(
                   context,
                   '2:35 minutes exceeded',
                   '5 minutes',
-                  0.2,
+                  model.sessionTimeToleranceFraction,
                 ),
                 _buildTitleBlock(context, "Screen time"),
-                _buildTimeRow(context, model.sessionTime.inSeconds.toString(), '2 hours'),
-                _buildProgressBar(context, 0.25),
+                _buildTimeRow(context, "30 minutes", '2 hours'),
+                _buildProgressBar(context, model.screenTimeFraction),
                 _buildChips(context, '2 days', '2 drops of water'),
               ],
             ),
@@ -89,7 +91,7 @@ class PhoneTimeCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
       child: LinearProgressIndicator(
-        value: value,
+        value: min(value, 1),
         minHeight: 8,
         borderRadius: BorderRadius.all(Radius.circular(4)),
         trackGap: 4,
@@ -106,6 +108,9 @@ class PhoneTimeCard extends StatelessWidget {
     String right,
     double value,
   ) {
+    if (value <= 0) {
+      return SizedBox.shrink(); // Don't show if no exceeded time
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Column(
@@ -127,7 +132,7 @@ class PhoneTimeCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           LinearProgressIndicator(
-            value: value,
+            value: min(value, 1),
             color: Theme.of(context).colorScheme.error,
             backgroundColor: Theme.of(context).colorScheme.errorContainer,
             minHeight: 8,

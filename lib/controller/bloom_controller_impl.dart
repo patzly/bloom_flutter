@@ -1,3 +1,4 @@
+import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:bloom_flutter/services/foreground/foreground_service.dart';
@@ -12,13 +13,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   BloomControllerImpl({
     required this.navigationService,
     required this.foregroundService,
-  }) : super(
-         BloomModel(
-           sessionTime: const Duration(minutes: 15),
-           screenTime: const Duration(minutes: 30),
-           exceededTime: const Duration(minutes: 2, seconds: 35),
-         ),
-       ) {
+  }) : super(BloomModel()) {
     foregroundService.isRunning().then((value) {
       emit(state.copyWith(isServiceRunning: value));
     });
@@ -39,18 +34,25 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   Future<void> initService() async {
     await foregroundService.init((Object data) {
       if (data is Map<String, dynamic>) {
-        final timestampMillis = data["timestampMillis"];
-        if (timestampMillis != null) {
-          final DateTime timestamp = DateTime.fromMillisecondsSinceEpoch(
-            timestampMillis as int,
-            isUtc: true,
-          );
-          emit(
-            state.copyWith(
-              sessionTime: state.sessionTime + Duration(seconds: 1),
-            ),
-          );
-        }
+        final sessionTimeFraction =
+            data[PrefKeys.sessionTimeFraction] as double? ??
+            Defaults.sessionTimeFraction;
+        final sessionTimeToleranceFraction =
+            data[PrefKeys.sessionTimeToleranceFraction] as double? ??
+                Defaults.sessionTimeToleranceFraction;
+        final screenTimeFraction =
+            data[PrefKeys.screenTimeFraction] as double? ??
+            Defaults.screenTimeFraction;
+        print(
+          'Foreground service data received: sessionTimeFraction=$sessionTimeFraction, screenTimeFraction=$screenTimeFraction, sessionTimeToleranceFraction=$sessionTimeToleranceFraction',
+        );
+        emit(
+          state.copyWith(
+            sessionTimeFraction: sessionTimeFraction,
+            screenTimeFraction: screenTimeFraction,
+            sessionTimeToleranceFraction: sessionTimeToleranceFraction,
+          ),
+        );
       }
     });
   }

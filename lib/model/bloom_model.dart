@@ -1,26 +1,29 @@
+import 'package:bloom_flutter/constants.dart';
+
 class BloomModel {
-  final Duration sessionTime;
-  final Duration screenTime;
-  final Duration exceededTime;
+  final double sessionTimeFraction;
+  final double sessionTimeToleranceFraction;
+  final double screenTimeFraction;
   final bool isServiceRunning;
 
   BloomModel({
-    required this.sessionTime,
-    required this.screenTime,
-    required this.exceededTime,
+    this.sessionTimeFraction = Defaults.sessionTimeFraction,
+    this.sessionTimeToleranceFraction = Defaults.sessionTimeToleranceFraction,
+    this.screenTimeFraction = Defaults.screenTimeFraction,
     this.isServiceRunning = false,
   });
 
   BloomModel copyWith({
-    Duration? sessionTime,
-    Duration? screenTime,
-    Duration? exceededTime,
+    double? sessionTimeFraction,
+    double? sessionTimeToleranceFraction,
+    double? screenTimeFraction,
     bool? isServiceRunning,
   }) {
     return BloomModel(
-      sessionTime: sessionTime ?? this.sessionTime,
-      screenTime: screenTime ?? this.screenTime,
-      exceededTime: exceededTime ?? this.exceededTime,
+      sessionTimeFraction: sessionTimeFraction ?? this.sessionTimeFraction,
+      sessionTimeToleranceFraction:
+          sessionTimeToleranceFraction ?? this.sessionTimeToleranceFraction,
+      screenTimeFraction: screenTimeFraction ?? this.screenTimeFraction,
       isServiceRunning: isServiceRunning ?? this.isServiceRunning,
     );
   }

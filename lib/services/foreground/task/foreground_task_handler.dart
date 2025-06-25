@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/services/time/time_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
@@ -14,7 +15,7 @@ class ForegroundTaskHandler extends TaskHandler {
 
   @override
   Future<void> onStart(DateTime timestamp, TaskStarter starter) async {
-    debugPrint('onStart(starter: ${starter.name})');
+    print('onStart(starter: ${starter.name})');
 
     _screen = new Screen();
     try {
@@ -30,10 +31,14 @@ class ForegroundTaskHandler extends TaskHandler {
 
   // Called based on the eventAction set in ForegroundTaskOptions.
   @override
-  void onRepeatEvent(DateTime timestamp) {
-    // Send data to main isolate.
+  void onRepeatEvent(DateTime timestamp) async {
+    await timeService.update();
+
     final Map<String, dynamic> data = {
-      "timestampMillis": timestamp.millisecondsSinceEpoch,
+      PrefKeys.sessionTimeFraction: timeService.getSessionTimeFraction(),
+      PrefKeys.sessionTimeToleranceFraction:
+          timeService.getSessionTimeToleranceFraction(),
+      PrefKeys.screenTimeFraction: timeService.getScreenTimeFraction(),
     };
     FlutterForegroundTask.sendDataToMain(data);
   }
@@ -57,5 +62,13 @@ class ForegroundTaskHandler extends TaskHandler {
     } else {
       timeService.setUserPresence(UserPresence.UNLOCKED);
     }
+    FlutterForegroundTask.updateService(
+      foregroundTaskOptions: ForegroundTaskOptions(
+        eventAction:
+            event == ScreenStateEvent.SCREEN_UNLOCKED
+                ? ForegroundTaskEventAction.repeat(Constants.updateInterval)
+                : ForegroundTaskEventAction.nothing(),
+      ),
+    );
   }
 }

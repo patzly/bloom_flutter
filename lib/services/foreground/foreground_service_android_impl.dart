@@ -1,3 +1,4 @@
+import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/services/foreground/foreground_service.dart';
 import 'package:bloom_flutter/services/foreground/task/foreground_task_handler.dart';
 import 'package:bloom_flutter/services/time/time_service_impl.dart';
@@ -28,7 +29,7 @@ class ForegroundServiceAndroidImpl implements ForegroundService {
       ),
       iosNotificationOptions: IOSNotificationOptions(),
       foregroundTaskOptions: ForegroundTaskOptions(
-        eventAction: ForegroundTaskEventAction.repeat(1000),
+        eventAction: ForegroundTaskEventAction.repeat(Constants.updateInterval),
         autoRunOnBoot: true,
         autoRunOnMyPackageReplaced: true,
         allowWakeLock: false,
