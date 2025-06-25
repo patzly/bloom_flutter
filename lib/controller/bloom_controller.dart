@@ -1,3 +1,4 @@
+import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,4 +16,6 @@ abstract class BloomController extends Cubit<BloomModel> {
   void startService();
 
   void stopService();
+
+  void setContrastLevel(ContrastLevel contrastLevel);
 }

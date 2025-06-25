@@ -15,13 +15,8 @@ class TimeServiceImpl implements TimeService {
   int screenTimeMillis = 0;
   int screenOffTimestamp = 0;
 
-  TimeServiceImpl() {
-    _loadFromPrefs().then((_) {
-      setUserPresence(UserPresence.UNLOCKED);
-    });
-  }
-
-  Future<void> _loadFromPrefs() async {
+  @override
+  Future<void> loadFromPrefs() async {
     await WidgetsFlutterBinding.ensureInitialized();
     prefs = await SharedPreferences.getInstance();
 
@@ -29,7 +24,7 @@ class TimeServiceImpl implements TimeService {
         prefs?.getInt(PrefKeys.sessionTimeMax) ?? Defaults.sessionTimeMax;
     double sessionTimeFraction =
         prefs?.getDouble(PrefKeys.sessionTimeFraction) ??
-        Defaults.sessionTimeFraction;
+            Defaults.sessionTimeFraction;
     sessionTimeMillis = _computeSessionTimeMillis(sessionTimeFraction);
     breakTimeMin =
         prefs?.getInt(PrefKeys.breakTimeMin) ?? Defaults.breakTimeMin;
@@ -37,7 +32,7 @@ class TimeServiceImpl implements TimeService {
         prefs?.getInt(PrefKeys.sessionTimeMax) ?? Defaults.screenTimeMax;
     double screenTimeFraction =
         prefs?.getDouble(PrefKeys.sessionTimeFraction) ??
-        Defaults.screenTimeFraction;
+            Defaults.screenTimeFraction;
     screenTimeMillis = (screenTimeFraction * screenTimeMax * 60 * 1000).toInt();
   }
 

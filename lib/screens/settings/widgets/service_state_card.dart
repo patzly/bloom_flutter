@@ -3,10 +3,10 @@ import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ServiceCard extends StatelessWidget {
+class ServiceStateCard extends StatelessWidget {
   final BloomModel model;
 
-  const ServiceCard({super.key, required this.model});
+  const ServiceStateCard({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -27,25 +27,33 @@ class ServiceCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Background service not running",
+                model.isServiceRunning
+                    ? "Hintergrundservice läuft"
+                    : "Hintergrundservice läuft nicht",
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 4),
               Text(
-                "The service is required for screen time measurement and displays a permanent low priority notification to stay alive.",
+                "Der Service ist für die Messung der Bildschirmzeit erforderlich und zeigt eine permanente Benachrichtigung mit niedriger Priorität an, um erhalten zu bleiben.",
               ),
               const SizedBox(height: 8),
               Align(
                 alignment: Alignment.centerRight,
                 child: FilledButton.tonal(
                   onPressed: () {
-                    controller.initService().then((_) {
-                      controller.startService();
-                    });
+                    if (model.isServiceRunning) {
+                      controller.stopService();
+                    } else {
+                      controller.initService().then((_) {
+                        controller.startService();
+                      });
+                    }
                   },
-                  child: Text("Start service"),
+                  child: Text(
+                    model.isServiceRunning ? "Service stoppen" : "Service starten",
+                  ),
                 ),
               ),
             ],

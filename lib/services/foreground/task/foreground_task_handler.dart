@@ -17,6 +17,11 @@ class ForegroundTaskHandler extends TaskHandler {
   Future<void> onStart(DateTime timestamp, TaskStarter starter) async {
     print('onStart(starter: ${starter.name})');
 
+    timeService.loadFromPrefs().then((_) {
+      timeService.setUserPresence(UserPresence.UNLOCKED);
+      _update();
+    });
+
     _screen = new Screen();
     try {
       _subscription = _screen.screenStateStream.listen((
@@ -32,15 +37,7 @@ class ForegroundTaskHandler extends TaskHandler {
   // Called based on the eventAction set in ForegroundTaskOptions.
   @override
   void onRepeatEvent(DateTime timestamp) async {
-    await timeService.update();
-
-    final Map<String, dynamic> data = {
-      PrefKeys.sessionTimeFraction: timeService.getSessionTimeFraction(),
-      PrefKeys.sessionTimeToleranceFraction:
-          timeService.getSessionTimeToleranceFraction(),
-      PrefKeys.screenTimeFraction: timeService.getScreenTimeFraction(),
-    };
-    FlutterForegroundTask.sendDataToMain(data);
+    _update();
   }
 
   @override
@@ -52,6 +49,18 @@ class ForegroundTaskHandler extends TaskHandler {
   @override
   void onReceiveData(Object data) {
     debugPrint('onReceiveData: $data');
+  }
+
+  void _update() async {
+    await timeService.update();
+
+    final Map<String, dynamic> data = {
+      PrefKeys.sessionTimeFraction: timeService.getSessionTimeFraction(),
+      PrefKeys.sessionTimeToleranceFraction:
+      timeService.getSessionTimeToleranceFraction(),
+      PrefKeys.screenTimeFraction: timeService.getScreenTimeFraction(),
+    };
+    FlutterForegroundTask.sendDataToMain(data);
   }
 
   void _onScreenStateChanged(ScreenStateEvent event) {

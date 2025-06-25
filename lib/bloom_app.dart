@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/controller/bloom_controller_impl.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
@@ -68,9 +69,15 @@ class _BloomAppState extends State<BloomApp> {
                 headlineSmall: TextStyle(fontWeight: FontWeight.bold),
               );
 
+              final contrastLevel = switch (model.contrastLevel) {
+                ContrastLevel.standard => 0.0,
+                ContrastLevel.medium => 0.5,
+                ContrastLevel.high => 1.0
+              };
+
               final defaultLightColorScheme = ColorScheme.fromSeed(
                 seedColor: Colors.green,
-                contrastLevel: 0,
+                contrastLevel: contrastLevel,
               );
               final themeDataLight = ThemeData(
                 fontFamily: 'Quicksand',
@@ -89,7 +96,7 @@ class _BloomAppState extends State<BloomApp> {
               final defaultDarkColorScheme = ColorScheme.fromSeed(
                 seedColor: Colors.green,
                 brightness: Brightness.dark,
-                contrastLevel: 0,
+                contrastLevel: contrastLevel,
               );
               final themeDataDark = ThemeData(
                 fontFamily: 'Quicksand',

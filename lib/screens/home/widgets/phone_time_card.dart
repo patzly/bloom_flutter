@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
@@ -29,22 +30,22 @@ class PhoneTimeCard extends StatelessWidget {
               children: [
                 _buildTextBlock(
                   context,
-                  'Your flower needs water!',
-                  'Put your phone away for at least 10 minutes so that it gets sufficiently watered. Otherwise it will dry out in 2 minutes.',
+                  'Deine Blume braucht Wasser!',
+                  'Lege dein Smartphone für mindestens 10 Minuten weg, damit sie ausreichend gegossen wird. Ansonsten trocknet sie in 2 Minuten aus.',
                 ),
-                _buildTitleBlock(context, "Session time"),
-                _buildTimeRow(context, '15 minutes', '15 minutes'),
+                _buildTitleBlock(context, "Sitzungszeit"),
+                _buildTimeRow(context, '15 Minuten', '15 Minuten'),
                 _buildProgressBar(context, model.sessionTimeFraction),
                 _buildExceededBlock(
                   context,
-                  '2:35 minutes exceeded',
-                  '5 minutes',
+                  '2:35 Minuten überschritten',
+                  '5 Minuten',
                   model.sessionTimeToleranceFraction,
                 ),
-                _buildTitleBlock(context, "Screen time"),
-                _buildTimeRow(context, "30 minutes", '2 hours'),
+                _buildTitleBlock(context, "Bildschirmzeit"),
+                _buildTimeRow(context, "30 Minuten", '2 Stunden'),
                 _buildProgressBar(context, model.screenTimeFraction),
-                _buildChips(context, '2 days', '2 drops of water'),
+                _buildChips(context, '2 Tage', '2 Wassertropfen'),
               ],
             ),
           ),
@@ -150,9 +151,16 @@ class PhoneTimeCard extends StatelessWidget {
   Widget _buildChips(BuildContext context, String daysText, String dropsText) {
     final theme = Theme.of(context);
 
+    final contrastLevel = switch (model.contrastLevel) {
+      ContrastLevel.standard => 0.0,
+      ContrastLevel.medium => 0.5,
+      ContrastLevel.high => 1.0,
+    };
+
     final yellowColorScheme = ColorScheme.fromSeed(
       seedColor: Colors.yellow.harmonizeWith(theme.colorScheme.primary),
       brightness: theme.brightness,
+      contrastLevel: contrastLevel,
     );
     final yellowThemeData = ThemeData(
       colorScheme: yellowColorScheme,
@@ -164,6 +172,7 @@ class PhoneTimeCard extends StatelessWidget {
     final blueColorScheme = ColorScheme.fromSeed(
       seedColor: Colors.blue.harmonizeWith(theme.colorScheme.primary),
       brightness: theme.brightness,
+      contrastLevel: contrastLevel,
     );
     final blueThemeData = ThemeData(
       colorScheme: blueColorScheme,

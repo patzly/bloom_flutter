@@ -4,10 +4,12 @@ import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:bloom_flutter/services/foreground/foreground_service.dart';
 import 'package:bloom_flutter/services/navigation/navigation_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   final NavigationService navigationService;
   final ForegroundService foregroundService;
+  SharedPreferences? prefs = null;
 
   @override
   BloomControllerImpl({
@@ -16,6 +18,18 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   }) : super(BloomModel()) {
     foregroundService.isRunning().then((value) {
       emit(state.copyWith(isServiceRunning: value));
+    });
+    SharedPreferences.getInstance().then((prefs) {
+      this.prefs = prefs;
+      final contrastLevel =
+          prefs.getString(PrefKeys.contrastLevel) ??
+          Defaults.contrastLevel.toString();
+      print(contrastLevel);
+      emit(
+        state.copyWith(
+          contrastLevel: ContrastLevel.values.byName(contrastLevel),
+        ),
+      );
     });
   }
 
@@ -39,7 +53,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
             Defaults.sessionTimeFraction;
         final sessionTimeToleranceFraction =
             data[PrefKeys.sessionTimeToleranceFraction] as double? ??
-                Defaults.sessionTimeToleranceFraction;
+            Defaults.sessionTimeToleranceFraction;
         final screenTimeFraction =
             data[PrefKeys.screenTimeFraction] as double? ??
             Defaults.screenTimeFraction;
@@ -71,5 +85,11 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
     if (success) {
       emit(state.copyWith(isServiceRunning: false));
     }
+  }
+
+  @override
+  void setContrastLevel(ContrastLevel contrastLevel) {
+    prefs?.setString(PrefKeys.contrastLevel, contrastLevel.name);
+    emit(state.copyWith(contrastLevel: contrastLevel));
   }
 }

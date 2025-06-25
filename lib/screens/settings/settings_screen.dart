@@ -1,5 +1,7 @@
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
+import 'package:bloom_flutter/screens/settings/widgets/contrast_setting.dart';
+import 'package:bloom_flutter/screens/settings/widgets/service_state_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,7 +14,7 @@ class SettingsScreen extends StatelessWidget {
       builder: (context, model) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Settings'),
+            title: Text('Einstellungen'),
             centerTitle: true,
             elevation: 3,
           ),
@@ -29,16 +31,10 @@ class SettingsScreen extends StatelessWidget {
       children: [
         SizedBox(
           width: double.infinity,
-          child: FilledButton.tonal(
-            onPressed:
-                model.isServiceRunning
-                    ? () {
-                      controller.stopService();
-                    }
-                    : null,
-            child: Text('Stop service'),
-          ),
+          child: ServiceStateCard(model: model),
         ),
+        const SizedBox(height: 16),
+        ContrastSetting(model: model)
       ],
     );
   }
