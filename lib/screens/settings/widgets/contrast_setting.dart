@@ -23,12 +23,14 @@ class ContrastSetting extends StatelessWidget {
           'Kontrast',
           style: Theme.of(
             context,
-          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+          ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 2),
         Text(
           'Kann die Lesbarkeit bei Sehschwäche verbessern',
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
         ),
         const SizedBox(height: 4),
         _buildToggleButtons(context),
@@ -46,12 +48,17 @@ class ContrastSetting extends StatelessWidget {
         if (index == model.contrastLevel.index) return;
         controller.setContrastLevel(ContrastLevel.values[index]);
       },
+      tapTargetSize: MaterialTapTargetSize.padded,
       borderRadius: BorderRadius.circular(24),
       borderColor: Theme.of(context).colorScheme.outlineVariant,
       selectedBorderColor: Theme.of(context).colorScheme.outlineVariant,
       selectedColor: Theme.of(context).colorScheme.onSecondaryContainer,
       fillColor: Theme.of(context).colorScheme.secondaryContainer,
-      constraints: const BoxConstraints(minHeight: 40, minWidth: 100),
+      constraints: const BoxConstraints(
+        minHeight: 40,
+        maxHeight: 40,
+        minWidth: 100,
+      ),
       children: const [
         Text('Standard', style: TextStyle(fontWeight: FontWeight.bold)),
         Text('Mittel', style: TextStyle(fontWeight: FontWeight.bold)),

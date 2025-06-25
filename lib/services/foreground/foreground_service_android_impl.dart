@@ -1,7 +1,9 @@
 import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/services/foreground/foreground_service.dart';
 import 'package:bloom_flutter/services/foreground/task/foreground_task_handler.dart';
+import 'package:bloom_flutter/services/time/time_service.dart';
 import 'package:bloom_flutter/services/time/time_service_impl.dart';
+import 'package:bloom_flutter/services/time/time_service_singleton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 
@@ -14,6 +16,10 @@ void startCallback() {
 
 class ForegroundServiceAndroidImpl implements ForegroundService {
   late void Function(Object data) _callback;
+
+  ForegroundServiceAndroidImpl(TimeService timeService) {
+    TimeServiceSingleton.setInstance(timeService);
+  }
 
   @override
   Future<void> init(void Function(Object data) callback) async {

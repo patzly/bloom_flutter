@@ -23,7 +23,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
       this.prefs = prefs;
       final contrastLevel =
           prefs.getString(PrefKeys.contrastLevel) ??
-          Defaults.contrastLevel.toString();
+          Defaults.contrastLevel.name;
       print(contrastLevel);
       emit(
         state.copyWith(

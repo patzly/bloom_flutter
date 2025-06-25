@@ -25,17 +25,23 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Widget _buildBody(BuildContext context, BloomModel model) {
-    final controller = BlocProvider.of<BloomController>(context);
-    return ListView(
+    return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
-      children: [
-        SizedBox(
-          width: double.infinity,
-          child: ServiceStateCard(model: model),
+      child: SizedBox(
+        width: double.infinity,
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 600),
+            child: Column(
+              children: [
+                ServiceStateCard(model: model),
+                const SizedBox(height: 16),
+                ContrastSetting(model: model)
+              ],
+            ),
+          ),
         ),
-        const SizedBox(height: 16),
-        ContrastSetting(model: model)
-      ],
+      ),
     );
   }
 }

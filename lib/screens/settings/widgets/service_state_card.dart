@@ -42,6 +42,10 @@ class ServiceStateCard extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: FilledButton.tonal(
+                  style: FilledButton.styleFrom(
+                    minimumSize: const Size.fromHeight(40),
+                    tapTargetSize: MaterialTapTargetSize.padded,
+                  ),
                   onPressed: () {
                     if (model.isServiceRunning) {
                       controller.stopService();
