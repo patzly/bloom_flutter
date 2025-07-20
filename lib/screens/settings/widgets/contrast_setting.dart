@@ -21,11 +21,8 @@ class ContrastSetting extends StatelessWidget {
       children: [
         Text(
           'Kontrast',
-          style: Theme.of(
-            context,
-          ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
-        const SizedBox(height: 2),
         Text(
           'Kann die Lesbarkeit bei Sehschwäche verbessern',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(

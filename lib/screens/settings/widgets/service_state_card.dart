@@ -30,9 +30,7 @@ class ServiceStateCard extends StatelessWidget {
                 model.isServiceRunning
                     ? "Hintergrundservice läuft"
                     : "Hintergrundservice läuft nicht",
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 4),
               Text(
@@ -42,10 +40,6 @@ class ServiceStateCard extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: FilledButton.tonal(
-                  style: FilledButton.styleFrom(
-                    minimumSize: const Size.fromHeight(40),
-                    tapTargetSize: MaterialTapTargetSize.padded,
-                  ),
                   onPressed: () {
                     if (model.isServiceRunning) {
                       controller.stopService();
@@ -56,7 +50,12 @@ class ServiceStateCard extends StatelessWidget {
                     }
                   },
                   child: Text(
-                    model.isServiceRunning ? "Service stoppen" : "Service starten",
+                    model.isServiceRunning
+                        ? "Service stoppen"
+                        : "Service starten",
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    ),
                   ),
                 ),
               ),

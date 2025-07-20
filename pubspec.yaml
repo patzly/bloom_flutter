@@ -100,8 +100,8 @@ flutter:
   # see https://flutter.dev/to/font-from-package
 
   fonts:
-    - family: Quicksand
+    - family: Nunito
       fonts:
-        - asset: assets/fonts/Quicksand-Medium.ttf
-        - asset: assets/fonts/Quicksand-SemiBold.ttf
-          weight: 600
+        - asset: assets/fonts/Nunito-Medium.ttf
+        - asset: assets/fonts/Nunito-Bold.ttf
+          weight: 700

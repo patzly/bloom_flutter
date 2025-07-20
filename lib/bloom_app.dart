@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/controller/bloom_controller.dart';
@@ -6,14 +5,10 @@ import 'package:bloom_flutter/controller/bloom_controller_impl.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:bloom_flutter/screens/home/home_screen.dart';
 import 'package:bloom_flutter/screens/settings/settings_screen.dart';
-import 'package:bloom_flutter/services/foreground/foreground_service_android_impl.dart';
-import 'package:bloom_flutter/services/foreground/foreground_service_default_impl.dart';
 import 'package:bloom_flutter/services/foreground/foreground_service_impl.dart';
 import 'package:bloom_flutter/services/navigation/navigation_service_impl.dart';
-import 'package:bloom_flutter/services/time/time_service.dart';
 import 'package:bloom_flutter/services/time/time_service_impl.dart';
 import 'package:dynamic_color/dynamic_color.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -66,8 +61,6 @@ class _BloomAppState extends State<BloomApp> {
             builder: (lightColorScheme, darkColorScheme) {
               final textTheme = TextTheme(
                 labelLarge: TextStyle(fontWeight: FontWeight.bold),
-                titleLarge: TextStyle(fontWeight: FontWeight.bold),
-                headlineSmall: TextStyle(fontWeight: FontWeight.bold),
               );
 
               final contrastLevel = switch (model.contrastLevel) {
@@ -81,7 +74,7 @@ class _BloomAppState extends State<BloomApp> {
                 contrastLevel: contrastLevel,
               );
               final themeDataLight = ThemeData(
-                fontFamily: 'Quicksand',
+                fontFamily: 'Nunito',
                 textTheme: textTheme,
                 // optional: use lightColorScheme for dynamic color
                 colorScheme: defaultLightColorScheme.harmonized(),
@@ -100,7 +93,7 @@ class _BloomAppState extends State<BloomApp> {
                 contrastLevel: contrastLevel,
               );
               final themeDataDark = ThemeData(
-                fontFamily: 'Quicksand',
+                fontFamily: 'Nunito',
                 textTheme: textTheme,
                 // optional: use darkColorScheme for dynamic color
                 colorScheme: defaultDarkColorScheme.harmonized(),
