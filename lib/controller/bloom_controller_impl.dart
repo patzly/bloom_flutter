@@ -3,6 +3,7 @@ import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:bloom_flutter/services/foreground/foreground_service.dart';
 import 'package:bloom_flutter/services/navigation/navigation_service.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -31,13 +32,26 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
           prefs.getBool(PrefKeys.useDynamicColors) ?? Defaults.useDynamicColors;
       final sessionTimeMax = Duration(
         minutes:
-            prefs.getInt(PrefKeys.sessionTimeMax) ?? Defaults.sessionTimeMax,
+            prefs.getInt(PrefKeys.sessionTimeMax) ??
+            Defaults.sessionTimeMax.inMinutes,
       );
       final breakTimeMin = Duration(
-        minutes: prefs.getInt(PrefKeys.breakTimeMin) ?? Defaults.breakTimeMin,
+        minutes:
+            prefs.getInt(PrefKeys.breakTimeMin) ??
+            Defaults.breakTimeMin.inMinutes,
       );
       final screenTimeMax = Duration(
-        minutes: prefs.getInt(PrefKeys.screenTimeMax) ?? Defaults.screenTimeMax,
+        minutes:
+            prefs.getInt(PrefKeys.screenTimeMax) ??
+            Defaults.screenTimeMax.inMinutes,
+      );
+      final dailyResetTime = TimeOfDay(
+        hour:
+            prefs.getInt(PrefKeys.dailyResetHour) ??
+            Defaults.dailyResetTime.hour,
+        minute:
+            prefs.getInt(PrefKeys.dailyResetMinute) ??
+            Defaults.dailyResetTime.minute,
       );
       emit(
         state.copyWith(
@@ -47,6 +61,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
           sessionTimeMax: sessionTimeMax,
           breakTimeMin: breakTimeMin,
           screenTimeMax: screenTimeMax,
+          dailyResetTime: dailyResetTime,
         ),
       );
     });
@@ -76,9 +91,6 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
         final screenTimeFraction =
             data[PrefKeys.screenTimeFraction] as double? ??
             Defaults.screenTimeFraction;
-        print(
-          'Foreground service data received: sessionTimeFraction=$sessionTimeFraction, screenTimeFraction=$screenTimeFraction, sessionTimeToleranceFraction=$sessionTimeToleranceFraction',
-        );
         emit(
           state.copyWith(
             sessionTimeFraction: sessionTimeFraction,
@@ -140,5 +152,12 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   void setScreenTimeMax(Duration screenTimeMax) {
     prefs?.setInt(PrefKeys.screenTimeMax, screenTimeMax.inMinutes);
     emit(state.copyWith(screenTimeMax: screenTimeMax));
+  }
+
+  @override
+  void setDailyResetTime(TimeOfDay dailyResetTime) {
+    prefs?.setInt(PrefKeys.dailyResetHour, dailyResetTime.hour);
+    prefs?.setInt(PrefKeys.dailyResetMinute, dailyResetTime.minute);
+    emit(state.copyWith(dailyResetTime: dailyResetTime));
   }
 }

@@ -1,5 +1,6 @@
 import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class BloomController extends Cubit<BloomModel> {
@@ -28,4 +29,6 @@ abstract class BloomController extends Cubit<BloomModel> {
   void setBreakTimeMin(Duration breakTimeMin);
 
   void setScreenTimeMax(Duration screenTimeMax);
+
+  void setDailyResetTime(TimeOfDay dailyResetTime);
 }

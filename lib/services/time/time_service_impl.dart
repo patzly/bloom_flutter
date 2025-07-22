@@ -8,10 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class TimeServiceImpl implements TimeService {
   SharedPreferences? prefs = null;
   UserPresence? userPresence = null;
-  int sessionTimeMax = 0;
+  int sessionTimeMaxMinutes = 0;
   int sessionTimeMillis = 0;
-  int breakTimeMin = 0;
-  int screenTimeMax = 0;
+  int breakTimeMinMinutes = 0;
+  int screenTimeMaxMinutes = 0;
   int screenTimeMillis = 0;
   int screenOffTimestamp = 0;
 
@@ -20,20 +20,23 @@ class TimeServiceImpl implements TimeService {
     await WidgetsFlutterBinding.ensureInitialized();
     prefs = await SharedPreferences.getInstance();
 
-    sessionTimeMax =
-        prefs?.getInt(PrefKeys.sessionTimeMax) ?? Defaults.sessionTimeMax;
+    sessionTimeMaxMinutes =
+        prefs?.getInt(PrefKeys.sessionTimeMax) ??
+        Defaults.sessionTimeMax.inMinutes;
     double sessionTimeFraction =
         prefs?.getDouble(PrefKeys.sessionTimeFraction) ??
         Defaults.sessionTimeFraction;
     sessionTimeMillis = _computeSessionTimeMillis(sessionTimeFraction);
-    breakTimeMin =
-        prefs?.getInt(PrefKeys.breakTimeMin) ?? Defaults.breakTimeMin;
-    screenTimeMax =
-        prefs?.getInt(PrefKeys.sessionTimeMax) ?? Defaults.screenTimeMax;
+    breakTimeMinMinutes =
+        prefs?.getInt(PrefKeys.breakTimeMin) ?? Defaults.breakTimeMin.inMinutes;
+    screenTimeMaxMinutes =
+        prefs?.getInt(PrefKeys.sessionTimeMax) ??
+        Defaults.screenTimeMax.inMinutes;
     double screenTimeFraction =
         prefs?.getDouble(PrefKeys.sessionTimeFraction) ??
         Defaults.screenTimeFraction;
-    screenTimeMillis = (screenTimeFraction * screenTimeMax * 60 * 1000).toInt();
+    screenTimeMillis =
+        (screenTimeFraction * screenTimeMaxMinutes * 60 * 1000).toInt();
   }
 
   @override
@@ -60,7 +63,7 @@ class TimeServiceImpl implements TimeService {
         double sessionTimeFraction = getSessionTimeFraction();
         if (sessionTimeFraction > 1) {
           // first subtract break from exceeded session time
-          int sessionTimeMaxMillis = sessionTimeMax * 60 * 1000;
+          int sessionTimeMaxMillis = sessionTimeMaxMinutes * 60 * 1000;
           int exceededMillis = max(sessionTimeMillis - sessionTimeMaxMillis, 0);
           int toleranceMillis = min(
             exceededMillis,
@@ -77,7 +80,7 @@ class TimeServiceImpl implements TimeService {
           // subtract consumed screen off time
           screenOffMillis = max(screenOffMillis - toleranceMillis, 0);
         }
-        int breakTimeMillis = breakTimeMin * 60 * 1000;
+        int breakTimeMillis = breakTimeMinMinutes * 60 * 1000;
         double breakTimeFraction = min(
           screenOffMillis.toDouble() / breakTimeMillis,
           1,
@@ -96,7 +99,7 @@ class TimeServiceImpl implements TimeService {
       // update session time
       sessionTimeMillis += Constants.updateInterval;
       int absoluteToleranceMillis =
-          (sessionTimeMax + Constants.sessionTimeTolerance) * 60 * 1000;
+          (sessionTimeMaxMinutes + Constants.sessionTimeTolerance) * 60 * 1000;
       // callback exactly on time and not 1 second later
       absoluteToleranceMillis -= 1000;
       int toleranceMillisLastMinute = absoluteToleranceMillis - (60 * 1000);
@@ -135,7 +138,7 @@ class TimeServiceImpl implements TimeService {
 
   @override
   double getSessionTimeFraction() {
-    int sessionTimeMaxMillis = sessionTimeMax * 60 * 1000;
+    int sessionTimeMaxMillis = sessionTimeMaxMinutes * 60 * 1000;
     double fraction = max(
       min(sessionTimeMillis.toDouble() / sessionTimeMaxMillis, 1),
       0,
@@ -156,13 +159,14 @@ class TimeServiceImpl implements TimeService {
 
   @override
   double getScreenTimeFraction() {
-    double fraction = screenTimeMillis.toDouble() / (screenTimeMax * 60 * 1000);
+    double fraction =
+        screenTimeMillis.toDouble() / (screenTimeMaxMinutes * 60 * 1000);
     return max(min(fraction, 1), 0);
   }
 
   int _computeSessionTimeMillis(double sessionTimeFraction) {
     sessionTimeFraction = sessionTimeFraction.clamp(0, 2);
-    int sessionTimeMaxMillis = sessionTimeMax * 60 * 1000;
+    int sessionTimeMaxMillis = sessionTimeMaxMinutes * 60 * 1000;
     if (sessionTimeFraction <= 1) {
       return (sessionTimeFraction * sessionTimeMaxMillis).toInt();
     } else {

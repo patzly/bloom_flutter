@@ -14,14 +14,14 @@ Future<Duration?> showDurationPicker(
   return showDialog<Duration>(
     context: context,
     animationStyle: AnimationStyle(
-      duration: Duration(milliseconds: 300),
+      duration: Duration(milliseconds: 200),
       curve: Curves.fastOutSlowIn,
-      reverseDuration: Duration(milliseconds: 300),
+      reverseDuration: Duration(milliseconds: 200),
       reverseCurve: Curves.fastOutSlowIn,
     ),
     builder: (context) {
       return AlertDialog(
-        title: const Text("Dauer ändern"),
+        title: const Text("Dauer auswählen"),
         content: SizedBox(
           height: 150,
           child: Row(
@@ -66,7 +66,7 @@ Future<Duration?> showDurationPicker(
                   context,
                   Duration(hours: selectedHours, minutes: selectedMinutes),
                 ),
-            child: const Text('Ändern'),
+            child: const Text('Auswählen'),
           ),
         ],
         actionsPadding: const EdgeInsets.all(20),

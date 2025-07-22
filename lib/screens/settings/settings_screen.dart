@@ -1,7 +1,5 @@
-import 'dart:math';
-
 import 'package:bloom_flutter/controller/bloom_controller.dart';
-import 'package:bloom_flutter/extensions/duration_extensions.dart';
+import 'package:bloom_flutter/extensions/time_extensions.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:bloom_flutter/screens/settings/dialogs/duration_dialog.dart';
 import 'package:bloom_flutter/screens/settings/widgets/brightness_setting.dart';
@@ -49,6 +47,7 @@ class SettingsScreen extends StatelessWidget {
                 _buildSessionTimeMaxSetting(context, model),
                 _buildBreakTimeMinSetting(context, model),
                 _buildScreenTimeMaxSetting(context, model),
+                _buildDailyResetTimeSetting(context, model),
               ],
             ),
           ),
@@ -145,6 +144,43 @@ class SettingsScreen extends StatelessWidget {
         ),
         Text(
           model.screenTimeMax.toPrettyString(),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDailyResetTimeSetting(BuildContext context, BloomModel model) {
+    final controller = BlocProvider.of<BloomController>(context);
+    return SettingWithIcon(
+      onTap: () {
+        showTimePicker(
+          context: context,
+          initialTime: model.dailyResetTime,
+          builder: (BuildContext context, Widget? child) {
+            return MediaQuery(
+              data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+              child: child!,
+            );
+          },
+          confirmText: "Auswählen",
+          cancelText: "Abbrechen",
+        ).then((time) {
+          if (time != null) {
+            controller.setDailyResetTime(time);
+          }
+        });
+      },
+      icon: Icon(
+        Symbols.early_on_rounded,
+        color: Theme.of(context).colorScheme.onSurfaceVariant,
+      ),
+      children: [
+        Text('Tagesbeginn', style: Theme.of(context).textTheme.bodyLarge),
+        Text(
+          model.dailyResetTime.to24hString(),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),

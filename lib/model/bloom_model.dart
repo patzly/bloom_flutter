@@ -1,4 +1,5 @@
 import 'package:bloom_flutter/constants.dart';
+import 'package:flutter/material.dart';
 
 class BloomModel {
   final double sessionTimeFraction;
@@ -11,6 +12,7 @@ class BloomModel {
   final Duration sessionTimeMax;
   final Duration breakTimeMin;
   final Duration screenTimeMax;
+  final TimeOfDay dailyResetTime;
 
   BloomModel({
     this.sessionTimeFraction = Defaults.sessionTimeFraction,
@@ -20,9 +22,10 @@ class BloomModel {
     this.brightnessLevel = BrightnessLevel.auto,
     this.contrastLevel = ContrastLevel.standard,
     this.useDynamicColors = true,
-    this.sessionTimeMax = const Duration(minutes: Defaults.sessionTimeMax),
-    this.breakTimeMin = const Duration(minutes: Defaults.breakTimeMin),
-    this.screenTimeMax = const Duration(minutes: Defaults.screenTimeMax)
+    this.sessionTimeMax = Defaults.sessionTimeMax,
+    this.breakTimeMin = Defaults.breakTimeMin,
+    this.screenTimeMax = Defaults.screenTimeMax,
+    this.dailyResetTime = Defaults.dailyResetTime,
   });
 
   BloomModel copyWith({
@@ -36,6 +39,7 @@ class BloomModel {
     Duration? sessionTimeMax,
     Duration? breakTimeMin,
     Duration? screenTimeMax,
+    TimeOfDay? dailyResetTime,
   }) {
     return BloomModel(
       sessionTimeFraction: sessionTimeFraction ?? this.sessionTimeFraction,
@@ -49,6 +53,7 @@ class BloomModel {
       sessionTimeMax: sessionTimeMax ?? this.sessionTimeMax,
       breakTimeMin: breakTimeMin ?? this.breakTimeMin,
       screenTimeMax: screenTimeMax ?? this.screenTimeMax,
+      dailyResetTime: dailyResetTime ?? this.dailyResetTime,
     );
   }
 }

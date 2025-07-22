@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 extension DurationFormatting on Duration {
   String toPrettyString() {
     final hours = inHours;
@@ -23,5 +25,13 @@ extension DurationFormatting on Duration {
     } else {
       return '$seconds ${seconds == 1 ? "Sekunde" : "Sekunden"}';
     }
+  }
+}
+
+extension TimeOfDayFormatting on TimeOfDay {
+  String to24hString() {
+    final hh = hour.toString().padLeft(2, '0');
+    final mm = minute.toString().padLeft(2, '0');
+    return '$hh:$mm Uhr';
   }
 }
