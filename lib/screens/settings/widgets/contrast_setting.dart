@@ -19,10 +19,7 @@ class ContrastSetting extends StatelessWidget {
         color: Theme.of(context).colorScheme.onSurfaceVariant,
       ),
       children: [
-        Text(
-          'Kontrast',
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
+        Text('Kontrast', style: Theme.of(context).textTheme.bodyLarge),
         Text(
           'Kann die Lesbarkeit bei Sehschwäche verbessern',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -37,30 +34,37 @@ class ContrastSetting extends StatelessWidget {
 
   Widget _buildToggleButtons(BuildContext context) {
     final controller = BlocProvider.of<BloomController>(context);
-    return ToggleButtons(
-      isSelected: List.generate(ContrastLevel.values.length, (index) {
-        return ContrastLevel.values[index] == model.contrastLevel;
-      }),
-      onPressed: (int index) {
-        if (index == model.contrastLevel.index) return;
-        controller.setContrastLevel(ContrastLevel.values[index]);
-      },
-      tapTargetSize: MaterialTapTargetSize.padded,
-      borderRadius: BorderRadius.circular(24),
-      borderColor: Theme.of(context).colorScheme.outlineVariant,
-      selectedBorderColor: Theme.of(context).colorScheme.outlineVariant,
-      selectedColor: Theme.of(context).colorScheme.onSecondaryContainer,
-      fillColor: Theme.of(context).colorScheme.secondaryContainer,
-      constraints: const BoxConstraints(
-        minHeight: 40,
-        maxHeight: 40,
-        minWidth: 100,
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          ToggleButtons(
+            isSelected: List.generate(ContrastLevel.values.length, (index) {
+              return ContrastLevel.values[index] == model.contrastLevel;
+            }),
+            onPressed: (int index) {
+              if (index == model.contrastLevel.index) return;
+              controller.setContrastLevel(ContrastLevel.values[index]);
+            },
+            tapTargetSize: MaterialTapTargetSize.padded,
+            borderRadius: BorderRadius.circular(24),
+            borderColor: Theme.of(context).colorScheme.outlineVariant,
+            selectedBorderColor: Theme.of(context).colorScheme.outlineVariant,
+            selectedColor: Theme.of(context).colorScheme.onSecondaryContainer,
+            fillColor: Theme.of(context).colorScheme.secondaryContainer,
+            constraints: const BoxConstraints(
+              minHeight: 40,
+              maxHeight: 40,
+              minWidth: 100,
+            ),
+            children: const [
+              Text('Standard', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text('Mittel', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text('Hoch', style: TextStyle(fontWeight: FontWeight.bold)),
+            ],
+          ),
+        ],
       ),
-      children: const [
-        Text('Standard', style: TextStyle(fontWeight: FontWeight.bold)),
-        Text('Mittel', style: TextStyle(fontWeight: FontWeight.bold)),
-        Text('Hoch', style: TextStyle(fontWeight: FontWeight.bold)),
-      ],
     );
   }
 }
