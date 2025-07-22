@@ -21,11 +21,15 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
     });
     SharedPreferences.getInstance().then((prefs) {
       this.prefs = prefs;
+      final brightnessLevel =
+          prefs.getString(PrefKeys.brightnessLevel) ??
+              Defaults.brightnessLevel.name;
       final contrastLevel =
           prefs.getString(PrefKeys.contrastLevel) ??
           Defaults.contrastLevel.name;
       emit(
         state.copyWith(
+          brightnessLevel: BrightnessLevel.values.byName(brightnessLevel),
           contrastLevel: ContrastLevel.values.byName(contrastLevel),
         ),
       );
@@ -84,6 +88,12 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
     if (success) {
       emit(state.copyWith(isServiceRunning: false));
     }
+  }
+
+  @override
+  void setBrightnessLevel(BrightnessLevel brightnessLevel) {
+    prefs?.setString(PrefKeys.brightnessLevel, brightnessLevel.name);
+    emit(state.copyWith(brightnessLevel: brightnessLevel));
   }
 
   @override

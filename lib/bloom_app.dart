@@ -106,9 +106,16 @@ class _BloomAppState extends State<BloomApp> {
                 ),
               );
 
+              final themeMode = switch (model.brightnessLevel) {
+                BrightnessLevel.auto => ThemeMode.system,
+                BrightnessLevel.light => ThemeMode.light,
+                BrightnessLevel.dark => ThemeMode.dark
+              };
+
               return MaterialApp.router(
                 title: 'Bloom',
                 routerConfig: _router,
+                themeMode: themeMode,
                 theme: themeDataLight,
                 darkTheme: themeDataDark,
                 debugShowCheckedModeBanner: false,

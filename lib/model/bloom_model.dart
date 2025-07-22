@@ -5,6 +5,7 @@ class BloomModel {
   final double sessionTimeToleranceFraction;
   final double screenTimeFraction;
   final bool isServiceRunning;
+  final BrightnessLevel brightnessLevel;
   final ContrastLevel contrastLevel;
 
   BloomModel({
@@ -12,6 +13,7 @@ class BloomModel {
     this.sessionTimeToleranceFraction = Defaults.sessionTimeToleranceFraction,
     this.screenTimeFraction = Defaults.screenTimeFraction,
     this.isServiceRunning = false,
+    this.brightnessLevel = BrightnessLevel.auto,
     this.contrastLevel = ContrastLevel.standard,
   });
 
@@ -20,6 +22,7 @@ class BloomModel {
     double? sessionTimeToleranceFraction,
     double? screenTimeFraction,
     bool? isServiceRunning,
+    BrightnessLevel? brightnessLevel,
     ContrastLevel? contrastLevel,
   }) {
     return BloomModel(
@@ -28,6 +31,7 @@ class BloomModel {
           sessionTimeToleranceFraction ?? this.sessionTimeToleranceFraction,
       screenTimeFraction: screenTimeFraction ?? this.screenTimeFraction,
       isServiceRunning: isServiceRunning ?? this.isServiceRunning,
+      brightnessLevel: brightnessLevel ?? this.brightnessLevel,
       contrastLevel: contrastLevel ?? this.contrastLevel,
     );
   }

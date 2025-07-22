@@ -17,5 +17,7 @@ abstract class BloomController extends Cubit<BloomModel> {
 
   void stopService();
 
+  void setBrightnessLevel(BrightnessLevel brightnessLevel);
+
   void setContrastLevel(ContrastLevel contrastLevel);
 }

@@ -4,6 +4,7 @@ class Constants {
 }
 
 class PrefKeys {
+  static const brightnessLevel = 'brightnessLevel';
   static const contrastLevel = 'contrastLevel';
   static const sessionTimeFraction = 'sessionTimeFraction';
   static const sessionTimeToleranceFraction = 'sessionTimeToleranceFraction';
@@ -14,6 +15,7 @@ class PrefKeys {
 }
 
 class Defaults {
+  static const brightnessLevel = BrightnessLevel.auto;
   static const contrastLevel = ContrastLevel.standard;
   static const sessionTimeFraction = 0.0;
   static const sessionTimeToleranceFraction = 0.0;
@@ -22,5 +24,7 @@ class Defaults {
   static const screenTimeFraction = 0.0;
   static const screenTimeMax = 180; // in minutes (default is 180)
 }
+
+enum BrightnessLevel { auto, light, dark }
 
 enum ContrastLevel { standard, medium, high }

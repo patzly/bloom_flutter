@@ -1,5 +1,6 @@
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
+import 'package:bloom_flutter/screens/settings/widgets/brightness_setting.dart';
 import 'package:bloom_flutter/screens/settings/widgets/contrast_setting.dart';
 import 'package:bloom_flutter/screens/settings/widgets/service_state_card.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,8 @@ class SettingsScreen extends StatelessWidget {
             child: Column(
               children: [
                 ServiceStateCard(model: model),
+                const SizedBox(height: 16),
+                BrightnessSetting(model: model),
                 const SizedBox(height: 16),
                 ContrastSetting(model: model)
               ],
