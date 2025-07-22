@@ -24,7 +24,7 @@ class TimeServiceImpl implements TimeService {
         prefs?.getInt(PrefKeys.sessionTimeMax) ?? Defaults.sessionTimeMax;
     double sessionTimeFraction =
         prefs?.getDouble(PrefKeys.sessionTimeFraction) ??
-            Defaults.sessionTimeFraction;
+        Defaults.sessionTimeFraction;
     sessionTimeMillis = _computeSessionTimeMillis(sessionTimeFraction);
     breakTimeMin =
         prefs?.getInt(PrefKeys.breakTimeMin) ?? Defaults.breakTimeMin;
@@ -32,7 +32,7 @@ class TimeServiceImpl implements TimeService {
         prefs?.getInt(PrefKeys.sessionTimeMax) ?? Defaults.screenTimeMax;
     double screenTimeFraction =
         prefs?.getDouble(PrefKeys.sessionTimeFraction) ??
-            Defaults.screenTimeFraction;
+        Defaults.screenTimeFraction;
     screenTimeMillis = (screenTimeFraction * screenTimeMax * 60 * 1000).toInt();
   }
 
@@ -97,8 +97,8 @@ class TimeServiceImpl implements TimeService {
       sessionTimeMillis += Constants.updateInterval;
       int absoluteToleranceMillis =
           (sessionTimeMax + Constants.sessionTimeTolerance) * 60 * 1000;
-      absoluteToleranceMillis -=
-          1000; // callback exactly on time and not 1 second later
+      // callback exactly on time and not 1 second later
+      absoluteToleranceMillis -= 1000;
       int toleranceMillisLastMinute = absoluteToleranceMillis - (60 * 1000);
       bool isToleranceLastMinute = false;
       if (sessionTimeMillis > toleranceMillisLastMinute) {
