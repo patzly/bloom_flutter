@@ -101,4 +101,10 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
     prefs?.setString(PrefKeys.contrastLevel, contrastLevel.name);
     emit(state.copyWith(contrastLevel: contrastLevel));
   }
+
+  @override
+  void setUseDynamicColors(bool useDynamicColors) {
+    prefs?.setBool(PrefKeys.useDynamicColors, useDynamicColors);
+    emit(state.copyWith(useDynamicColors: useDynamicColors));
+  }
 }

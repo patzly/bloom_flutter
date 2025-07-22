@@ -7,6 +7,7 @@ class BloomModel {
   final bool isServiceRunning;
   final BrightnessLevel brightnessLevel;
   final ContrastLevel contrastLevel;
+  final bool useDynamicColors;
 
   BloomModel({
     this.sessionTimeFraction = Defaults.sessionTimeFraction,
@@ -15,6 +16,7 @@ class BloomModel {
     this.isServiceRunning = false,
     this.brightnessLevel = BrightnessLevel.auto,
     this.contrastLevel = ContrastLevel.standard,
+    this.useDynamicColors = true,
   });
 
   BloomModel copyWith({
@@ -24,6 +26,7 @@ class BloomModel {
     bool? isServiceRunning,
     BrightnessLevel? brightnessLevel,
     ContrastLevel? contrastLevel,
+    bool? useDynamicColors,
   }) {
     return BloomModel(
       sessionTimeFraction: sessionTimeFraction ?? this.sessionTimeFraction,
@@ -33,6 +36,7 @@ class BloomModel {
       isServiceRunning: isServiceRunning ?? this.isServiceRunning,
       brightnessLevel: brightnessLevel ?? this.brightnessLevel,
       contrastLevel: contrastLevel ?? this.contrastLevel,
+      useDynamicColors: useDynamicColors ?? this.useDynamicColors,
     );
   }
 }

@@ -51,7 +51,6 @@ class HomeScreen extends StatelessWidget {
 
   Widget _buildBody(BuildContext context, BloomModel model) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
       child: SizedBox(
         width: double.infinity,
         child: Center(

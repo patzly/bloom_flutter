@@ -14,6 +14,7 @@ class PhoneTimeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card.outlined(
+      margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(

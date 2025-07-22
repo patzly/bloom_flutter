@@ -12,6 +12,7 @@ class ServiceStateCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = BlocProvider.of<BloomController>(context);
     return Card.outlined(
+      margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(

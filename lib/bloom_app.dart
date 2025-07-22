@@ -1,4 +1,3 @@
-
 import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/controller/bloom_controller_impl.dart';
@@ -41,7 +40,7 @@ class _BloomAppState extends State<BloomApp> {
 
     _controller = BloomControllerImpl(
       navigationService: NavigationServiceImpl(_router),
-      foregroundService: ForegroundServiceImpl.create(TimeServiceImpl())
+      foregroundService: ForegroundServiceImpl.create(TimeServiceImpl()),
     );
   }
 
@@ -66,7 +65,7 @@ class _BloomAppState extends State<BloomApp> {
               final contrastLevel = switch (model.contrastLevel) {
                 ContrastLevel.standard => 0.0,
                 ContrastLevel.medium => 0.5,
-                ContrastLevel.high => 1.0
+                ContrastLevel.high => 1.0,
               };
 
               final defaultLightColorScheme = ColorScheme.fromSeed(
@@ -76,8 +75,10 @@ class _BloomAppState extends State<BloomApp> {
               final themeDataLight = ThemeData(
                 fontFamily: 'Nunito',
                 textTheme: textTheme,
-                // optional: use lightColorScheme for dynamic color
-                colorScheme: defaultLightColorScheme.harmonized(),
+                colorScheme:
+                    model.useDynamicColors
+                        ? lightColorScheme
+                        : defaultLightColorScheme.harmonized(),
                 iconTheme: const IconThemeData(opticalSize: 24, grade: 0),
                 pageTransitionsTheme: const PageTransitionsTheme(
                   builders: {
@@ -95,8 +96,10 @@ class _BloomAppState extends State<BloomApp> {
               final themeDataDark = ThemeData(
                 fontFamily: 'Nunito',
                 textTheme: textTheme,
-                // optional: use darkColorScheme for dynamic color
-                colorScheme: defaultDarkColorScheme.harmonized(),
+                colorScheme:
+                    model.useDynamicColors
+                        ? darkColorScheme
+                        : defaultDarkColorScheme.harmonized(),
                 iconTheme: const IconThemeData(opticalSize: 24, grade: -25),
                 pageTransitionsTheme: const PageTransitionsTheme(
                   builders: {
@@ -109,7 +112,7 @@ class _BloomAppState extends State<BloomApp> {
               final themeMode = switch (model.brightnessLevel) {
                 BrightnessLevel.auto => ThemeMode.system,
                 BrightnessLevel.light => ThemeMode.light,
-                BrightnessLevel.dark => ThemeMode.dark
+                BrightnessLevel.dark => ThemeMode.dark,
               };
 
               return MaterialApp.router(

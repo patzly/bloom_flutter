@@ -14,7 +14,7 @@ class BrightnessSetting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightnessIcon = switch (model.brightnessLevel) {
-      BrightnessLevel.auto => Symbols.night_sight_auto_rounded,
+      BrightnessLevel.auto => Symbols.routine_rounded,
       BrightnessLevel.light => Symbols.light_mode_rounded,
       BrightnessLevel.dark => Symbols.dark_mode_rounded
     };

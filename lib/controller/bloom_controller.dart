@@ -20,4 +20,6 @@ abstract class BloomController extends Cubit<BloomModel> {
   void setBrightnessLevel(BrightnessLevel brightnessLevel);
 
   void setContrastLevel(ContrastLevel contrastLevel);
+
+  void setUseDynamicColors(bool useDynamicColors);
 }

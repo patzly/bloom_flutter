@@ -6,6 +6,7 @@ class Constants {
 class PrefKeys {
   static const brightnessLevel = 'brightnessLevel';
   static const contrastLevel = 'contrastLevel';
+  static const useDynamicColors = 'useDynamicColors';
   static const sessionTimeFraction = 'sessionTimeFraction';
   static const sessionTimeToleranceFraction = 'sessionTimeToleranceFraction';
   static const sessionTimeMax = 'sessionTimeMax';
@@ -17,6 +18,7 @@ class PrefKeys {
 class Defaults {
   static const brightnessLevel = BrightnessLevel.auto;
   static const contrastLevel = ContrastLevel.standard;
+  static const useDynamicColors = true;
   static const sessionTimeFraction = 0.0;
   static const sessionTimeToleranceFraction = 0.0;
   static const sessionTimeMax = 1; // in minutes (default is 10)

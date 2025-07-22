@@ -2,6 +2,7 @@ import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:bloom_flutter/screens/settings/widgets/brightness_setting.dart';
 import 'package:bloom_flutter/screens/settings/widgets/contrast_setting.dart';
+import 'package:bloom_flutter/screens/settings/widgets/dynamic_color_setting.dart';
 import 'package:bloom_flutter/screens/settings/widgets/service_state_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +28,6 @@ class SettingsScreen extends StatelessWidget {
 
   Widget _buildBody(BuildContext context, BloomModel model) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
       child: SizedBox(
         width: double.infinity,
         child: Center(
@@ -36,10 +36,10 @@ class SettingsScreen extends StatelessWidget {
             child: Column(
               children: [
                 ServiceStateCard(model: model),
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
                 BrightnessSetting(model: model),
-                const SizedBox(height: 16),
-                ContrastSetting(model: model)
+                ContrastSetting(model: model),
+                DynamicColorSetting(model: model)
               ],
             ),
           ),
