@@ -23,6 +23,7 @@ class SettingsScreen extends StatelessWidget {
             title: Text('Einstellungen'),
             centerTitle: true,
             elevation: 3,
+            scrolledUnderElevation: 0,
           ),
           body: _buildBody(context, model),
         );
@@ -48,6 +49,9 @@ class SettingsScreen extends StatelessWidget {
                 _buildBreakTimeMinSetting(context, model),
                 _buildScreenTimeMaxSetting(context, model),
                 _buildDailyResetTimeSetting(context, model),
+                SizedBox(
+                  height: MediaQuery.of(context).viewPadding.bottom + 16,
+                ),
               ],
             ),
           ),
@@ -161,7 +165,9 @@ class SettingsScreen extends StatelessWidget {
           initialTime: model.dailyResetTime,
           builder: (BuildContext context, Widget? child) {
             return MediaQuery(
-              data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+              data: MediaQuery.of(
+                context,
+              ).copyWith(alwaysUse24HourFormat: true),
               child: child!,
             );
           },
