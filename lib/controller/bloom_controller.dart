@@ -22,4 +22,10 @@ abstract class BloomController extends Cubit<BloomModel> {
   void setContrastLevel(ContrastLevel contrastLevel);
 
   void setUseDynamicColors(bool useDynamicColors);
+
+  void setSessionTimeMax(Duration sessionTimeMax);
+
+  void setBreakTimeMin(Duration breakTimeMin);
+
+  void setScreenTimeMax(Duration screenTimeMax);
 }

@@ -8,6 +8,9 @@ class BloomModel {
   final BrightnessLevel brightnessLevel;
   final ContrastLevel contrastLevel;
   final bool useDynamicColors;
+  final Duration sessionTimeMax;
+  final Duration breakTimeMin;
+  final Duration screenTimeMax;
 
   BloomModel({
     this.sessionTimeFraction = Defaults.sessionTimeFraction,
@@ -17,6 +20,9 @@ class BloomModel {
     this.brightnessLevel = BrightnessLevel.auto,
     this.contrastLevel = ContrastLevel.standard,
     this.useDynamicColors = true,
+    this.sessionTimeMax = const Duration(minutes: Defaults.sessionTimeMax),
+    this.breakTimeMin = const Duration(minutes: Defaults.breakTimeMin),
+    this.screenTimeMax = const Duration(minutes: Defaults.screenTimeMax)
   });
 
   BloomModel copyWith({
@@ -27,6 +33,9 @@ class BloomModel {
     BrightnessLevel? brightnessLevel,
     ContrastLevel? contrastLevel,
     bool? useDynamicColors,
+    Duration? sessionTimeMax,
+    Duration? breakTimeMin,
+    Duration? screenTimeMax,
   }) {
     return BloomModel(
       sessionTimeFraction: sessionTimeFraction ?? this.sessionTimeFraction,
@@ -37,6 +46,9 @@ class BloomModel {
       brightnessLevel: brightnessLevel ?? this.brightnessLevel,
       contrastLevel: contrastLevel ?? this.contrastLevel,
       useDynamicColors: useDynamicColors ?? this.useDynamicColors,
+      sessionTimeMax: sessionTimeMax ?? this.sessionTimeMax,
+      breakTimeMin: breakTimeMin ?? this.breakTimeMin,
+      screenTimeMax: screenTimeMax ?? this.screenTimeMax,
     );
   }
 }

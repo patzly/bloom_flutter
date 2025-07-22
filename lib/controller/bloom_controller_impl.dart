@@ -23,14 +23,30 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
       this.prefs = prefs;
       final brightnessLevel =
           prefs.getString(PrefKeys.brightnessLevel) ??
-              Defaults.brightnessLevel.name;
+          Defaults.brightnessLevel.name;
       final contrastLevel =
           prefs.getString(PrefKeys.contrastLevel) ??
           Defaults.contrastLevel.name;
+      final useDynamicColors =
+          prefs.getBool(PrefKeys.useDynamicColors) ?? Defaults.useDynamicColors;
+      final sessionTimeMax = Duration(
+        minutes:
+            prefs.getInt(PrefKeys.sessionTimeMax) ?? Defaults.sessionTimeMax,
+      );
+      final breakTimeMin = Duration(
+        minutes: prefs.getInt(PrefKeys.breakTimeMin) ?? Defaults.breakTimeMin,
+      );
+      final screenTimeMax = Duration(
+        minutes: prefs.getInt(PrefKeys.screenTimeMax) ?? Defaults.screenTimeMax,
+      );
       emit(
         state.copyWith(
           brightnessLevel: BrightnessLevel.values.byName(brightnessLevel),
           contrastLevel: ContrastLevel.values.byName(contrastLevel),
+          useDynamicColors: useDynamicColors,
+          sessionTimeMax: sessionTimeMax,
+          breakTimeMin: breakTimeMin,
+          screenTimeMax: screenTimeMax,
         ),
       );
     });
@@ -106,5 +122,23 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   void setUseDynamicColors(bool useDynamicColors) {
     prefs?.setBool(PrefKeys.useDynamicColors, useDynamicColors);
     emit(state.copyWith(useDynamicColors: useDynamicColors));
+  }
+
+  @override
+  void setSessionTimeMax(Duration sessionTimeMax) {
+    prefs?.setInt(PrefKeys.sessionTimeMax, sessionTimeMax.inMinutes);
+    emit(state.copyWith(sessionTimeMax: sessionTimeMax));
+  }
+
+  @override
+  void setBreakTimeMin(Duration breakTimeMin) {
+    prefs?.setInt(PrefKeys.breakTimeMin, breakTimeMin.inMinutes);
+    emit(state.copyWith(breakTimeMin: breakTimeMin));
+  }
+
+  @override
+  void setScreenTimeMax(Duration screenTimeMax) {
+    prefs?.setInt(PrefKeys.screenTimeMax, screenTimeMax.inMinutes);
+    emit(state.copyWith(screenTimeMax: screenTimeMax));
   }
 }

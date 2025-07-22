@@ -18,7 +18,7 @@ class PrefKeys {
 class Defaults {
   static const brightnessLevel = BrightnessLevel.auto;
   static const contrastLevel = ContrastLevel.standard;
-  static const useDynamicColors = true;
+  static const useDynamicColors = false;
   static const sessionTimeFraction = 0.0;
   static const sessionTimeToleranceFraction = 0.0;
   static const sessionTimeMax = 1; // in minutes (default is 10)
