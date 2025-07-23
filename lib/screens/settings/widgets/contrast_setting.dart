@@ -16,7 +16,7 @@ class ContrastSetting extends StatelessWidget {
     final contrastIcon = switch (model.contrastLevel) {
       ContrastLevel.standard => Symbols.brightness_5_rounded,
       ContrastLevel.medium => Symbols.brightness_6_rounded,
-      ContrastLevel.high => Symbols.brightness_7_rounded
+      ContrastLevel.high => Symbols.brightness_7_rounded,
     };
 
     return SettingWithIcon(
@@ -40,35 +40,35 @@ class ContrastSetting extends StatelessWidget {
 
   Widget _buildToggleButtons(BuildContext context) {
     final controller = BlocProvider.of<BloomController>(context);
+    final isEnabled = !model.useDynamicColors;
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          ToggleButtons(
-            isSelected: List.generate(ContrastLevel.values.length, (index) {
-              return ContrastLevel.values[index] == model.contrastLevel;
-            }),
-            onPressed: (int index) {
-              if (index == model.contrastLevel.index) return;
-              controller.setContrastLevel(ContrastLevel.values[index]);
-            },
-            tapTargetSize: MaterialTapTargetSize.padded,
-            borderRadius: BorderRadius.circular(24),
-            borderColor: Theme.of(context).colorScheme.outlineVariant,
-            selectedBorderColor: Theme.of(context).colorScheme.outlineVariant,
-            selectedColor: Theme.of(context).colorScheme.onSecondaryContainer,
-            fillColor: Theme.of(context).colorScheme.secondaryContainer,
-            constraints: const BoxConstraints(
-              minHeight: 40,
-              maxHeight: 40,
-              minWidth: 100,
-            ),
-            children: const [
-              Text('Standard', style: TextStyle(fontWeight: FontWeight.bold)),
-              Text('Mittel', style: TextStyle(fontWeight: FontWeight.bold)),
-              Text('Hoch', style: TextStyle(fontWeight: FontWeight.bold)),
-            ],
-          ),
+      child: ToggleButtons(
+        isSelected: List.generate(ContrastLevel.values.length, (index) {
+          return ContrastLevel.values[index] == model.contrastLevel;
+        }),
+        onPressed:
+            isEnabled
+                ? (int index) {
+                  if (index == model.contrastLevel.index) return;
+                  controller.setContrastLevel(ContrastLevel.values[index]);
+                }
+                : null,
+        tapTargetSize: MaterialTapTargetSize.padded,
+        borderRadius: BorderRadius.circular(24),
+        borderColor: Theme.of(context).colorScheme.outlineVariant,
+        selectedBorderColor: Theme.of(context).colorScheme.outlineVariant,
+        selectedColor: Theme.of(context).colorScheme.onSecondaryContainer,
+        fillColor: Theme.of(context).colorScheme.secondaryContainer,
+        constraints: const BoxConstraints(
+          minHeight: 40,
+          maxHeight: 40,
+          minWidth: 100,
+        ),
+        children: const [
+          Text('Standard', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('Mittel', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('Hoch', style: TextStyle(fontWeight: FontWeight.bold)),
         ],
       ),
     );

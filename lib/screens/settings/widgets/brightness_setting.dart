@@ -42,33 +42,29 @@ class BrightnessSetting extends StatelessWidget {
     final controller = BlocProvider.of<BloomController>(context);
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          ToggleButtons(
-            isSelected: List.generate(BrightnessLevel.values.length, (index) {
-              return BrightnessLevel.values[index] == model.brightnessLevel;
-            }),
-            onPressed: (int index) {
-              if (index == model.brightnessLevel.index) return;
-              controller.setBrightnessLevel(BrightnessLevel.values[index]);
-            },
-            tapTargetSize: MaterialTapTargetSize.padded,
-            borderRadius: BorderRadius.circular(24),
-            borderColor: Theme.of(context).colorScheme.outlineVariant,
-            selectedBorderColor: Theme.of(context).colorScheme.outlineVariant,
-            selectedColor: Theme.of(context).colorScheme.onSecondaryContainer,
-            fillColor: Theme.of(context).colorScheme.secondaryContainer,
-            constraints: const BoxConstraints(
-              minHeight: 40,
-              maxHeight: 40,
-              minWidth: 100,
-            ),
-            children: const [
-              Text('Auto', style: TextStyle(fontWeight: FontWeight.bold)),
-              Text('Hell', style: TextStyle(fontWeight: FontWeight.bold)),
-              Text('Dunkel', style: TextStyle(fontWeight: FontWeight.bold)),
-            ],
-          ),
+      child: ToggleButtons(
+        isSelected: List.generate(BrightnessLevel.values.length, (index) {
+          return BrightnessLevel.values[index] == model.brightnessLevel;
+        }),
+        onPressed: (int index) {
+          if (index == model.brightnessLevel.index) return;
+          controller.setBrightnessLevel(BrightnessLevel.values[index]);
+        },
+        tapTargetSize: MaterialTapTargetSize.padded,
+        borderRadius: BorderRadius.circular(24),
+        borderColor: Theme.of(context).colorScheme.outlineVariant,
+        selectedBorderColor: Theme.of(context).colorScheme.outlineVariant,
+        selectedColor: Theme.of(context).colorScheme.onSecondaryContainer,
+        fillColor: Theme.of(context).colorScheme.secondaryContainer,
+        constraints: const BoxConstraints(
+          minHeight: 40,
+          maxHeight: 40,
+          minWidth: 100,
+        ),
+        children: const [
+          Text('Auto', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('Hell', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('Dunkel', style: TextStyle(fontWeight: FontWeight.bold)),
         ],
       ),
     );

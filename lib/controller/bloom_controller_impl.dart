@@ -174,5 +174,6 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   void reset() {
     prefs?.clear();
     emit(BloomModel());
+    foregroundService.stop();
   }
 }

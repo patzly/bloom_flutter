@@ -21,7 +21,7 @@ class BloomModel {
     this.isServiceRunning = false,
     this.brightnessLevel = BrightnessLevel.auto,
     this.contrastLevel = ContrastLevel.standard,
-    this.useDynamicColors = true,
+    this.useDynamicColors = Defaults.useDynamicColors,
     this.sessionTimeMax = Defaults.sessionTimeMax,
     this.breakTimeMin = Defaults.breakTimeMin,
     this.screenTimeMax = Defaults.screenTimeMax,
