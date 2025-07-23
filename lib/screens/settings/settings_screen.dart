@@ -5,6 +5,7 @@ import 'package:bloom_flutter/screens/settings/widgets/brightness_setting.dart';
 import 'package:bloom_flutter/screens/settings/widgets/contrast_setting.dart';
 import 'package:bloom_flutter/screens/settings/widgets/daily_reset_time_setting.dart';
 import 'package:bloom_flutter/screens/settings/widgets/dynamic_color_setting.dart';
+import 'package:bloom_flutter/screens/settings/widgets/reset_setting.dart';
 import 'package:bloom_flutter/screens/settings/widgets/screen_time_max_setting.dart';
 import 'package:bloom_flutter/screens/settings/widgets/service_state_card.dart';
 import 'package:bloom_flutter/screens/settings/widgets/session_time_max_setting.dart';
@@ -49,6 +50,7 @@ class SettingsScreen extends StatelessWidget {
                 BreakTimeMinSetting(model: model),
                 ScreenTimeMaxSetting(model: model),
                 DailyResetTimeSetting(model: model),
+                ResetSetting(model: model),
                 SizedBox(
                   height: MediaQuery.of(context).viewPadding.bottom + 16,
                 ),

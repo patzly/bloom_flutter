@@ -78,6 +78,11 @@ class ForegroundServiceAndroidImpl implements ForegroundService {
     return await FlutterForegroundTask.isRunningService;
   }
 
+  @override
+  void sendDataToService(Object data) {
+    FlutterForegroundTask.sendDataToTask(data);
+  }
+
   Future<void> _requestPermissions() async {
     // Android 13+, you need to allow notification permission to display foreground service notification.
     //

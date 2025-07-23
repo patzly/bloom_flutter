@@ -27,7 +27,7 @@ class ScreenTimeMaxSetting extends StatelessWidget {
         });
       },
       icon: Icon(
-        Symbols.mobile_hand_rounded,
+        Symbols.calendar_clock_rounded,
         color: Theme.of(context).colorScheme.onSurfaceVariant,
       ),
       children: [

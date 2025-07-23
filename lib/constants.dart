@@ -32,6 +32,10 @@ class Defaults {
   static const dailyResetTime = TimeOfDay(hour: 3, minute: 0);
 }
 
+class ActionData {
+  static const timeSettingsChanged = 'timeSettingsChanged';
+}
+
 enum BrightnessLevel { auto, light, dark }
 
 enum ContrastLevel { standard, medium, high }

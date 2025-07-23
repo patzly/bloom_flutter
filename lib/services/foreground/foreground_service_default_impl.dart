@@ -30,4 +30,7 @@ class ForegroundServiceDefaultImpl implements ForegroundService {
   Future<bool> isRunning() {
     return Future.value(false);
   }
+
+  @override
+  void sendDataToService(Object data) {}
 }

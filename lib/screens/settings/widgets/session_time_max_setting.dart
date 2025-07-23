@@ -1,3 +1,4 @@
+import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/extensions/time_extensions.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
@@ -27,7 +28,7 @@ class SessionTimeMaxSetting extends StatelessWidget {
         });
       },
       icon: Icon(
-        Symbols.hourglass_rounded,
+        Symbols.mobile_hand_rounded,
         color: Theme.of(context).colorScheme.onSurfaceVariant,
       ),
       children: [

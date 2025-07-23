@@ -22,46 +22,41 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
     });
     SharedPreferences.getInstance().then((prefs) {
       this.prefs = prefs;
-      final brightnessLevel =
-          prefs.getString(PrefKeys.brightnessLevel) ??
-          Defaults.brightnessLevel.name;
-      final contrastLevel =
-          prefs.getString(PrefKeys.contrastLevel) ??
-          Defaults.contrastLevel.name;
-      final useDynamicColors =
-          prefs.getBool(PrefKeys.useDynamicColors) ?? Defaults.useDynamicColors;
-      final sessionTimeMax = Duration(
-        minutes:
-            prefs.getInt(PrefKeys.sessionTimeMax) ??
-            Defaults.sessionTimeMax.inMinutes,
-      );
-      final breakTimeMin = Duration(
-        minutes:
-            prefs.getInt(PrefKeys.breakTimeMin) ??
-            Defaults.breakTimeMin.inMinutes,
-      );
-      final screenTimeMax = Duration(
-        minutes:
-            prefs.getInt(PrefKeys.screenTimeMax) ??
-            Defaults.screenTimeMax.inMinutes,
-      );
-      final dailyResetTime = TimeOfDay(
-        hour:
-            prefs.getInt(PrefKeys.dailyResetHour) ??
-            Defaults.dailyResetTime.hour,
-        minute:
-            prefs.getInt(PrefKeys.dailyResetMinute) ??
-            Defaults.dailyResetTime.minute,
-      );
       emit(
         state.copyWith(
-          brightnessLevel: BrightnessLevel.values.byName(brightnessLevel),
-          contrastLevel: ContrastLevel.values.byName(contrastLevel),
-          useDynamicColors: useDynamicColors,
-          sessionTimeMax: sessionTimeMax,
-          breakTimeMin: breakTimeMin,
-          screenTimeMax: screenTimeMax,
-          dailyResetTime: dailyResetTime,
+          brightnessLevel: BrightnessLevel.values.byName(
+            prefs.getString(PrefKeys.brightnessLevel) ??
+                state.brightnessLevel.name,
+          ),
+          contrastLevel: ContrastLevel.values.byName(
+            prefs.getString(PrefKeys.contrastLevel) ?? state.contrastLevel.name,
+          ),
+          useDynamicColors:
+              prefs.getBool(PrefKeys.useDynamicColors) ??
+              state.useDynamicColors,
+          sessionTimeMax: Duration(
+            minutes:
+                prefs.getInt(PrefKeys.sessionTimeMax) ??
+                state.sessionTimeMax.inMinutes,
+          ),
+          breakTimeMin: Duration(
+            minutes:
+                prefs.getInt(PrefKeys.breakTimeMin) ??
+                state.breakTimeMin.inMinutes,
+          ),
+          screenTimeMax: Duration(
+            minutes:
+                prefs.getInt(PrefKeys.screenTimeMax) ??
+                state.screenTimeMax.inMinutes,
+          ),
+          dailyResetTime: TimeOfDay(
+            hour:
+                prefs.getInt(PrefKeys.dailyResetHour) ??
+                state.dailyResetTime.hour,
+            minute:
+                prefs.getInt(PrefKeys.dailyResetMinute) ??
+                state.dailyResetTime.minute,
+          ),
         ),
       );
     });
@@ -119,6 +114,17 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   }
 
   @override
+  void sendDataToService(Object data) {
+    foregroundService.isRunning().then((isRunning) {
+      if (isRunning) {
+        foregroundService.sendDataToService(data);
+      } else {
+        debugPrint('Service is not running, cannot send data: $data');
+      }
+    });
+  }
+
+  @override
   void setBrightnessLevel(BrightnessLevel brightnessLevel) {
     prefs?.setString(PrefKeys.brightnessLevel, brightnessLevel.name);
     emit(state.copyWith(brightnessLevel: brightnessLevel));
@@ -140,18 +146,21 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   void setSessionTimeMax(Duration sessionTimeMax) {
     prefs?.setInt(PrefKeys.sessionTimeMax, sessionTimeMax.inMinutes);
     emit(state.copyWith(sessionTimeMax: sessionTimeMax));
+    sendDataToService(ActionData.timeSettingsChanged);
   }
 
   @override
   void setBreakTimeMin(Duration breakTimeMin) {
     prefs?.setInt(PrefKeys.breakTimeMin, breakTimeMin.inMinutes);
     emit(state.copyWith(breakTimeMin: breakTimeMin));
+    sendDataToService(ActionData.timeSettingsChanged);
   }
 
   @override
   void setScreenTimeMax(Duration screenTimeMax) {
     prefs?.setInt(PrefKeys.screenTimeMax, screenTimeMax.inMinutes);
     emit(state.copyWith(screenTimeMax: screenTimeMax));
+    sendDataToService(ActionData.timeSettingsChanged);
   }
 
   @override
@@ -159,5 +168,11 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
     prefs?.setInt(PrefKeys.dailyResetHour, dailyResetTime.hour);
     prefs?.setInt(PrefKeys.dailyResetMinute, dailyResetTime.minute);
     emit(state.copyWith(dailyResetTime: dailyResetTime));
+  }
+
+  @override
+  void reset() {
+    prefs?.clear();
+    emit(BloomModel());
   }
 }

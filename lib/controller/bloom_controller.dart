@@ -18,6 +18,8 @@ abstract class BloomController extends Cubit<BloomModel> {
 
   void stopService();
 
+  void sendDataToService(Object data);
+
   void setBrightnessLevel(BrightnessLevel brightnessLevel);
 
   void setContrastLevel(ContrastLevel contrastLevel);
@@ -31,4 +33,6 @@ abstract class BloomController extends Cubit<BloomModel> {
   void setScreenTimeMax(Duration screenTimeMax);
 
   void setDailyResetTime(TimeOfDay dailyResetTime);
+
+  void reset();
 }

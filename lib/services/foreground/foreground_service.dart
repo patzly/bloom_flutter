@@ -8,4 +8,6 @@ abstract class ForegroundService {
   Future<bool> stop();
 
   Future<bool> isRunning();
+
+  void sendDataToService(Object data);
 }

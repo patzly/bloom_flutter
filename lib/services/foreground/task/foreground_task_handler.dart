@@ -45,10 +45,12 @@ class ForegroundTaskHandler extends TaskHandler {
     _subscription.cancel();
   }
 
-  // Called when data is sent using `FlutterForegroundTask.sendDataToTask`.
   @override
   void onReceiveData(Object data) {
     debugPrint('onReceiveData: $data');
+    if (data == ActionData.timeSettingsChanged) {
+      timeService.loadFromPrefs();
+    }
   }
 
   void _update() async {
