@@ -69,7 +69,8 @@ Future<Duration?> showDurationPicker(
             child: const Text('Auswählen'),
           ),
         ],
-        actionsPadding: const EdgeInsets.all(20),
+        contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        actionsPadding: const EdgeInsets.fromLTRB(20, 0, 20, 20)
       );
     },
   );
