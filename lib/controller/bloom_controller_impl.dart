@@ -146,21 +146,21 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   void setSessionTimeMax(Duration sessionTimeMax) {
     prefs?.setInt(PrefKeys.sessionTimeMax, sessionTimeMax.inMinutes);
     emit(state.copyWith(sessionTimeMax: sessionTimeMax));
-    sendDataToService(ActionData.timeSettingsChanged);
+    sendDataToService(ActionData.timePrefsChanged);
   }
 
   @override
   void setBreakTimeMin(Duration breakTimeMin) {
     prefs?.setInt(PrefKeys.breakTimeMin, breakTimeMin.inMinutes);
     emit(state.copyWith(breakTimeMin: breakTimeMin));
-    sendDataToService(ActionData.timeSettingsChanged);
+    sendDataToService(ActionData.timePrefsChanged);
   }
 
   @override
   void setScreenTimeMax(Duration screenTimeMax) {
     prefs?.setInt(PrefKeys.screenTimeMax, screenTimeMax.inMinutes);
     emit(state.copyWith(screenTimeMax: screenTimeMax));
-    sendDataToService(ActionData.timeSettingsChanged);
+    sendDataToService(ActionData.timePrefsChanged);
   }
 
   @override
@@ -171,9 +171,25 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   }
 
   @override
+  void setDaysStreak(int daysStreak) {
+    prefs?.setInt(PrefKeys.daysStreak, daysStreak);
+    emit(state.copyWith(daysStreak: daysStreak));
+  }
+
+  @override
+  void setWaterDrops(int waterDrops) {
+    prefs?.setInt(PrefKeys.waterDrops, waterDrops);
+    emit(state.copyWith(waterDrops: waterDrops));
+  }
+
+  @override
   void reset() {
-    prefs?.clear();
-    emit(BloomModel());
     foregroundService.stop();
+    int daysStreak = state.daysStreak;
+    int waterDrops = state.waterDrops;
+    prefs?.clear();
+    prefs?.setInt(PrefKeys.daysStreak, daysStreak);
+    prefs?.setInt(PrefKeys.waterDrops, waterDrops);
+    emit(BloomModel(daysStreak: daysStreak, waterDrops: waterDrops));
   }
 }

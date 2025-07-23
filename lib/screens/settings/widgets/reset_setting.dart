@@ -26,7 +26,7 @@ class ResetSetting extends StatelessWidget {
           builder: (context) {
             return AlertDialog(
               title: const Text("Alles zurücksetzen?"),
-              content: const Text('Möchtest du wirklich die gesamte App zurücksetzen? Dies kann nicht rückgängig gemacht werden.'),
+              content: const Text('Möchtest du wirklich die gesamte App zurücksetzen? Dies kann nicht rückgängig gemacht werden. Dein Streak und deine Wassertropfen bleiben erhalten.'),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),

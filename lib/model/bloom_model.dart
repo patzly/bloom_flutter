@@ -13,6 +13,8 @@ class BloomModel {
   final Duration breakTimeMin;
   final Duration screenTimeMax;
   final TimeOfDay dailyResetTime;
+  final int daysStreak;
+  final int waterDrops;
 
   BloomModel({
     this.sessionTimeFraction = Defaults.sessionTimeFraction,
@@ -26,6 +28,8 @@ class BloomModel {
     this.breakTimeMin = Defaults.breakTimeMin,
     this.screenTimeMax = Defaults.screenTimeMax,
     this.dailyResetTime = Defaults.dailyResetTime,
+    this.daysStreak = Defaults.daysStreak,
+    this.waterDrops = Defaults.waterDrops,
   });
 
   BloomModel copyWith({
@@ -40,6 +44,8 @@ class BloomModel {
     Duration? breakTimeMin,
     Duration? screenTimeMax,
     TimeOfDay? dailyResetTime,
+    int? daysStreak,
+    int? waterDrops,
   }) {
     return BloomModel(
       sessionTimeFraction: sessionTimeFraction ?? this.sessionTimeFraction,
@@ -54,6 +60,8 @@ class BloomModel {
       breakTimeMin: breakTimeMin ?? this.breakTimeMin,
       screenTimeMax: screenTimeMax ?? this.screenTimeMax,
       dailyResetTime: dailyResetTime ?? this.dailyResetTime,
+      daysStreak: daysStreak ?? this.daysStreak,
+      waterDrops: waterDrops ?? this.waterDrops,
     );
   }
 }

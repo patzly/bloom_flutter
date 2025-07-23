@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:bloom_flutter/constants.dart';
+import 'package:bloom_flutter/extensions/time_extensions.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,11 @@ class PhoneTimeCard extends StatelessWidget {
                   'Lege dein Smartphone für mindestens 10 Minuten weg, damit sie ausreichend gegossen wird. Ansonsten trocknet sie in 2 Minuten aus.',
                 ),
                 _buildTitleBlock(context, "Sitzungszeit"),
-                _buildTimeRow(context, '15 Minuten', '15 Minuten'),
+                _buildTimeRow(
+                  context,
+                  '15 Minuten',
+                  model.sessionTimeMax.toPrettyString(),
+                ),
                 _buildProgressBar(context, model.sessionTimeFraction),
                 _buildExceededBlock(
                   context,
@@ -44,9 +49,19 @@ class PhoneTimeCard extends StatelessWidget {
                   model.sessionTimeToleranceFraction,
                 ),
                 _buildTitleBlock(context, "Bildschirmzeit"),
-                _buildTimeRow(context, "30 Minuten", '2 Stunden'),
+                _buildTimeRow(
+                  context,
+                  "30 Minuten",
+                  model.screenTimeMax.toPrettyString(),
+                ),
                 _buildProgressBar(context, model.screenTimeFraction),
-                _buildChips(context, '2 Tage', '2 Wassertropfen'),
+                _buildChips(
+                  context,
+                  model.daysStreak == 1 ? '1 Tag' : '${model.daysStreak} Tage',
+                  model.waterDrops == 1
+                      ? '1 Wassertropfen'
+                      : '${model.waterDrops} Wassertropfen',
+                ),
               ],
             ),
           ),

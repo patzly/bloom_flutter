@@ -17,6 +17,8 @@ class PrefKeys {
   static const screenTimeMax = 'screenTimeMax';
   static const dailyResetHour = 'dailyResetHour';
   static const dailyResetMinute = 'dailyResetMinute';
+  static const daysStreak = 'daysStreak';
+  static const waterDrops = 'waterDrops';
 }
 
 class Defaults {
@@ -30,10 +32,12 @@ class Defaults {
   static const screenTimeFraction = 0.0;
   static const screenTimeMax = Duration(minutes: 180);
   static const dailyResetTime = TimeOfDay(hour: 3, minute: 0);
+  static const daysStreak = 0;
+  static const waterDrops = 0;
 }
 
 class ActionData {
-  static const timeSettingsChanged = 'timeSettingsChanged';
+  static const timePrefsChanged = 'timeSettingsChanged';
 }
 
 enum BrightnessLevel { auto, light, dark }

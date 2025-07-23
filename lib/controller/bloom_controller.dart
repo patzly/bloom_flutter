@@ -34,5 +34,9 @@ abstract class BloomController extends Cubit<BloomModel> {
 
   void setDailyResetTime(TimeOfDay dailyResetTime);
 
+  void setDaysStreak(int daysStreak);
+
+  void setWaterDrops(int waterDrops);
+
   void reset();
 }
