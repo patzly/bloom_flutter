@@ -24,6 +24,13 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
       this.prefs = prefs;
       emit(
         state.copyWith(
+          sessionTimeFraction: prefs.getDouble(PrefKeys.sessionTimeFraction),
+          sessionTimeToleranceFraction: prefs.getDouble(
+            PrefKeys.sessionTimeToleranceFraction,
+          ),
+          screenTimeFraction: prefs.getDouble(PrefKeys.screenTimeFraction),
+          daysStreak: prefs.getInt(PrefKeys.daysStreak),
+          waterDrops: prefs.getInt(PrefKeys.waterDrops),
           brightnessLevel: BrightnessLevel.values.byName(
             prefs.getString(PrefKeys.brightnessLevel) ??
                 state.brightnessLevel.name,
@@ -31,9 +38,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
           contrastLevel: ContrastLevel.values.byName(
             prefs.getString(PrefKeys.contrastLevel) ?? state.contrastLevel.name,
           ),
-          useDynamicColors:
-              prefs.getBool(PrefKeys.useDynamicColors) ??
-              state.useDynamicColors,
+          useDynamicColors: prefs.getBool(PrefKeys.useDynamicColors),
           sessionTimeMax: Duration(
             minutes:
                 prefs.getInt(PrefKeys.sessionTimeMax) ??
@@ -86,11 +91,17 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
         final screenTimeFraction =
             data[PrefKeys.screenTimeFraction] as double? ??
             Defaults.screenTimeFraction;
+        final daysStreak = data[PrefKeys.daysStreak] as int? ??
+            Defaults.daysStreak;
+        final waterDrops = data[PrefKeys.waterDrops] as int? ??
+            Defaults.waterDrops;
         emit(
           state.copyWith(
             sessionTimeFraction: sessionTimeFraction,
             screenTimeFraction: screenTimeFraction,
             sessionTimeToleranceFraction: sessionTimeToleranceFraction,
+            daysStreak: daysStreak,
+            waterDrops: waterDrops,
           ),
         );
       }
@@ -168,18 +179,6 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
     prefs?.setInt(PrefKeys.dailyResetHour, dailyResetTime.hour);
     prefs?.setInt(PrefKeys.dailyResetMinute, dailyResetTime.minute);
     emit(state.copyWith(dailyResetTime: dailyResetTime));
-  }
-
-  @override
-  void setDaysStreak(int daysStreak) {
-    prefs?.setInt(PrefKeys.daysStreak, daysStreak);
-    emit(state.copyWith(daysStreak: daysStreak));
-  }
-
-  @override
-  void setWaterDrops(int waterDrops) {
-    prefs?.setInt(PrefKeys.waterDrops, waterDrops);
-    emit(state.copyWith(waterDrops: waterDrops));
   }
 
   @override

@@ -61,6 +61,8 @@ class ForegroundTaskHandler extends TaskHandler {
       PrefKeys.sessionTimeToleranceFraction:
       timeService.getSessionTimeToleranceFraction(),
       PrefKeys.screenTimeFraction: timeService.getScreenTimeFraction(),
+      PrefKeys.daysStreak: timeService.getDaysStreak(),
+      PrefKeys.waterDrops: timeService.getWaterDrops(),
     };
     FlutterForegroundTask.sendDataToMain(data);
   }

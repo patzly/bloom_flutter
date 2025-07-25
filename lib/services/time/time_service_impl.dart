@@ -164,6 +164,18 @@ class TimeServiceImpl implements TimeService {
     return max(min(fraction, 1), 0);
   }
 
+  @override
+  int getDaysStreak() {
+    // TODO: Implement streak logic
+    return 0;
+  }
+
+  @override
+  int getWaterDrops() {
+    // TODO: Implement water drops logic
+    return 0;
+  }
+
   int _computeSessionTimeMillis(double sessionTimeFraction) {
     sessionTimeFraction = sessionTimeFraction.clamp(0, 2);
     int sessionTimeMaxMillis = sessionTimeMaxMinutes * 60 * 1000;

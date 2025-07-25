@@ -12,4 +12,8 @@ abstract class TimeService {
   double getSessionTimeToleranceFraction();
 
   double getScreenTimeFraction();
+
+  int getDaysStreak();
+
+  int getWaterDrops();
 }

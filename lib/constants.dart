@@ -6,38 +6,38 @@ class Constants {
 }
 
 class PrefKeys {
+  static const sessionTimeFraction = 'sessionTimeFraction';
+  static const sessionTimeToleranceFraction = 'sessionTimeToleranceFraction';
+  static const screenTimeFraction = 'screenTimeFraction';
+  static const daysStreak = 'daysStreak';
+  static const waterDrops = 'waterDrops';
   static const brightnessLevel = 'brightnessLevel';
   static const contrastLevel = 'contrastLevel';
   static const useDynamicColors = 'useDynamicColors';
-  static const sessionTimeFraction = 'sessionTimeFraction';
-  static const sessionTimeToleranceFraction = 'sessionTimeToleranceFraction';
   static const sessionTimeMax = 'sessionTimeMax';
   static const breakTimeMin = 'breakTimeMin';
-  static const screenTimeFraction = 'screenTimeFraction';
   static const screenTimeMax = 'screenTimeMax';
   static const dailyResetHour = 'dailyResetHour';
   static const dailyResetMinute = 'dailyResetMinute';
-  static const daysStreak = 'daysStreak';
-  static const waterDrops = 'waterDrops';
 }
 
 class Defaults {
+  static const sessionTimeFraction = 0.0;
+  static const sessionTimeToleranceFraction = 0.0;
+  static const screenTimeFraction = 0.0;
+  static const daysStreak = 0;
+  static const waterDrops = 0;
   static const brightnessLevel = BrightnessLevel.auto;
   static const contrastLevel = ContrastLevel.standard;
   static const useDynamicColors = false;
-  static const sessionTimeFraction = 0.0;
-  static const sessionTimeToleranceFraction = 0.0;
   static const sessionTimeMax = Duration(minutes: 10);
   static const breakTimeMin = Duration(minutes: 10);
-  static const screenTimeFraction = 0.0;
   static const screenTimeMax = Duration(minutes: 180);
   static const dailyResetTime = TimeOfDay(hour: 3, minute: 0);
-  static const daysStreak = 0;
-  static const waterDrops = 0;
 }
 
 class ActionData {
-  static const timePrefsChanged = 'timeSettingsChanged';
+  static const timePrefsChanged = 'timePrefsChanged';
 }
 
 enum BrightnessLevel { auto, light, dark }

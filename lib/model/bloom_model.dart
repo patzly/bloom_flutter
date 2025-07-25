@@ -5,6 +5,8 @@ class BloomModel {
   final double sessionTimeFraction;
   final double sessionTimeToleranceFraction;
   final double screenTimeFraction;
+  final int daysStreak;
+  final int waterDrops;
   final bool isServiceRunning;
   final BrightnessLevel brightnessLevel;
   final ContrastLevel contrastLevel;
@@ -13,13 +15,13 @@ class BloomModel {
   final Duration breakTimeMin;
   final Duration screenTimeMax;
   final TimeOfDay dailyResetTime;
-  final int daysStreak;
-  final int waterDrops;
 
   BloomModel({
     this.sessionTimeFraction = Defaults.sessionTimeFraction,
     this.sessionTimeToleranceFraction = Defaults.sessionTimeToleranceFraction,
     this.screenTimeFraction = Defaults.screenTimeFraction,
+    this.daysStreak = Defaults.daysStreak,
+    this.waterDrops = Defaults.waterDrops,
     this.isServiceRunning = false,
     this.brightnessLevel = BrightnessLevel.auto,
     this.contrastLevel = ContrastLevel.standard,
@@ -28,14 +30,14 @@ class BloomModel {
     this.breakTimeMin = Defaults.breakTimeMin,
     this.screenTimeMax = Defaults.screenTimeMax,
     this.dailyResetTime = Defaults.dailyResetTime,
-    this.daysStreak = Defaults.daysStreak,
-    this.waterDrops = Defaults.waterDrops,
   });
 
   BloomModel copyWith({
     double? sessionTimeFraction,
     double? sessionTimeToleranceFraction,
     double? screenTimeFraction,
+    int? daysStreak,
+    int? waterDrops,
     bool? isServiceRunning,
     BrightnessLevel? brightnessLevel,
     ContrastLevel? contrastLevel,
@@ -44,14 +46,14 @@ class BloomModel {
     Duration? breakTimeMin,
     Duration? screenTimeMax,
     TimeOfDay? dailyResetTime,
-    int? daysStreak,
-    int? waterDrops,
   }) {
     return BloomModel(
       sessionTimeFraction: sessionTimeFraction ?? this.sessionTimeFraction,
       sessionTimeToleranceFraction:
           sessionTimeToleranceFraction ?? this.sessionTimeToleranceFraction,
       screenTimeFraction: screenTimeFraction ?? this.screenTimeFraction,
+      daysStreak: daysStreak ?? this.daysStreak,
+      waterDrops: waterDrops ?? this.waterDrops,
       isServiceRunning: isServiceRunning ?? this.isServiceRunning,
       brightnessLevel: brightnessLevel ?? this.brightnessLevel,
       contrastLevel: contrastLevel ?? this.contrastLevel,
@@ -60,8 +62,6 @@ class BloomModel {
       breakTimeMin: breakTimeMin ?? this.breakTimeMin,
       screenTimeMax: screenTimeMax ?? this.screenTimeMax,
       dailyResetTime: dailyResetTime ?? this.dailyResetTime,
-      daysStreak: daysStreak ?? this.daysStreak,
-      waterDrops: waterDrops ?? this.waterDrops,
     );
   }
 }
