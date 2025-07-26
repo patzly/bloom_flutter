@@ -116,7 +116,8 @@ class PhoneTimeCard extends StatelessWidget {
         trackGap: 4,
         stopIndicatorColor: Theme.of(context).colorScheme.primary,
         stopIndicatorRadius: 2,
-        year2023: false,
+        // ignore: deprecated_member_use for Material 3 appearance
+        year2023: false, // Use Material 3 style
       ),
     );
   }
@@ -159,6 +160,7 @@ class PhoneTimeCard extends StatelessWidget {
             trackGap: 4,
             stopIndicatorColor: Theme.of(context).colorScheme.error,
             stopIndicatorRadius: 2,
+            // ignore: deprecated_member_use for Material 3 appearance
             year2023: false,
           ),
         ],
