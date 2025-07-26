@@ -28,7 +28,7 @@ class Defaults {
   static const sessionTimeMax = Duration(minutes: 10);
   static const sessionTimeToleranceMax = Duration(minutes: 5);
   static const breakTimeMin = Duration(minutes: 10);
-  static const screenTimeMax = Duration(hours: 3);
+  static const screenTimeMax = Duration(hours: 2);
   static const dailyResetTime = TimeOfDay(hour: 3, minute: 0);
 }
 

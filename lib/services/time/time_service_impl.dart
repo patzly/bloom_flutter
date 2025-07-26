@@ -1,12 +1,11 @@
 import 'dart:math';
 
 import 'package:bloom_flutter/constants.dart';
+import 'package:bloom_flutter/services/storage/storage_service.dart';
 import 'package:bloom_flutter/services/time/time_service.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TimeServiceImpl implements TimeService {
-  SharedPreferences? prefs = null;
+  final StorageService storageService;
   UserPresence? userPresence = null;
   int sessionTimeMaxMinutes = 0;
   int sessionTimeMillis = 0;
@@ -15,24 +14,24 @@ class TimeServiceImpl implements TimeService {
   int screenTimeMillis = 0;
   int screenOffTimestamp = 0;
 
-  @override
-  Future<void> loadFromPrefs() async {
-    await WidgetsFlutterBinding.ensureInitialized();
-    prefs = await SharedPreferences.getInstance();
+  TimeServiceImpl(this.storageService);
 
+  @override
+  void loadFromStorage() {
     sessionTimeMaxMinutes =
-        prefs?.getInt(PrefKeys.sessionTimeMax) ??
+        storageService.getInt(PrefKeys.sessionTimeMax) ??
         Defaults.sessionTimeMax.inMinutes;
     double sessionTimeFraction =
-        prefs?.getDouble(PrefKeys.sessionTimeFraction) ?? 0.0;
+        storageService.getDouble(PrefKeys.sessionTimeFraction) ?? 0.0;
     sessionTimeMillis = _computeSessionTimeMillis(sessionTimeFraction);
     breakTimeMinMinutes =
-        prefs?.getInt(PrefKeys.breakTimeMin) ?? Defaults.breakTimeMin.inMinutes;
+        storageService.getInt(PrefKeys.breakTimeMin) ??
+        Defaults.breakTimeMin.inMinutes;
     screenTimeMaxMinutes =
-        prefs?.getInt(PrefKeys.sessionTimeMax) ??
+        storageService.getInt(PrefKeys.sessionTimeMax) ??
         Defaults.screenTimeMax.inMinutes;
     double screenTimeFraction =
-        prefs?.getDouble(PrefKeys.sessionTimeFraction) ?? 0.0;
+        storageService.getDouble(PrefKeys.sessionTimeFraction) ?? 0.0;
     screenTimeMillis =
         (screenTimeFraction * screenTimeMaxMinutes * 60 * 1000).toInt();
   }
@@ -124,8 +123,14 @@ class TimeServiceImpl implements TimeService {
       screenTimeMillis += Constants.updateInterval.inMilliseconds;
 
       // save time to preferences
-      prefs?.setDouble(PrefKeys.sessionTimeFraction, getSessionTimeFraction());
-      prefs?.setDouble(PrefKeys.screenTimeFraction, getScreenTimeFraction());
+      storageService.saveDouble(
+        PrefKeys.sessionTimeFraction,
+        getSessionTimeFraction(),
+      );
+      storageService.saveDouble(
+        PrefKeys.screenTimeFraction,
+        getScreenTimeFraction(),
+      );
 
       // TODO: listener.onPhoneTimeChanged();
       /* listener.onPhoneTimeIncreased();

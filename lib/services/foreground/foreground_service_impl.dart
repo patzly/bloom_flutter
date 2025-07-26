@@ -7,9 +7,11 @@ import 'package:bloom_flutter/services/time/time_service.dart';
 import 'package:flutter/foundation.dart';
 
 class ForegroundServiceImpl {
-  static ForegroundService create(TimeService timeService) {
+  static Future<ForegroundService> create(TimeService timeService) async {
     if (!kIsWeb && Platform.isAndroid) {
-      return ForegroundServiceAndroidImpl(timeService);
+      // Foreground task needs to create its own instance of TimerService
+      // because it runs in a separate isolate
+      return ForegroundServiceAndroidImpl();
     } else {
       return ForegroundServiceDefaultImpl(timeService);
     }

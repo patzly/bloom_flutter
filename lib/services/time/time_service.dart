@@ -1,7 +1,7 @@
 enum UserPresence { UNLOCKED, LOCKED, OFF }
 
 abstract class TimeService {
-  Future<void> loadFromPrefs();
+  void loadFromStorage();
 
   void setUserPresence(UserPresence presence);
 

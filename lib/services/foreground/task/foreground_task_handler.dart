@@ -7,7 +7,7 @@ import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:screen_state/screen_state.dart';
 
 class ForegroundTaskHandler extends TaskHandler {
-  final TimeService timeService;
+  late final TimeService timeService;
   late Screen _screen;
   late StreamSubscription<ScreenStateEvent> _subscription;
 
@@ -17,10 +17,9 @@ class ForegroundTaskHandler extends TaskHandler {
   Future<void> onStart(DateTime timestamp, TaskStarter starter) async {
     print('onStart(starter: ${starter.name})');
 
-    timeService.loadFromPrefs().then((_) {
-      timeService.setUserPresence(UserPresence.UNLOCKED);
-      _update();
-    });
+    timeService.loadFromStorage();
+    timeService.setUserPresence(UserPresence.UNLOCKED);
+    _update();
 
     _screen = new Screen();
     try {
@@ -49,7 +48,7 @@ class ForegroundTaskHandler extends TaskHandler {
   void onReceiveData(Object data) {
     debugPrint('onReceiveData: $data');
     if (data == ActionData.timePrefsChanged) {
-      timeService.loadFromPrefs();
+      timeService.loadFromStorage();
     }
   }
 
