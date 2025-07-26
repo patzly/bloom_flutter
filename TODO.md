@@ -1,3 +1,3 @@
 # Anforderungen
 
-[ ] Test
+- [ ] Test
