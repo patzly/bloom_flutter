@@ -24,8 +24,7 @@ class TimeServiceImpl implements TimeService {
         prefs?.getInt(PrefKeys.sessionTimeMax) ??
         Defaults.sessionTimeMax.inMinutes;
     double sessionTimeFraction =
-        prefs?.getDouble(PrefKeys.sessionTimeFraction) ??
-        Defaults.sessionTimeFraction;
+        prefs?.getDouble(PrefKeys.sessionTimeFraction) ?? 0.0;
     sessionTimeMillis = _computeSessionTimeMillis(sessionTimeFraction);
     breakTimeMinMinutes =
         prefs?.getInt(PrefKeys.breakTimeMin) ?? Defaults.breakTimeMin.inMinutes;
@@ -33,8 +32,7 @@ class TimeServiceImpl implements TimeService {
         prefs?.getInt(PrefKeys.sessionTimeMax) ??
         Defaults.screenTimeMax.inMinutes;
     double screenTimeFraction =
-        prefs?.getDouble(PrefKeys.sessionTimeFraction) ??
-        Defaults.screenTimeFraction;
+        prefs?.getDouble(PrefKeys.sessionTimeFraction) ?? 0.0;
     screenTimeMillis =
         (screenTimeFraction * screenTimeMaxMinutes * 60 * 1000).toInt();
   }
@@ -67,10 +65,11 @@ class TimeServiceImpl implements TimeService {
           int exceededMillis = max(sessionTimeMillis - sessionTimeMaxMillis, 0);
           int toleranceMillis = min(
             exceededMillis,
-            Constants.sessionTimeTolerance * 60 * 1000,
+            Constants.sessionTimeToleranceMax.inMilliseconds,
           );
           int absoluteToleranceMillis =
-              sessionTimeMaxMillis + Constants.sessionTimeTolerance * 60 * 1000;
+              sessionTimeMaxMillis +
+              Constants.sessionTimeToleranceMax.inMilliseconds;
           sessionTimeMillis = max(
             min(sessionTimeMillis, absoluteToleranceMillis) - screenOffMillis,
             sessionTimeMaxMillis,
@@ -97,29 +96,32 @@ class TimeServiceImpl implements TimeService {
   Future<void> update() async {
     if (userPresence == UserPresence.UNLOCKED) {
       // update session time
-      sessionTimeMillis += Constants.updateInterval;
+      sessionTimeMillis += Constants.updateInterval.inMilliseconds;
       int absoluteToleranceMillis =
-          (sessionTimeMaxMinutes + Constants.sessionTimeTolerance) * 60 * 1000;
+          (sessionTimeMaxMinutes +
+              Constants.sessionTimeToleranceMax.inMinutes) *
+          60 *
+          1000;
       // callback exactly on time and not 1 second later
       absoluteToleranceMillis -= 1000;
       int toleranceMillisLastMinute = absoluteToleranceMillis - (60 * 1000);
       bool isToleranceLastMinute = false;
       if (sessionTimeMillis > toleranceMillisLastMinute) {
-        if (sessionTimeMillis - Constants.updateInterval <=
+        if (sessionTimeMillis - Constants.updateInterval.inMilliseconds <=
             toleranceMillisLastMinute) {
           isToleranceLastMinute = true;
         }
       }
       bool isToleranceExceeded = false;
       if (sessionTimeMillis > absoluteToleranceMillis) {
-        if (sessionTimeMillis - Constants.updateInterval <=
+        if (sessionTimeMillis - Constants.updateInterval.inMilliseconds <=
             absoluteToleranceMillis) {
           isToleranceExceeded = true;
         }
       }
 
       // update screen time
-      screenTimeMillis += Constants.updateInterval;
+      screenTimeMillis += Constants.updateInterval.inMilliseconds;
 
       // save time to preferences
       prefs?.setDouble(PrefKeys.sessionTimeFraction, getSessionTimeFraction());
@@ -137,6 +139,11 @@ class TimeServiceImpl implements TimeService {
   }
 
   @override
+  int getSessionTimeMillis() {
+    return sessionTimeMillis;
+  }
+
+  @override
   double getSessionTimeFraction() {
     int sessionTimeMaxMillis = sessionTimeMaxMinutes * 60 * 1000;
     double fraction = max(
@@ -144,7 +151,7 @@ class TimeServiceImpl implements TimeService {
       0,
     );
     int exceededMillis = max(sessionTimeMillis - sessionTimeMaxMillis, 0);
-    int toleranceMillis = Constants.sessionTimeTolerance * 60 * 1000;
+    int toleranceMillis = Constants.sessionTimeToleranceMax.inMilliseconds;
     double exceededFraction = max(
       exceededMillis.toDouble() / toleranceMillis,
       0,
@@ -153,8 +160,18 @@ class TimeServiceImpl implements TimeService {
   }
 
   @override
+  int getSessionTimeToleranceMillis() {
+    return max(sessionTimeMillis - (sessionTimeMaxMinutes * 60 * 1000), 0);
+  }
+
+  @override
   double getSessionTimeToleranceFraction() {
     return max(getSessionTimeFraction() - 1, 0);
+  }
+
+  @override
+  int getScreenTimeMillis() {
+    return screenTimeMillis;
   }
 
   @override
@@ -183,7 +200,8 @@ class TimeServiceImpl implements TimeService {
       return (sessionTimeFraction * sessionTimeMaxMillis).toInt();
     } else {
       double exceededFraction = sessionTimeFraction - 1.0;
-      int toleranceMillis = Constants.sessionTimeTolerance * 60 * 1000;
+      int toleranceMillis =
+          Constants.sessionTimeToleranceMax.inMinutes * 60 * 1000;
       int exceededMillis = (exceededFraction * toleranceMillis).toInt();
       return sessionTimeMaxMillis + exceededMillis;
     }

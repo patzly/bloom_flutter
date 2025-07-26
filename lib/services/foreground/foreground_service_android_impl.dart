@@ -35,7 +35,9 @@ class ForegroundServiceAndroidImpl implements ForegroundService {
       ),
       iosNotificationOptions: IOSNotificationOptions(),
       foregroundTaskOptions: ForegroundTaskOptions(
-        eventAction: ForegroundTaskEventAction.repeat(Constants.updateInterval),
+        eventAction: ForegroundTaskEventAction.repeat(
+          Constants.updateInterval.inMilliseconds,
+        ),
         autoRunOnBoot: true,
         autoRunOnMyPackageReplaced: true,
         allowWakeLock: false,

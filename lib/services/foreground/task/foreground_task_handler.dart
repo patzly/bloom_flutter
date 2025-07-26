@@ -57,12 +57,16 @@ class ForegroundTaskHandler extends TaskHandler {
     await timeService.update();
 
     final Map<String, dynamic> data = {
-      PrefKeys.sessionTimeFraction: timeService.getSessionTimeFraction(),
-      PrefKeys.sessionTimeToleranceFraction:
-      timeService.getSessionTimeToleranceFraction(),
-      PrefKeys.screenTimeFraction: timeService.getScreenTimeFraction(),
-      PrefKeys.daysStreak: timeService.getDaysStreak(),
-      PrefKeys.waterDrops: timeService.getWaterDrops(),
+      TransactionKeys.sessionTimeMillis: timeService.getSessionTimeMillis(),
+      TransactionKeys.sessionTimeFraction: timeService.getSessionTimeFraction(),
+      TransactionKeys.sessionTimeToleranceMillis:
+          timeService.getSessionTimeToleranceMillis(),
+      TransactionKeys.sessionTimeToleranceFraction:
+          timeService.getSessionTimeToleranceFraction(),
+      TransactionKeys.screenTimeMillis: timeService.getScreenTimeMillis(),
+      TransactionKeys.screenTimeFraction: timeService.getScreenTimeFraction(),
+      TransactionKeys.daysStreak: timeService.getDaysStreak(),
+      TransactionKeys.waterDrops: timeService.getWaterDrops(),
     };
     FlutterForegroundTask.sendDataToMain(data);
   }
@@ -79,7 +83,9 @@ class ForegroundTaskHandler extends TaskHandler {
       foregroundTaskOptions: ForegroundTaskOptions(
         eventAction:
             event == ScreenStateEvent.SCREEN_UNLOCKED
-                ? ForegroundTaskEventAction.repeat(Constants.updateInterval)
+                ? ForegroundTaskEventAction.repeat(
+                  Constants.updateInterval.inMilliseconds,
+                )
                 : ForegroundTaskEventAction.nothing(),
       ),
     );

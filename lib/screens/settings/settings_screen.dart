@@ -1,14 +1,14 @@
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
-import 'package:bloom_flutter/screens/settings/widgets/break_time_min_setting.dart';
-import 'package:bloom_flutter/screens/settings/widgets/brightness_setting.dart';
-import 'package:bloom_flutter/screens/settings/widgets/contrast_setting.dart';
-import 'package:bloom_flutter/screens/settings/widgets/daily_reset_time_setting.dart';
-import 'package:bloom_flutter/screens/settings/widgets/dynamic_color_setting.dart';
-import 'package:bloom_flutter/screens/settings/widgets/reset_setting.dart';
-import 'package:bloom_flutter/screens/settings/widgets/screen_time_max_setting.dart';
 import 'package:bloom_flutter/screens/settings/widgets/service_state_card.dart';
-import 'package:bloom_flutter/screens/settings/widgets/session_time_max_setting.dart';
+import 'package:bloom_flutter/screens/settings/widgets/settings/break_time_min_setting.dart';
+import 'package:bloom_flutter/screens/settings/widgets/settings/brightness_setting.dart';
+import 'package:bloom_flutter/screens/settings/widgets/settings/contrast_setting.dart';
+import 'package:bloom_flutter/screens/settings/widgets/settings/daily_reset_time_setting.dart';
+import 'package:bloom_flutter/screens/settings/widgets/settings/dynamic_color_setting.dart';
+import 'package:bloom_flutter/screens/settings/widgets/settings/reset_setting.dart';
+import 'package:bloom_flutter/screens/settings/widgets/settings/screen_time_max_setting.dart';
+import 'package:bloom_flutter/screens/settings/widgets/settings/session_time_max_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,33 +1,33 @@
 import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
-import 'package:bloom_flutter/screens/settings/widgets/setting_with_icon.dart';
+import 'package:bloom_flutter/screens/settings/widgets/settings/setting_with_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
-class ContrastSetting extends StatelessWidget {
+class BrightnessSetting extends StatelessWidget {
   final BloomModel model;
 
-  const ContrastSetting({super.key, required this.model});
+  const BrightnessSetting({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
-    final contrastIcon = switch (model.contrastLevel) {
-      ContrastLevel.standard => Symbols.brightness_5_rounded,
-      ContrastLevel.medium => Symbols.brightness_6_rounded,
-      ContrastLevel.high => Symbols.brightness_7_rounded,
+    final brightnessIcon = switch (model.brightnessLevel) {
+      BrightnessLevel.auto => Symbols.routine_rounded,
+      BrightnessLevel.light => Symbols.light_mode_rounded,
+      BrightnessLevel.dark => Symbols.dark_mode_rounded,
     };
 
     return SettingWithIcon(
       icon: Icon(
-        contrastIcon,
+        brightnessIcon,
         color: Theme.of(context).colorScheme.onSurfaceVariant,
       ),
       children: [
-        Text('Kontrast', style: Theme.of(context).textTheme.bodyLarge),
+        Text('Helligkeit', style: Theme.of(context).textTheme.bodyLarge),
         Text(
-          'Kann die Lesbarkeit bei Sehschwäche verbessern',
+          'Kann die Lesbarkeit je nach Tageszeit verbessern',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
@@ -40,20 +40,16 @@ class ContrastSetting extends StatelessWidget {
 
   Widget _buildToggleButtons(BuildContext context) {
     final controller = BlocProvider.of<BloomController>(context);
-    final isEnabled = !model.useDynamicColors;
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: ToggleButtons(
-        isSelected: List.generate(ContrastLevel.values.length, (index) {
-          return ContrastLevel.values[index] == model.contrastLevel;
+        isSelected: List.generate(BrightnessLevel.values.length, (index) {
+          return BrightnessLevel.values[index] == model.brightnessLevel;
         }),
-        onPressed:
-            isEnabled
-                ? (int index) {
-                  if (index == model.contrastLevel.index) return;
-                  controller.setContrastLevel(ContrastLevel.values[index]);
-                }
-                : null,
+        onPressed: (int index) {
+          if (index == model.brightnessLevel.index) return;
+          controller.setBrightnessLevel(BrightnessLevel.values[index]);
+        },
         tapTargetSize: MaterialTapTargetSize.padded,
         borderRadius: BorderRadius.circular(24),
         borderColor: Theme.of(context).colorScheme.outlineVariant,
@@ -66,9 +62,9 @@ class ContrastSetting extends StatelessWidget {
           minWidth: 100,
         ),
         children: const [
-          Text('Standard', style: TextStyle(fontWeight: FontWeight.bold)),
-          Text('Mittel', style: TextStyle(fontWeight: FontWeight.bold)),
-          Text('Hoch', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('Auto', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('Hell', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text('Dunkel', style: TextStyle(fontWeight: FontWeight.bold)),
         ],
       ),
     );

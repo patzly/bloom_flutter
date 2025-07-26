@@ -82,24 +82,29 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   Future<void> initService() async {
     await foregroundService.init((Object data) {
       if (data is Map<String, dynamic>) {
+        final sessionTimeMillis =
+            data[TransactionKeys.sessionTimeMillis] as int? ?? 0;
         final sessionTimeFraction =
-            data[PrefKeys.sessionTimeFraction] as double? ??
-            Defaults.sessionTimeFraction;
+            data[PrefKeys.sessionTimeFraction] as double?;
+        final sessionTimeToleranceMillis =
+            data[TransactionKeys.sessionTimeToleranceMillis] as int? ?? 0;
         final sessionTimeToleranceFraction =
-            data[PrefKeys.sessionTimeToleranceFraction] as double? ??
-            Defaults.sessionTimeToleranceFraction;
-        final screenTimeFraction =
-            data[PrefKeys.screenTimeFraction] as double? ??
-            Defaults.screenTimeFraction;
-        final daysStreak = data[PrefKeys.daysStreak] as int? ??
-            Defaults.daysStreak;
-        final waterDrops = data[PrefKeys.waterDrops] as int? ??
-            Defaults.waterDrops;
+            data[PrefKeys.sessionTimeToleranceFraction] as double?;
+        final screenTimeMillis =
+            data[TransactionKeys.screenTimeMillis] as int? ?? 0;
+        final screenTimeFraction = data[PrefKeys.screenTimeFraction] as double?;
+        final daysStreak = data[PrefKeys.daysStreak] as int?;
+        final waterDrops = data[PrefKeys.waterDrops] as int?;
         emit(
           state.copyWith(
+            sessionTime: Duration(milliseconds: sessionTimeMillis),
             sessionTimeFraction: sessionTimeFraction,
-            screenTimeFraction: screenTimeFraction,
+            sessionTimeTolerance: Duration(
+              milliseconds: sessionTimeToleranceMillis,
+            ),
             sessionTimeToleranceFraction: sessionTimeToleranceFraction,
+            screenTime: Duration(milliseconds: screenTimeMillis),
+            screenTimeFraction: screenTimeFraction,
             daysStreak: daysStreak,
             waterDrops: waterDrops,
           ),

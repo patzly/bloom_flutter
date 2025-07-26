@@ -2,8 +2,11 @@ import 'package:bloom_flutter/constants.dart';
 import 'package:flutter/material.dart';
 
 class BloomModel {
+  final Duration sessionTime;
   final double sessionTimeFraction;
+  final Duration sessionTimeTolerance;
   final double sessionTimeToleranceFraction;
+  final Duration screenTime;
   final double screenTimeFraction;
   final int daysStreak;
   final int waterDrops;
@@ -17,11 +20,14 @@ class BloomModel {
   final TimeOfDay dailyResetTime;
 
   BloomModel({
-    this.sessionTimeFraction = Defaults.sessionTimeFraction,
-    this.sessionTimeToleranceFraction = Defaults.sessionTimeToleranceFraction,
-    this.screenTimeFraction = Defaults.screenTimeFraction,
-    this.daysStreak = Defaults.daysStreak,
-    this.waterDrops = Defaults.waterDrops,
+    this.sessionTime = const Duration(),
+    this.sessionTimeFraction = 0.0,
+    this.sessionTimeTolerance = const Duration(),
+    this.sessionTimeToleranceFraction = 0.0,
+    this.screenTime = const Duration(),
+    this.screenTimeFraction = 0.0,
+    this.daysStreak = 0,
+    this.waterDrops = 0,
     this.isServiceRunning = false,
     this.brightnessLevel = BrightnessLevel.auto,
     this.contrastLevel = ContrastLevel.standard,
@@ -33,8 +39,11 @@ class BloomModel {
   });
 
   BloomModel copyWith({
+    Duration? sessionTime,
     double? sessionTimeFraction,
+    Duration? sessionTimeTolerance,
     double? sessionTimeToleranceFraction,
+    Duration? screenTime,
     double? screenTimeFraction,
     int? daysStreak,
     int? waterDrops,
@@ -48,9 +57,12 @@ class BloomModel {
     TimeOfDay? dailyResetTime,
   }) {
     return BloomModel(
+      sessionTime: sessionTime ?? this.sessionTime,
       sessionTimeFraction: sessionTimeFraction ?? this.sessionTimeFraction,
+      sessionTimeTolerance: sessionTimeTolerance ?? this.sessionTimeTolerance,
       sessionTimeToleranceFraction:
           sessionTimeToleranceFraction ?? this.sessionTimeToleranceFraction,
+      screenTime: screenTime ?? this.screenTime,
       screenTimeFraction: screenTimeFraction ?? this.screenTimeFraction,
       daysStreak: daysStreak ?? this.daysStreak,
       waterDrops: waterDrops ?? this.waterDrops,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Constants {
-  static const sessionTimeTolerance = 1; // in minutes (default is 5)
-  static const updateInterval = 1000; // in milliseconds
+  static const sessionTimeToleranceMax = Duration(minutes: 5);
+  static const updateInterval = Duration(seconds: 1);
 }
 
 class PrefKeys {
@@ -22,22 +22,29 @@ class PrefKeys {
 }
 
 class Defaults {
-  static const sessionTimeFraction = 0.0;
-  static const sessionTimeToleranceFraction = 0.0;
-  static const screenTimeFraction = 0.0;
-  static const daysStreak = 0;
-  static const waterDrops = 0;
   static const brightnessLevel = BrightnessLevel.auto;
   static const contrastLevel = ContrastLevel.standard;
   static const useDynamicColors = false;
   static const sessionTimeMax = Duration(minutes: 10);
+  static const sessionTimeToleranceMax = Duration(minutes: 5);
   static const breakTimeMin = Duration(minutes: 10);
-  static const screenTimeMax = Duration(minutes: 180);
+  static const screenTimeMax = Duration(hours: 3);
   static const dailyResetTime = TimeOfDay(hour: 3, minute: 0);
 }
 
 class ActionData {
   static const timePrefsChanged = 'timePrefsChanged';
+}
+
+class TransactionKeys {
+  static const sessionTimeMillis = 'sessionTimeMillis';
+  static const sessionTimeFraction = 'sessionTimeFraction';
+  static const sessionTimeToleranceMillis = 'sessionTimeToleranceMillis';
+  static const sessionTimeToleranceFraction = 'sessionTimeToleranceFraction';
+  static const screenTimeMillis = 'screenTimeMillis';
+  static const screenTimeFraction = 'screenTimeFraction';
+  static const daysStreak = 'daysStreak';
+  static const waterDrops = 'waterDrops';
 }
 
 enum BrightnessLevel { auto, light, dark }

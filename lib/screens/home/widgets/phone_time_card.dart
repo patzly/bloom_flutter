@@ -14,6 +14,7 @@ class PhoneTimeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Session time " + model.sessionTime.toString());
     return Card.outlined(
       margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       shape: RoundedRectangleBorder(
@@ -38,21 +39,22 @@ class PhoneTimeCard extends StatelessWidget {
                 _buildTitleBlock(context, "Sitzungszeit"),
                 _buildTimeRow(
                   context,
-                  '15 Minuten',
-                  model.sessionTimeMax.toPrettyString(),
+                  model.sessionTime.toPrettyString(false, true),
+                  model.sessionTimeMax.toPrettyStringShortest(),
                 ),
                 _buildProgressBar(context, model.sessionTimeFraction),
                 _buildExceededBlock(
                   context,
-                  '2:35 Minuten überschritten',
-                  '5 Minuten',
+                  model.sessionTimeTolerance.toPrettyString(false, false) +
+                      " überschritten",
+                  Constants.sessionTimeToleranceMax.toPrettyStringShortest(),
                   model.sessionTimeToleranceFraction,
                 ),
                 _buildTitleBlock(context, "Bildschirmzeit"),
                 _buildTimeRow(
                   context,
-                  "30 Minuten",
-                  model.screenTimeMax.toPrettyString(),
+                  model.screenTime.toPrettyString(false, true),
+                  model.screenTimeMax.toPrettyStringShortest(),
                 ),
                 _buildProgressBar(context, model.screenTimeFraction),
                 _buildChips(

@@ -7,9 +7,15 @@ abstract class TimeService {
 
   Future<void> update();
 
+  int getSessionTimeMillis();
+
   double getSessionTimeFraction();
 
+  int getSessionTimeToleranceMillis();
+
   double getSessionTimeToleranceFraction();
+
+  int getScreenTimeMillis();
 
   double getScreenTimeFraction();
 
