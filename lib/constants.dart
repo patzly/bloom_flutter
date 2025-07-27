@@ -25,9 +25,9 @@ class Defaults {
   static const brightnessLevel = BrightnessLevel.auto;
   static const contrastLevel = ContrastLevel.standard;
   static const useDynamicColors = false;
-  static const sessionTimeMax = Duration(minutes: 10);
+  static const sessionTimeMax = Duration(minutes: 1);
   static const sessionTimeToleranceMax = Duration(minutes: 5);
-  static const breakTimeMin = Duration(minutes: 10);
+  static const breakTimeMin = Duration(minutes: 1);
   static const screenTimeMax = Duration(hours: 2);
   static const dailyResetTime = TimeOfDay(hour: 3, minute: 0);
 }
@@ -39,6 +39,7 @@ class ActionData {
 class TransactionKeys {
   static const sessionTimeMillis = 'sessionTimeMillis';
   static const sessionTimeFraction = 'sessionTimeFraction';
+  static const sessionTimeRemainingMillis = 'sessionTimeRemainingMillis';
   static const sessionTimeToleranceMillis = 'sessionTimeToleranceMillis';
   static const sessionTimeToleranceFraction = 'sessionTimeToleranceFraction';
   static const screenTimeMillis = 'screenTimeMillis';

@@ -28,10 +28,10 @@ class TimeServiceImpl implements TimeService {
         storageService.getInt(PrefKeys.breakTimeMin) ??
         Defaults.breakTimeMin.inMinutes;
     screenTimeMaxMinutes =
-        storageService.getInt(PrefKeys.sessionTimeMax) ??
+        storageService.getInt(PrefKeys.screenTimeMax) ??
         Defaults.screenTimeMax.inMinutes;
     double screenTimeFraction =
-        storageService.getDouble(PrefKeys.sessionTimeFraction) ?? 0.0;
+        storageService.getDouble(PrefKeys.screenTimeFraction) ?? 0.0;
     screenTimeMillis =
         (screenTimeFraction * screenTimeMaxMinutes * 60 * 1000).toInt();
   }
@@ -162,6 +162,17 @@ class TimeServiceImpl implements TimeService {
       0,
     );
     return max(min(fraction + exceededFraction, 2), 0);
+  }
+
+  @override
+  int getSessionTimeRemainingMillis() {
+    int exceededMillis = max(
+      sessionTimeMillis - (sessionTimeMaxMinutes * 60 * 1000),
+      0,
+    );
+    //print('Session time millis: $sessionTimeMillis sessionTimeMaxMinutes: ${sessionTimeMaxMinutes}');
+    //print('Session time remaining millis: $exceededMillis toleranceMillis: ${getSessionTimeToleranceMillis()}');
+    return max(getSessionTimeToleranceMillis() - exceededMillis, 0);
   }
 
   @override

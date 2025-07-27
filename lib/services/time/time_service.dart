@@ -11,6 +11,8 @@ abstract class TimeService {
 
   double getSessionTimeFraction();
 
+  int getSessionTimeRemainingMillis();
+
   int getSessionTimeToleranceMillis();
 
   double getSessionTimeToleranceFraction();

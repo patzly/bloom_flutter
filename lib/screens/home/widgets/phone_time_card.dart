@@ -14,7 +14,6 @@ class PhoneTimeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Session time " + model.sessionTime.toString());
     return Card.outlined(
       margin: const EdgeInsets.all(0),
       shape: RoundedRectangleBorder(
@@ -31,11 +30,7 @@ class PhoneTimeCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildTextBlock(
-                  context,
-                  'Deine Blume braucht Wasser!',
-                  'Lege dein Smartphone für mindestens 10 Minuten weg, damit sie ausreichend gegossen wird. Ansonsten trocknet sie in 2 Minuten aus.',
-                ),
+                _buildTextBlock(context, model),
                 _buildTitleBlock(context, "Sitzungszeit"),
                 _buildTimeRow(
                   context,
@@ -72,11 +67,26 @@ class PhoneTimeCard extends StatelessWidget {
     );
   }
 
-  Widget _buildTextBlock(
-    BuildContext context,
-    String title,
-    String description,
-  ) {
+  Widget _buildTextBlock(BuildContext context, BloomModel model) {
+    String title = 'Your flower is fine!';
+    String msg = 'However, put your phone away when you don\'t need it.';
+
+    if (model.sessionTimeToleranceFraction >= 1 ||
+        model.screenTimeFraction >= 1) {
+      title = 'Your flower has dried out!';
+      msg =
+          'Put your phone away for today and try to stick to your limits tomorrow.';
+    } else if (model.sessionTimeFraction >= 1 &&
+        model.sessionTimeToleranceFraction < 1 &&
+        model.screenTimeFraction < 1) {
+      title = 'Your flower needs water!';
+      String breakTimeMinutes = model.breakTimeMin.toPrettyStringShortest();
+      String sessionTimeRemaining =
+          model.sessionTimeRemaining.toPrettyStringShortest();
+      msg =
+          'Put your phone away for at least $breakTimeMinutes so that it gets sufficiently watered. Otherwise it will dry out in $sessionTimeRemaining.';
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -84,7 +94,7 @@ class PhoneTimeCard extends StatelessWidget {
         children: [
           Text(title, style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 4),
-          Text(description),
+          Text(msg, style: Theme.of(context).textTheme.bodyLarge),
         ],
       ),
     );
