@@ -9,7 +9,7 @@ Future<Duration?> showDurationPicker(
   int initialMinutes = initialDuration.inMinutes % 60;
 
   int selectedHours = initialHours;
-  int selectedMinutes = initialMinutes;
+  int selectedMinutes = (initialMinutes ~/ 5) * 5;
 
   return showDialog<Duration>(
     context: context,
@@ -42,13 +42,13 @@ Future<Duration?> showDurationPicker(
               Expanded(
                 child: CupertinoPicker(
                   scrollController: FixedExtentScrollController(
-                    initialItem: selectedMinutes,
+                    initialItem: selectedMinutes ~/ 5,
                   ),
                   itemExtent: 40,
-                  onSelectedItemChanged: (index) => selectedMinutes = index,
+                  onSelectedItemChanged: (index) => selectedMinutes = index * 5,
                   children: List.generate(
-                    60,
-                    (i) => Center(child: Text('$i min')),
+                    12,
+                    (i) => Center(child: Text('${i * 5} min')),
                   ),
                 ),
               ),
@@ -70,7 +70,7 @@ Future<Duration?> showDurationPicker(
           ),
         ],
         contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        actionsPadding: const EdgeInsets.fromLTRB(20, 0, 20, 20)
+        actionsPadding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
       );
     },
   );

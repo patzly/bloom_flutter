@@ -27,6 +27,7 @@ class DailyResetTimeSetting extends StatelessWidget {
               child: child!,
             );
           },
+          helpText: "Uhrzeit auswählen",
           confirmText: "Auswählen",
           cancelText: "Abbrechen",
         ).then((time) {

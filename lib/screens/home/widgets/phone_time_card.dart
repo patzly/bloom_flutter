@@ -68,23 +68,23 @@ class PhoneTimeCard extends StatelessWidget {
   }
 
   Widget _buildTextBlock(BuildContext context, BloomModel model) {
-    String title = 'Your flower is fine!';
-    String msg = 'However, put your phone away when you don\'t need it.';
+    String title = 'Deiner Blume geht es gut!';
+    String msg = 'Leg dein Smartphone trotzdem weg, wenn du es nicht brauchst.';
 
     if (model.sessionTimeToleranceFraction >= 1 ||
         model.screenTimeFraction >= 1) {
-      title = 'Your flower has dried out!';
+      title = 'Deine Blume ist vertrocknet!';
       msg =
-          'Put your phone away for today and try to stick to your limits tomorrow.';
+          'Leg dein Smartphone für heute weg und versuche, dich morgen an deine Zeitlimits zu halten.';
     } else if (model.sessionTimeFraction >= 1 &&
         model.sessionTimeToleranceFraction < 1 &&
         model.screenTimeFraction < 1) {
-      title = 'Your flower needs water!';
+      title = 'Deine Blume braucht Wasser!';
       String breakTimeMinutes = model.breakTimeMin.toPrettyStringShortest();
       String sessionTimeRemaining =
           model.sessionTimeRemaining.toPrettyStringShortest();
       msg =
-          'Put your phone away for at least $breakTimeMinutes so that it gets sufficiently watered. Otherwise it will dry out in $sessionTimeRemaining.';
+          'Leg dein Smartphone für mindestens $breakTimeMinutes weg, damit sie ausreichend gegossen wird. Ansonsten vertrocknet sie in $sessionTimeRemaining.';
     }
 
     return Padding(
