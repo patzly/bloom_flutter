@@ -41,7 +41,10 @@ class SettingsScreen extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: 600),
             child: Column(
               children: [
-                ServiceStateCard(model: model),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  child: ServiceStateCard(model: model),
+                ),
                 const SizedBox(height: 8),
                 BrightnessSetting(model: model),
                 ContrastSetting(model: model),

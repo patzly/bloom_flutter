@@ -37,6 +37,7 @@ class HomeScreen extends StatelessWidget {
       title: Text("Bloom"),
       centerTitle: true,
       elevation: 3,
+      scrolledUnderElevation: 0,
       actions: [
         IconButton(
           icon: const Icon(Symbols.settings_rounded),
@@ -50,19 +51,83 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildBody(BuildContext context, BloomModel model) {
-    return SingleChildScrollView(
-      child: SizedBox(
-        width: double.infinity,
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 600),
-            child:
-                model.isServiceRunning
-                    ? PhoneTimeCard(model: model)
-                    : ServiceStateCard(model: model),
-          ),
-        ),
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    final card = Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 600),
+        child:
+            model.isServiceRunning
+                ? PhoneTimeCard(model: model)
+                : ServiceStateCard(model: model),
       ),
     );
+
+    final icon = LayoutBuilder(
+      builder: (context, constraints) {
+        return Center(
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: Icon(
+                Symbols.potted_plant_rounded,
+                size: 150,
+                color: Theme.of(
+                  context,
+                ).colorScheme.primary.withValues(alpha: 0.2),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    if (isLandscape) {
+      final viewPadding = MediaQuery.of(context).viewPadding;
+      return Padding(
+        padding: EdgeInsets.fromLTRB(viewPadding.left, 0, 0, 0),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(
+                            16,
+                            16,
+                            16,
+                            16 + viewPadding.bottom,
+                          ),
+                          child: card,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(child: icon),
+          ],
+        ),
+      );
+    } else {
+      return Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            child: card,
+          ),
+          Expanded(child: icon),
+          SizedBox(height: MediaQuery.of(context).viewPadding.bottom),
+        ],
+      );
+    }
   }
 }
