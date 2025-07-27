@@ -45,9 +45,7 @@ class ServiceStateCard extends StatelessWidget {
                     if (model.isServiceRunning) {
                       controller.stopService();
                     } else {
-                      controller.initService().then((_) {
-                        controller.startService();
-                      });
+                      controller.startService();
                     }
                   },
                   child: Text(

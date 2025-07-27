@@ -18,10 +18,6 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
     required this.foregroundService,
     required this.storageService,
   }) : super(BloomModel()) {
-    // Check if foreground service is running
-    foregroundService.isRunning().then((value) {
-      emit(state.copyWith(isServiceRunning: value));
-    });
     // Load initial state from storage
     emit(
       state.copyWith(
@@ -70,6 +66,8 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
         ),
       ),
     );
+    // Initialize foreground service
+    _initService();
   }
 
   @override
@@ -81,41 +79,6 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   @override
   void navigateToSettings() {
     navigationService.navigateToSettings();
-  }
-
-  @override
-  Future<void> initService() async {
-    await foregroundService.init((Object data) {
-      if (data is Map<String, dynamic>) {
-        final sessionTimeMillis =
-            data[TransactionKeys.sessionTimeMillis] as int? ?? 0;
-        final sessionTimeFraction =
-            data[PrefKeys.sessionTimeFraction] as double?;
-        final sessionTimeToleranceMillis =
-            data[TransactionKeys.sessionTimeToleranceMillis] as int? ?? 0;
-        final sessionTimeToleranceFraction =
-            data[PrefKeys.sessionTimeToleranceFraction] as double?;
-        final screenTimeMillis =
-            data[TransactionKeys.screenTimeMillis] as int? ?? 0;
-        final screenTimeFraction = data[PrefKeys.screenTimeFraction] as double?;
-        final daysStreak = data[PrefKeys.daysStreak] as int?;
-        final waterDrops = data[PrefKeys.waterDrops] as int?;
-        emit(
-          state.copyWith(
-            sessionTime: Duration(milliseconds: sessionTimeMillis),
-            sessionTimeFraction: sessionTimeFraction,
-            sessionTimeTolerance: Duration(
-              milliseconds: sessionTimeToleranceMillis,
-            ),
-            sessionTimeToleranceFraction: sessionTimeToleranceFraction,
-            screenTime: Duration(milliseconds: screenTimeMillis),
-            screenTimeFraction: screenTimeFraction,
-            daysStreak: daysStreak,
-            waterDrops: waterDrops,
-          ),
-        );
-      }
-    });
   }
 
   @override
@@ -201,5 +164,43 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
       storageService.saveInt(PrefKeys.waterDrops, waterDrops);
     });
     emit(BloomModel(daysStreak: daysStreak, waterDrops: waterDrops));
+  }
+
+  Future<void> _initService() async {
+    await foregroundService.init((Object data) {
+      if (data is Map<String, dynamic>) {
+        final sessionTimeMillis =
+            data[TransactionKeys.sessionTimeMillis] as int? ?? 0;
+        final sessionTimeFraction =
+            data[PrefKeys.sessionTimeFraction] as double?;
+        final sessionTimeToleranceMillis =
+            data[TransactionKeys.sessionTimeToleranceMillis] as int? ?? 0;
+        final sessionTimeToleranceFraction =
+            data[PrefKeys.sessionTimeToleranceFraction] as double?;
+        final screenTimeMillis =
+            data[TransactionKeys.screenTimeMillis] as int? ?? 0;
+        final screenTimeFraction = data[PrefKeys.screenTimeFraction] as double?;
+        final daysStreak = data[PrefKeys.daysStreak] as int?;
+        final waterDrops = data[PrefKeys.waterDrops] as int?;
+        emit(
+          state.copyWith(
+            sessionTime: Duration(milliseconds: sessionTimeMillis),
+            sessionTimeFraction: sessionTimeFraction,
+            sessionTimeTolerance: Duration(
+              milliseconds: sessionTimeToleranceMillis,
+            ),
+            sessionTimeToleranceFraction: sessionTimeToleranceFraction,
+            screenTime: Duration(milliseconds: screenTimeMillis),
+            screenTimeFraction: screenTimeFraction,
+            daysStreak: daysStreak,
+            waterDrops: waterDrops,
+          ),
+        );
+      }
+    });
+
+    // Check if the service is running
+    bool isRunning = await foregroundService.isRunning();
+    emit(state.copyWith(isServiceRunning: isRunning));
   }
 }
