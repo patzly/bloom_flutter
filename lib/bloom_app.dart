@@ -7,6 +7,7 @@ import 'package:bloom_flutter/screens/settings/settings_screen.dart';
 import 'package:bloom_flutter/services/foreground/foreground_service_impl.dart';
 import 'package:bloom_flutter/services/navigation/navigation_service_impl.dart';
 import 'package:bloom_flutter/services/time/time_service_impl.dart';
+import 'package:bloom_flutter/routs/app_router.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,16 +28,7 @@ class _BloomAppState extends State<BloomApp> {
   void initState() {
     super.initState();
 
-    _router = GoRouter(
-      initialLocation: '/',
-      routes: [
-        GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
-        GoRoute(
-          path: '/settings',
-          builder: (context, state) => const SettingsScreen(),
-        ),
-      ],
-    );
+    _router = app_routs.createRouter();
 
     _controller = BloomControllerImpl(
       navigationService: NavigationServiceImpl(_router),
