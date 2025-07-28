@@ -12,8 +12,6 @@ abstract class BloomController extends Cubit<BloomModel> {
 
   void navigateToSettings();
 
-  Future<void> initService();
-
   void startService();
 
   void stopService();

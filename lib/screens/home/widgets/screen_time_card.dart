@@ -7,16 +7,15 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
-class PhoneTimeCard extends StatelessWidget {
+class ScreenTimeCard extends StatelessWidget {
   final BloomModel model;
 
-  const PhoneTimeCard({super.key, required this.model});
+  const ScreenTimeCard({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
-    print("Session time " + model.sessionTime.toString());
     return Card.outlined(
-      margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      margin: const EdgeInsets.all(0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(
@@ -31,11 +30,7 @@ class PhoneTimeCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildTextBlock(
-                  context,
-                  'Deine Blume braucht Wasser!',
-                  'Lege dein Smartphone für mindestens 10 Minuten weg, damit sie ausreichend gegossen wird. Ansonsten trocknet sie in 2 Minuten aus.',
-                ),
+                _buildTextBlock(context, model),
                 _buildTitleBlock(context, "Sitzungszeit"),
                 _buildTimeRow(
                   context,
@@ -72,11 +67,26 @@ class PhoneTimeCard extends StatelessWidget {
     );
   }
 
-  Widget _buildTextBlock(
-    BuildContext context,
-    String title,
-    String description,
-  ) {
+  Widget _buildTextBlock(BuildContext context, BloomModel model) {
+    String title = 'Deiner Blume geht es gut!';
+    String msg = 'Leg dein Smartphone trotzdem weg, wenn du es nicht brauchst.';
+
+    if (model.sessionTimeToleranceFraction >= 1 ||
+        model.screenTimeFraction >= 1) {
+      title = 'Deine Blume ist vertrocknet!';
+      msg =
+          'Leg dein Smartphone für heute weg und versuche, dich morgen an deine Zeitlimits zu halten.';
+    } else if (model.sessionTimeFraction >= 1 &&
+        model.sessionTimeToleranceFraction < 1 &&
+        model.screenTimeFraction < 1) {
+      title = 'Deine Blume braucht Wasser!';
+      String breakTimeMinutes = model.breakTime.toPrettyStringRoundSecondsUp();
+      String sessionTimeRemaining =
+          model.sessionTimeRemaining.toPrettyStringRoundSecondsDown();
+      msg =
+          'Leg dein Smartphone für mindestens $breakTimeMinutes weg, damit sie ausreichend gegossen wird. Ansonsten vertrocknet sie in $sessionTimeRemaining.';
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -84,7 +94,7 @@ class PhoneTimeCard extends StatelessWidget {
         children: [
           Text(title, style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 4),
-          Text(description),
+          Text(msg, style: Theme.of(context).textTheme.bodyLarge),
         ],
       ),
     );
@@ -116,7 +126,8 @@ class PhoneTimeCard extends StatelessWidget {
         trackGap: 4,
         stopIndicatorColor: Theme.of(context).colorScheme.primary,
         stopIndicatorRadius: 2,
-        year2023: false,
+        // ignore: deprecated_member_use for Material 3 appearance
+        year2023: false, // Use Material 3 style
       ),
     );
   }
@@ -159,6 +170,7 @@ class PhoneTimeCard extends StatelessWidget {
             trackGap: 4,
             stopIndicatorColor: Theme.of(context).colorScheme.error,
             stopIndicatorRadius: 2,
+            // ignore: deprecated_member_use for Material 3 appearance
             year2023: false,
           ),
         ],

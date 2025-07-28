@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" width="100" height="100">
+  <defs>
+    <linearGradient id="d">
+      <stop offset="0" stop-color="#904a40"/>
+      <stop offset="1" stop-color="#ffe086"/>
+    </linearGradient>
+    <linearGradient id="c">
+      <stop offset="0" stop-color="#cdeda4"/>
+      <stop offset="1" stop-color="#4b662c"/>
+    </linearGradient>
+    <linearGradient id="b">
+      <stop offset="0" stop-color="#c3c8bb"/>
+      <stop offset="1" stop-color="#74796d"/>
+    </linearGradient>
+    <linearGradient id="a">
+      <stop offset="0" stop-color="#d8e7cb"/>
+      <stop offset="1" stop-color="#55624c"/>
+    </linearGradient>
+    <linearGradient xlink:href="#a" id="g" x1="50" x2="50" y1="60" y2="145" gradientTransform="translate(0 5)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#b" id="h" x1="50" x2="50" y1="60" y2="135" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#c" id="l" x1="47.84" x2="44.16" y1="38.98" y2="76.61" gradientTransform="matrix(1 0 0 -1 1.3 131.89)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#c" id="f" x1="30.51" x2="47.78" y1="69.14" y2="68.17" gradientTransform="matrix(-1 0 0 1 93.43 .14)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#c" id="e" x1="14.41" x2="46.57" y1="58.94" y2="72.82" gradientTransform="translate(-1.76)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#d" id="i" x1="72" x2="81" y1="60" y2="69.49" gradientTransform="rotate(45 44.44 67.32)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#d" id="j" x1="72" x2="81" y1="60" y2="69.49" gradientTransform="rotate(60 47.97 53.8)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#d" id="k" x1="72" x2="81" y1="60" y2="69.49" gradientTransform="rotate(150 46.18 67.6)" gradientUnits="userSpaceOnUse"/>
+  </defs>
+  <path fill="#bbebec" fill-opacity=".3" d="M25 10a10 10 0 0 0-10 10v70h70V20a10 10 0 0 0-10-10Z"/>
+  <path fill="url(#e)" d="M41.24 71c-12.65-2.59-6.5-.65-9.62 2.62-1.17-6.16-.55-7.55 11.62-2.62"/>
+  <path fill="url(#f)" d="M51 71c3.3-.4 6.37.2 9.08.82-.94-3.46-14.7-7.2-11.08-.82"/>
+  <path fill="none" stroke="#4b662c" stroke-linecap="round" stroke-linejoin="round" d="M69.2 82.03C67.1 68.77 74.22 65.53 50 71"/>
+  <path fill="url(#g)" d="M35 70h30s2 13-7 20H42c-9-7-7-20-7-20Z"/>
+  <path fill="#c3c8bb" d="M5 90h90v5H5z"/>
+  <path fill="#d8e7cb" d="M33 70h34v5H33z"/>
+  <path fill="url(#h)" d="M25 5a15 15 0 0 0-15 15v70h5V20a10 10 0 0 1 10-10h50a10 10 0 0 1 10 10v70h5V20A15 15 0 0 0 75 5H25z"/>
+  <path fill="none" stroke="#4b662c" stroke-linecap="round" stroke-linejoin="round" d="M43 71c18.31-12.68 16.5-10.47 11.56 7.29"/>
+  <path fill="url(#i)" d="M69.38 80.86c.47 4.86.35 9.56 3.48 8.24 3.13-1.33-.33-4.52-3.48-8.24zm-.55 0c-3.1 3.76-6.53 6.99-3.39 8.28 3.15 1.29 2.98-3.41 3.4-8.27z"/>
+  <path fill="#904a40" d="M69.1 80.92c-1.45 4.65-3.4 8.94 0 8.94s1.46-4.29 0-8.94z"/>
+  <path fill="#4b662c" d="M71.62 81.56a3.5 3.5 0 0 0-5.9 3.07s1.46-.92 3.53-.93a6.01 6.01 0 0 1 3.38.97 3.5 3.5 0 0 0-1.01-3.11z"/>
+  <path fill="url(#j)" d="M55.08 77.04c-.8 4.8-2.14 9.32 1.23 8.85 3.36-.47.85-4.44-1.23-8.85zm-.53-.14c-3.98 2.82-8.12 5.05-5.42 7.11 2.7 2.06 3.76-2.52 5.42-7.1z"/>
+  <path fill="#904a40" d="M54.8 77.02c-2.62 4.12-5.6 7.76-2.32 8.63 3.28.88 2.52-3.76 2.32-8.63z"/>
+  <path fill="#4b662c" d="M57.06 78.29a3.5 3.5 0 0 0-6.48 1.44s1.64-.5 3.64.02 3.01 1.81 3.01 1.81a3.5 3.5 0 0 0-.17-3.27z"/>
+  <path fill="url(#k)" d="M28.28 87.55c-4.81-.8-9.32-2.14-8.85 1.23.46 3.36 4.44.85 8.85-1.23zm.14-.53c-2.82-3.98-5.05-8.12-7.11-5.42-2.06 2.7 2.52 3.76 7.1 5.42z"/>
+  <path fill="#904a40" d="M28.3 87.27c-4.12-2.61-7.76-5.6-8.64-2.32-.88 3.29 3.76 2.52 8.64 2.32z"/>
+  <path fill="#4b662c" d="M27.03 89.53a3.5 3.5 0 0 0-1.44-6.48s.5 1.64-.02 3.64-1.81 3.01-1.81 3.01a3.5 3.5 0 0 0 3.27-.17z"/>
+  <path fill="none" stroke="#4b662c" stroke-linecap="round" stroke-linejoin="round" d="M26.95 87.34C38.55 96.8 29.18 57.74 45 71"/>
+  <path fill="url(#l)" d="M45.2 82.26c2.86-12.77 7.8-14.52-1.04-14.08-8.84.43-1.84 3.32 1.05 14.08z"/>
+</svg>

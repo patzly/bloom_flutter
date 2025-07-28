@@ -1,48 +1,28 @@
 import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/services/foreground/foreground_service.dart';
 import 'package:bloom_flutter/services/foreground/task/foreground_task_handler.dart';
+import 'package:bloom_flutter/services/storage/storage_service_impl.dart';
 import 'package:bloom_flutter/services/time/time_service.dart';
 import 'package:bloom_flutter/services/time/time_service_impl.dart';
-import 'package:bloom_flutter/services/time/time_service_singleton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 
 @pragma('vm:entry-point')
 void startCallback() {
-  FlutterForegroundTask.setTaskHandler(
-    ForegroundTaskHandler(TimeServiceImpl()),
-  );
+  StorageServiceImpl.create().then((storageService) {
+    TimeService timeService = TimeServiceImpl(storageService);
+    FlutterForegroundTask.setTaskHandler(ForegroundTaskHandler(timeService));
+  });
 }
 
 class ForegroundServiceAndroidImpl implements ForegroundService {
   late void Function(Object data) _callback;
 
-  ForegroundServiceAndroidImpl(TimeService timeService) {
-    TimeServiceSingleton.setInstance(timeService);
-  }
-
   @override
   Future<void> init(void Function(Object data) callback) async {
     _callback = callback;
+    FlutterForegroundTask.initCommunicationPort();
     FlutterForegroundTask.addTaskDataCallback(_callback);
-    // Request permissions and initialize the service.
-    await _requestPermissions();
-    FlutterForegroundTask.init(
-      androidNotificationOptions: AndroidNotificationOptions(
-        channelId: 'background_service',
-        channelName: 'Background service',
-        onlyAlertOnce: true,
-      ),
-      iosNotificationOptions: IOSNotificationOptions(),
-      foregroundTaskOptions: ForegroundTaskOptions(
-        eventAction: ForegroundTaskEventAction.repeat(
-          Constants.updateInterval.inMilliseconds,
-        ),
-        autoRunOnBoot: true,
-        autoRunOnMyPackageReplaced: true,
-        allowWakeLock: false,
-      ),
-    );
   }
 
   @override
@@ -52,6 +32,28 @@ class ForegroundServiceAndroidImpl implements ForegroundService {
 
   @override
   Future<bool> start() async {
+    bool isRunning = await this.isRunning();
+    if (!isRunning) {
+      // Request permissions and initialize the service.
+      await _requestPermissions();
+      FlutterForegroundTask.init(
+        androidNotificationOptions: AndroidNotificationOptions(
+          channelId: 'background_service',
+          channelName: 'Background service',
+          onlyAlertOnce: true,
+        ),
+        iosNotificationOptions: IOSNotificationOptions(),
+        foregroundTaskOptions: ForegroundTaskOptions(
+          eventAction: ForegroundTaskEventAction.repeat(
+            Constants.updateInterval.inMilliseconds,
+          ),
+          autoRunOnBoot: true,
+          autoRunOnMyPackageReplaced: true,
+          allowWakeLock: false,
+        ),
+      );
+    }
+
     final result = await FlutterForegroundTask.startService(
       notificationTitle: "Screen time service is running",
       notificationText:

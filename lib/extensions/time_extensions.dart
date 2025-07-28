@@ -27,6 +27,41 @@ extension DurationFormatting on Duration {
     }
   }
 
+  String toPrettyStringRoundSecondsUp() {
+    final totalSeconds = inSeconds;
+    final roundedMinutes =
+        ((totalSeconds + 59) ~/ 60).clamp(1, double.infinity).toInt();
+    final hours = roundedMinutes ~/ 60;
+    final minutes = roundedMinutes % 60;
+
+    if (hours > 0) {
+      if (minutes == 0) {
+        return '$hours ${hours == 1 ? "Stunde" : "Stunden"}';
+      } else {
+        return '$hours:${minutes.toString().padLeft(2, '0')} ${hours == 1 ? "Stunde" : "Stunden"}';
+      }
+    } else {
+      return '$roundedMinutes ${roundedMinutes == 1 ? "Minute" : "Minuten"}';
+    }
+  }
+
+  String toPrettyStringRoundSecondsDown() {
+    final totalSeconds = inSeconds;
+    final roundedMinutes = (totalSeconds ~/ 60);
+    final hours = roundedMinutes ~/ 60;
+    final minutes = roundedMinutes % 60;
+
+    if (hours > 0) {
+      if (minutes == 0) {
+        return '$hours ${hours == 1 ? "Stunde" : "Stunden"}';
+      } else {
+        return '$hours:${minutes.toString().padLeft(2, '0')} ${hours == 1 ? "Stunde" : "Stunden"}';
+      }
+    } else {
+      return '$roundedMinutes ${roundedMinutes == 1 ? "Minute" : "Minuten"}';
+    }
+  }
+
   String toPrettyString(bool hideMinutes, bool hideSeconds) {
     final hours = inHours;
     final minutes = inMinutes % 60;

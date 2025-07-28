@@ -1,12 +1,11 @@
 import 'dart:math';
 
 import 'package:bloom_flutter/constants.dart';
+import 'package:bloom_flutter/services/storage/storage_service.dart';
 import 'package:bloom_flutter/services/time/time_service.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TimeServiceImpl implements TimeService {
-  SharedPreferences? prefs = null;
+  final StorageService storageService;
   UserPresence? userPresence = null;
   int sessionTimeMaxMinutes = 0;
   int sessionTimeMillis = 0;
@@ -15,24 +14,24 @@ class TimeServiceImpl implements TimeService {
   int screenTimeMillis = 0;
   int screenOffTimestamp = 0;
 
-  @override
-  Future<void> loadFromPrefs() async {
-    await WidgetsFlutterBinding.ensureInitialized();
-    prefs = await SharedPreferences.getInstance();
+  TimeServiceImpl(this.storageService);
 
+  @override
+  void loadFromStorage() {
     sessionTimeMaxMinutes =
-        prefs?.getInt(PrefKeys.sessionTimeMax) ??
+        storageService.getInt(PrefKeys.sessionTimeMax) ??
         Defaults.sessionTimeMax.inMinutes;
     double sessionTimeFraction =
-        prefs?.getDouble(PrefKeys.sessionTimeFraction) ?? 0.0;
+        storageService.getDouble(PrefKeys.sessionTimeFraction) ?? 0.0;
     sessionTimeMillis = _computeSessionTimeMillis(sessionTimeFraction);
     breakTimeMinMinutes =
-        prefs?.getInt(PrefKeys.breakTimeMin) ?? Defaults.breakTimeMin.inMinutes;
+        storageService.getInt(PrefKeys.breakTimeMin) ??
+        Defaults.breakTimeMin.inMinutes;
     screenTimeMaxMinutes =
-        prefs?.getInt(PrefKeys.sessionTimeMax) ??
+        storageService.getInt(PrefKeys.screenTimeMax) ??
         Defaults.screenTimeMax.inMinutes;
     double screenTimeFraction =
-        prefs?.getDouble(PrefKeys.sessionTimeFraction) ?? 0.0;
+        storageService.getDouble(PrefKeys.screenTimeFraction) ?? 0.0;
     screenTimeMillis =
         (screenTimeFraction * screenTimeMaxMinutes * 60 * 1000).toInt();
   }
@@ -79,9 +78,9 @@ class TimeServiceImpl implements TimeService {
           // subtract consumed screen off time
           screenOffMillis = max(screenOffMillis - toleranceMillis, 0);
         }
-        int breakTimeMillis = breakTimeMinMinutes * 60 * 1000;
+        int breakTimeMinMillis = breakTimeMinMinutes * 60 * 1000;
         double breakTimeFraction = min(
-          screenOffMillis.toDouble() / breakTimeMillis,
+          screenOffMillis.toDouble() / breakTimeMinMillis,
           1,
         );
         sessionTimeFraction = max(sessionTimeFraction - breakTimeFraction, 0);
@@ -124,8 +123,14 @@ class TimeServiceImpl implements TimeService {
       screenTimeMillis += Constants.updateInterval.inMilliseconds;
 
       // save time to preferences
-      prefs?.setDouble(PrefKeys.sessionTimeFraction, getSessionTimeFraction());
-      prefs?.setDouble(PrefKeys.screenTimeFraction, getScreenTimeFraction());
+      storageService.saveDouble(
+        PrefKeys.sessionTimeFraction,
+        getSessionTimeFraction(),
+      );
+      storageService.saveDouble(
+        PrefKeys.screenTimeFraction,
+        getScreenTimeFraction(),
+      );
 
       // TODO: listener.onPhoneTimeChanged();
       /* listener.onPhoneTimeIncreased();
@@ -160,6 +165,13 @@ class TimeServiceImpl implements TimeService {
   }
 
   @override
+  int getSessionTimeRemainingMillis() {
+    int toleranceMillis = Constants.sessionTimeToleranceMax.inMilliseconds;
+    int exceededMillis = getSessionTimeToleranceMillis();
+    return max(toleranceMillis - exceededMillis, 0);
+  }
+
+  @override
   int getSessionTimeToleranceMillis() {
     return max(sessionTimeMillis - (sessionTimeMaxMinutes * 60 * 1000), 0);
   }
@@ -167,6 +179,12 @@ class TimeServiceImpl implements TimeService {
   @override
   double getSessionTimeToleranceFraction() {
     return max(getSessionTimeFraction() - 1, 0);
+  }
+
+  @override
+  int getBreakTimeMillis() {
+    int breakTimeMinMillis = breakTimeMinMinutes * 60 * 1000;
+    return breakTimeMinMillis + getSessionTimeToleranceMillis();
   }
 
   @override

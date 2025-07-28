@@ -32,9 +32,6 @@ dependencies:
     sdk: flutter
 
   go_router: ^16.0.0
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
   dynamic_color: ^1.7.0
   flutter_bloc: ^9.0.0
   flutter_launcher_icons: ^0.14.4
@@ -43,6 +40,7 @@ dependencies:
   material_symbols_icons: ^4.2815.1
   screen_state: ^4.1.1
   shared_preferences: ^2.5.3
+  flutter_svg: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +70,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/icon/
+    - assets/flower/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

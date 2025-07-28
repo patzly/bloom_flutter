@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 class BloomModel {
   final Duration sessionTime;
   final double sessionTimeFraction;
+  final Duration sessionTimeRemaining;
   final Duration sessionTimeTolerance;
   final double sessionTimeToleranceFraction;
+  final Duration breakTime;
   final Duration screenTime;
   final double screenTimeFraction;
   final int daysStreak;
@@ -22,8 +24,10 @@ class BloomModel {
   BloomModel({
     this.sessionTime = const Duration(),
     this.sessionTimeFraction = 0.0,
+    this.sessionTimeRemaining = const Duration(),
     this.sessionTimeTolerance = const Duration(),
     this.sessionTimeToleranceFraction = 0.0,
+    this.breakTime = const Duration(),
     this.screenTime = const Duration(),
     this.screenTimeFraction = 0.0,
     this.daysStreak = 0,
@@ -41,8 +45,10 @@ class BloomModel {
   BloomModel copyWith({
     Duration? sessionTime,
     double? sessionTimeFraction,
+    Duration? sessionTimeRemaining,
     Duration? sessionTimeTolerance,
     double? sessionTimeToleranceFraction,
+    Duration? breakTime,
     Duration? screenTime,
     double? screenTimeFraction,
     int? daysStreak,
@@ -59,9 +65,11 @@ class BloomModel {
     return BloomModel(
       sessionTime: sessionTime ?? this.sessionTime,
       sessionTimeFraction: sessionTimeFraction ?? this.sessionTimeFraction,
+      sessionTimeRemaining: sessionTimeRemaining ?? this.sessionTimeRemaining,
       sessionTimeTolerance: sessionTimeTolerance ?? this.sessionTimeTolerance,
       sessionTimeToleranceFraction:
           sessionTimeToleranceFraction ?? this.sessionTimeToleranceFraction,
+      breakTime: breakTime ?? this.breakTime,
       screenTime: screenTime ?? this.screenTime,
       screenTimeFraction: screenTimeFraction ?? this.screenTimeFraction,
       daysStreak: daysStreak ?? this.daysStreak,

@@ -3,68 +3,71 @@ import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:bloom_flutter/services/foreground/foreground_service.dart';
 import 'package:bloom_flutter/services/navigation/navigation_service.dart';
+import 'package:bloom_flutter/services/storage/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   final NavigationService navigationService;
   final ForegroundService foregroundService;
-  SharedPreferences? prefs = null;
+  final StorageService storageService;
 
   @override
   BloomControllerImpl({
     required this.navigationService,
     required this.foregroundService,
+    required this.storageService,
   }) : super(BloomModel()) {
-    foregroundService.isRunning().then((value) {
-      emit(state.copyWith(isServiceRunning: value));
-    });
-    SharedPreferences.getInstance().then((prefs) {
-      this.prefs = prefs;
-      emit(
-        state.copyWith(
-          sessionTimeFraction: prefs.getDouble(PrefKeys.sessionTimeFraction),
-          sessionTimeToleranceFraction: prefs.getDouble(
-            PrefKeys.sessionTimeToleranceFraction,
-          ),
-          screenTimeFraction: prefs.getDouble(PrefKeys.screenTimeFraction),
-          daysStreak: prefs.getInt(PrefKeys.daysStreak),
-          waterDrops: prefs.getInt(PrefKeys.waterDrops),
-          brightnessLevel: BrightnessLevel.values.byName(
-            prefs.getString(PrefKeys.brightnessLevel) ??
-                state.brightnessLevel.name,
-          ),
-          contrastLevel: ContrastLevel.values.byName(
-            prefs.getString(PrefKeys.contrastLevel) ?? state.contrastLevel.name,
-          ),
-          useDynamicColors: prefs.getBool(PrefKeys.useDynamicColors),
-          sessionTimeMax: Duration(
-            minutes:
-                prefs.getInt(PrefKeys.sessionTimeMax) ??
-                state.sessionTimeMax.inMinutes,
-          ),
-          breakTimeMin: Duration(
-            minutes:
-                prefs.getInt(PrefKeys.breakTimeMin) ??
-                state.breakTimeMin.inMinutes,
-          ),
-          screenTimeMax: Duration(
-            minutes:
-                prefs.getInt(PrefKeys.screenTimeMax) ??
-                state.screenTimeMax.inMinutes,
-          ),
-          dailyResetTime: TimeOfDay(
-            hour:
-                prefs.getInt(PrefKeys.dailyResetHour) ??
-                state.dailyResetTime.hour,
-            minute:
-                prefs.getInt(PrefKeys.dailyResetMinute) ??
-                state.dailyResetTime.minute,
-          ),
+    // Load initial state from storage
+    emit(
+      state.copyWith(
+        sessionTimeFraction: storageService.getDouble(
+          PrefKeys.sessionTimeFraction,
         ),
-      );
-    });
+        sessionTimeToleranceFraction: storageService.getDouble(
+          PrefKeys.sessionTimeToleranceFraction,
+        ),
+        screenTimeFraction: storageService.getDouble(
+          PrefKeys.screenTimeFraction,
+        ),
+        daysStreak: storageService.getInt(PrefKeys.daysStreak),
+        waterDrops: storageService.getInt(PrefKeys.waterDrops),
+        brightnessLevel: BrightnessLevel.values.byName(
+          storageService.getString(PrefKeys.brightnessLevel) ??
+              state.brightnessLevel.name,
+        ),
+        contrastLevel: ContrastLevel.values.byName(
+          storageService.getString(PrefKeys.contrastLevel) ??
+              state.contrastLevel.name,
+        ),
+        useDynamicColors: storageService.getBool(PrefKeys.useDynamicColors),
+        sessionTimeMax: Duration(
+          minutes:
+              storageService.getInt(PrefKeys.sessionTimeMax) ??
+              state.sessionTimeMax.inMinutes,
+        ),
+        breakTimeMin: Duration(
+          minutes:
+              storageService.getInt(PrefKeys.breakTimeMin) ??
+              state.breakTimeMin.inMinutes,
+        ),
+        screenTimeMax: Duration(
+          minutes:
+              storageService.getInt(PrefKeys.screenTimeMax) ??
+              state.screenTimeMax.inMinutes,
+        ),
+        dailyResetTime: TimeOfDay(
+          hour:
+              storageService.getInt(PrefKeys.dailyResetHour) ??
+              state.dailyResetTime.hour,
+          minute:
+              storageService.getInt(PrefKeys.dailyResetMinute) ??
+              state.dailyResetTime.minute,
+        ),
+      ),
+    );
+    // Initialize foreground service
+    _initService();
   }
 
   @override
@@ -76,41 +79,6 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   @override
   void navigateToSettings() {
     navigationService.navigateToSettings();
-  }
-
-  @override
-  Future<void> initService() async {
-    await foregroundService.init((Object data) {
-      if (data is Map<String, dynamic>) {
-        final sessionTimeMillis =
-            data[TransactionKeys.sessionTimeMillis] as int? ?? 0;
-        final sessionTimeFraction =
-            data[PrefKeys.sessionTimeFraction] as double?;
-        final sessionTimeToleranceMillis =
-            data[TransactionKeys.sessionTimeToleranceMillis] as int? ?? 0;
-        final sessionTimeToleranceFraction =
-            data[PrefKeys.sessionTimeToleranceFraction] as double?;
-        final screenTimeMillis =
-            data[TransactionKeys.screenTimeMillis] as int? ?? 0;
-        final screenTimeFraction = data[PrefKeys.screenTimeFraction] as double?;
-        final daysStreak = data[PrefKeys.daysStreak] as int?;
-        final waterDrops = data[PrefKeys.waterDrops] as int?;
-        emit(
-          state.copyWith(
-            sessionTime: Duration(milliseconds: sessionTimeMillis),
-            sessionTimeFraction: sessionTimeFraction,
-            sessionTimeTolerance: Duration(
-              milliseconds: sessionTimeToleranceMillis,
-            ),
-            sessionTimeToleranceFraction: sessionTimeToleranceFraction,
-            screenTime: Duration(milliseconds: screenTimeMillis),
-            screenTimeFraction: screenTimeFraction,
-            daysStreak: daysStreak,
-            waterDrops: waterDrops,
-          ),
-        );
-      }
-    });
   }
 
   @override
@@ -142,47 +110,47 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
 
   @override
   void setBrightnessLevel(BrightnessLevel brightnessLevel) {
-    prefs?.setString(PrefKeys.brightnessLevel, brightnessLevel.name);
+    storageService.saveString(PrefKeys.brightnessLevel, brightnessLevel.name);
     emit(state.copyWith(brightnessLevel: brightnessLevel));
   }
 
   @override
   void setContrastLevel(ContrastLevel contrastLevel) {
-    prefs?.setString(PrefKeys.contrastLevel, contrastLevel.name);
+    storageService.saveString(PrefKeys.contrastLevel, contrastLevel.name);
     emit(state.copyWith(contrastLevel: contrastLevel));
   }
 
   @override
   void setUseDynamicColors(bool useDynamicColors) {
-    prefs?.setBool(PrefKeys.useDynamicColors, useDynamicColors);
+    storageService.saveBool(PrefKeys.useDynamicColors, useDynamicColors);
     emit(state.copyWith(useDynamicColors: useDynamicColors));
   }
 
   @override
   void setSessionTimeMax(Duration sessionTimeMax) {
-    prefs?.setInt(PrefKeys.sessionTimeMax, sessionTimeMax.inMinutes);
+    storageService.saveInt(PrefKeys.sessionTimeMax, sessionTimeMax.inMinutes);
     emit(state.copyWith(sessionTimeMax: sessionTimeMax));
     sendDataToService(ActionData.timePrefsChanged);
   }
 
   @override
   void setBreakTimeMin(Duration breakTimeMin) {
-    prefs?.setInt(PrefKeys.breakTimeMin, breakTimeMin.inMinutes);
+    storageService.saveInt(PrefKeys.breakTimeMin, breakTimeMin.inMinutes);
     emit(state.copyWith(breakTimeMin: breakTimeMin));
     sendDataToService(ActionData.timePrefsChanged);
   }
 
   @override
   void setScreenTimeMax(Duration screenTimeMax) {
-    prefs?.setInt(PrefKeys.screenTimeMax, screenTimeMax.inMinutes);
+    storageService.saveInt(PrefKeys.screenTimeMax, screenTimeMax.inMinutes);
     emit(state.copyWith(screenTimeMax: screenTimeMax));
     sendDataToService(ActionData.timePrefsChanged);
   }
 
   @override
   void setDailyResetTime(TimeOfDay dailyResetTime) {
-    prefs?.setInt(PrefKeys.dailyResetHour, dailyResetTime.hour);
-    prefs?.setInt(PrefKeys.dailyResetMinute, dailyResetTime.minute);
+    storageService.saveInt(PrefKeys.dailyResetHour, dailyResetTime.hour);
+    storageService.saveInt(PrefKeys.dailyResetMinute, dailyResetTime.minute);
     emit(state.copyWith(dailyResetTime: dailyResetTime));
   }
 
@@ -191,9 +159,56 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
     foregroundService.stop();
     int daysStreak = state.daysStreak;
     int waterDrops = state.waterDrops;
-    prefs?.clear();
-    prefs?.setInt(PrefKeys.daysStreak, daysStreak);
-    prefs?.setInt(PrefKeys.waterDrops, waterDrops);
+    storageService.clear().then((_) {
+      storageService.saveInt(PrefKeys.daysStreak, daysStreak);
+      storageService.saveInt(PrefKeys.waterDrops, waterDrops);
+    });
     emit(BloomModel(daysStreak: daysStreak, waterDrops: waterDrops));
+  }
+
+  Future<void> _initService() async {
+    await foregroundService.init((Object data) {
+      if (data is Map<String, dynamic>) {
+        final sessionTimeMillis =
+            data[TransactionKeys.sessionTimeMillis] as int? ?? 0;
+        final sessionTimeFraction =
+            data[PrefKeys.sessionTimeFraction] as double?;
+        final sessionTimeRemainingMillis =
+            data[TransactionKeys.sessionTimeRemainingMillis] as int? ?? 0;
+        final sessionTimeToleranceMillis =
+            data[TransactionKeys.sessionTimeToleranceMillis] as int? ?? 0;
+        final sessionTimeToleranceFraction =
+            data[PrefKeys.sessionTimeToleranceFraction] as double?;
+        final breakTimeMillis =
+            data[TransactionKeys.breakTimeMillis] as int? ?? 0;
+        final screenTimeMillis =
+            data[TransactionKeys.screenTimeMillis] as int? ?? 0;
+        final screenTimeFraction = data[PrefKeys.screenTimeFraction] as double?;
+        final daysStreak = data[PrefKeys.daysStreak] as int?;
+        final waterDrops = data[PrefKeys.waterDrops] as int?;
+        emit(
+          state.copyWith(
+            sessionTime: Duration(milliseconds: sessionTimeMillis),
+            sessionTimeFraction: sessionTimeFraction,
+            sessionTimeRemaining: Duration(
+              milliseconds: sessionTimeRemainingMillis,
+            ),
+            sessionTimeTolerance: Duration(
+              milliseconds: sessionTimeToleranceMillis,
+            ),
+            sessionTimeToleranceFraction: sessionTimeToleranceFraction,
+            breakTime: Duration(milliseconds: breakTimeMillis),
+            screenTime: Duration(milliseconds: screenTimeMillis),
+            screenTimeFraction: screenTimeFraction,
+            daysStreak: daysStreak,
+            waterDrops: waterDrops,
+          ),
+        );
+      }
+    });
+
+    // Check if the service is running
+    bool isRunning = await foregroundService.isRunning();
+    emit(state.copyWith(isServiceRunning: isRunning));
   }
 }
