@@ -2,8 +2,7 @@ import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/controller/bloom_controller_impl.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
-import 'package:bloom_flutter/screens/home/home_screen.dart';
-import 'package:bloom_flutter/screens/settings/settings_screen.dart';
+import 'package:bloom_flutter/routs/app_router.dart';
 import 'package:bloom_flutter/services/foreground/foreground_service_impl.dart';
 import 'package:bloom_flutter/services/navigation/navigation_service_impl.dart';
 import 'package:bloom_flutter/services/storage/storage_service_impl.dart';
@@ -31,16 +30,7 @@ class _BloomAppState extends State<BloomApp> {
   void initState() {
     super.initState();
 
-    _router = GoRouter(
-      initialLocation: '/',
-      routes: [
-        GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
-        GoRoute(
-          path: '/settings',
-          builder: (context, state) => const SettingsScreen(),
-        ),
-      ],
-    );
+    _router = app_routs.createRouter();
 
     _initController = Future(() async {
       // Initialize services and controller
