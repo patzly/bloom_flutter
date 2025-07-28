@@ -80,9 +80,9 @@ class PhoneTimeCard extends StatelessWidget {
         model.sessionTimeToleranceFraction < 1 &&
         model.screenTimeFraction < 1) {
       title = 'Deine Blume braucht Wasser!';
-      String breakTimeMinutes = model.breakTimeMin.toPrettyStringShortest();
+      String breakTimeMinutes = model.breakTime.toPrettyStringRoundSecondsUp();
       String sessionTimeRemaining =
-          model.sessionTimeRemaining.toPrettyStringShortest();
+          model.sessionTimeRemaining.toPrettyStringRoundSecondsDown();
       msg =
           'Leg dein Smartphone für mindestens $breakTimeMinutes weg, damit sie ausreichend gegossen wird. Ansonsten vertrocknet sie in $sessionTimeRemaining.';
     }

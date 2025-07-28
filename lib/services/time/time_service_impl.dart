@@ -78,9 +78,9 @@ class TimeServiceImpl implements TimeService {
           // subtract consumed screen off time
           screenOffMillis = max(screenOffMillis - toleranceMillis, 0);
         }
-        int breakTimeMillis = breakTimeMinMinutes * 60 * 1000;
+        int breakTimeMinMillis = breakTimeMinMinutes * 60 * 1000;
         double breakTimeFraction = min(
-          screenOffMillis.toDouble() / breakTimeMillis,
+          screenOffMillis.toDouble() / breakTimeMinMillis,
           1,
         );
         sessionTimeFraction = max(sessionTimeFraction - breakTimeFraction, 0);
@@ -166,13 +166,9 @@ class TimeServiceImpl implements TimeService {
 
   @override
   int getSessionTimeRemainingMillis() {
-    int exceededMillis = max(
-      sessionTimeMillis - (sessionTimeMaxMinutes * 60 * 1000),
-      0,
-    );
-    //print('Session time millis: $sessionTimeMillis sessionTimeMaxMinutes: ${sessionTimeMaxMinutes}');
-    //print('Session time remaining millis: $exceededMillis toleranceMillis: ${getSessionTimeToleranceMillis()}');
-    return max(getSessionTimeToleranceMillis() - exceededMillis, 0);
+    int toleranceMillis = Constants.sessionTimeToleranceMax.inMilliseconds;
+    int exceededMillis = getSessionTimeToleranceMillis();
+    return max(toleranceMillis - exceededMillis, 0);
   }
 
   @override
@@ -183,6 +179,12 @@ class TimeServiceImpl implements TimeService {
   @override
   double getSessionTimeToleranceFraction() {
     return max(getSessionTimeFraction() - 1, 0);
+  }
+
+  @override
+  int getBreakTimeMillis() {
+    int breakTimeMinMillis = breakTimeMinMinutes * 60 * 1000;
+    return breakTimeMinMillis + getSessionTimeToleranceMillis();
   }
 
   @override

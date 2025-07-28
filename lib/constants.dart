@@ -42,6 +42,7 @@ class TransactionKeys {
   static const sessionTimeRemainingMillis = 'sessionTimeRemainingMillis';
   static const sessionTimeToleranceMillis = 'sessionTimeToleranceMillis';
   static const sessionTimeToleranceFraction = 'sessionTimeToleranceFraction';
+  static const breakTimeMillis = 'breakTimeMillis';
   static const screenTimeMillis = 'screenTimeMillis';
   static const screenTimeFraction = 'screenTimeFraction';
   static const daysStreak = 'daysStreak';

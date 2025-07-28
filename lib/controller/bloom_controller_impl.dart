@@ -173,10 +173,14 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
             data[TransactionKeys.sessionTimeMillis] as int? ?? 0;
         final sessionTimeFraction =
             data[PrefKeys.sessionTimeFraction] as double?;
+        final sessionTimeRemainingMillis =
+            data[TransactionKeys.sessionTimeRemainingMillis] as int? ?? 0;
         final sessionTimeToleranceMillis =
             data[TransactionKeys.sessionTimeToleranceMillis] as int? ?? 0;
         final sessionTimeToleranceFraction =
             data[PrefKeys.sessionTimeToleranceFraction] as double?;
+        final breakTimeMillis =
+            data[TransactionKeys.breakTimeMillis] as int? ?? 0;
         final screenTimeMillis =
             data[TransactionKeys.screenTimeMillis] as int? ?? 0;
         final screenTimeFraction = data[PrefKeys.screenTimeFraction] as double?;
@@ -186,10 +190,14 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
           state.copyWith(
             sessionTime: Duration(milliseconds: sessionTimeMillis),
             sessionTimeFraction: sessionTimeFraction,
+            sessionTimeRemaining: Duration(
+              milliseconds: sessionTimeRemainingMillis,
+            ),
             sessionTimeTolerance: Duration(
               milliseconds: sessionTimeToleranceMillis,
             ),
             sessionTimeToleranceFraction: sessionTimeToleranceFraction,
+            breakTime: Duration(milliseconds: breakTimeMillis),
             screenTime: Duration(milliseconds: screenTimeMillis),
             screenTimeFraction: screenTimeFraction,
             daysStreak: daysStreak,

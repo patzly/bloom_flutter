@@ -17,6 +17,8 @@ abstract class TimeService {
 
   double getSessionTimeToleranceFraction();
 
+  int getBreakTimeMillis();
+
   int getScreenTimeMillis();
 
   double getScreenTimeFraction();

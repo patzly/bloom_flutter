@@ -7,6 +7,7 @@ class BloomModel {
   final Duration sessionTimeRemaining;
   final Duration sessionTimeTolerance;
   final double sessionTimeToleranceFraction;
+  final Duration breakTime;
   final Duration screenTime;
   final double screenTimeFraction;
   final int daysStreak;
@@ -26,6 +27,7 @@ class BloomModel {
     this.sessionTimeRemaining = const Duration(),
     this.sessionTimeTolerance = const Duration(),
     this.sessionTimeToleranceFraction = 0.0,
+    this.breakTime = const Duration(),
     this.screenTime = const Duration(),
     this.screenTimeFraction = 0.0,
     this.daysStreak = 0,
@@ -46,6 +48,7 @@ class BloomModel {
     Duration? sessionTimeRemaining,
     Duration? sessionTimeTolerance,
     double? sessionTimeToleranceFraction,
+    Duration? breakTime,
     Duration? screenTime,
     double? screenTimeFraction,
     int? daysStreak,
@@ -66,6 +69,7 @@ class BloomModel {
       sessionTimeTolerance: sessionTimeTolerance ?? this.sessionTimeTolerance,
       sessionTimeToleranceFraction:
           sessionTimeToleranceFraction ?? this.sessionTimeToleranceFraction,
+      breakTime: breakTime ?? this.breakTime,
       screenTime: screenTime ?? this.screenTime,
       screenTimeFraction: screenTimeFraction ?? this.screenTimeFraction,
       daysStreak: daysStreak ?? this.daysStreak,

@@ -64,6 +64,7 @@ class ForegroundTaskHandler extends TaskHandler {
           timeService.getSessionTimeRemainingMillis(),
       TransactionKeys.sessionTimeToleranceFraction:
           timeService.getSessionTimeToleranceFraction(),
+      TransactionKeys.breakTimeMillis: timeService.getBreakTimeMillis(),
       TransactionKeys.screenTimeMillis: timeService.getScreenTimeMillis(),
       TransactionKeys.screenTimeFraction: timeService.getScreenTimeFraction(),
       TransactionKeys.daysStreak: timeService.getDaysStreak(),
