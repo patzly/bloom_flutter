@@ -2,8 +2,8 @@ import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/controller/bloom_controller_impl.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
-import 'package:bloom_flutter/routs/app_router.dart';
 import 'package:bloom_flutter/services/foreground/foreground_service_impl.dart';
+import 'package:bloom_flutter/services/navigation/navigation_service.dart';
 import 'package:bloom_flutter/services/navigation/navigation_service_impl.dart';
 import 'package:bloom_flutter/services/storage/storage_service_impl.dart';
 import 'package:bloom_flutter/services/time/time_service_impl.dart';
@@ -12,7 +12,6 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:go_router/go_router.dart';
 
 class BloomApp extends StatefulWidget {
   const BloomApp({super.key});
@@ -23,24 +22,23 @@ class BloomApp extends StatefulWidget {
 
 class _BloomAppState extends State<BloomApp> {
   BloomController? _controller;
-  late final GoRouter _router;
+  late final NavigationService _navigationService;
   late final Future<void> _initController;
 
   @override
   void initState() {
     super.initState();
 
-    _router = app_routs.createRouter();
+    _navigationService = NavigationServiceImpl();
 
     _initController = Future(() async {
       // Initialize services and controller
-      final navigationService = NavigationServiceImpl(_router);
       final storageService = await StorageServiceImpl.create();
       final foregroundService = await ForegroundServiceImpl.create(
         TimeServiceImpl(storageService),
       );
       _controller = BloomControllerImpl(
-        navigationService: navigationService,
+        navigationService: _navigationService,
         foregroundService: foregroundService,
         storageService: storageService,
       );
@@ -74,7 +72,7 @@ class _BloomAppState extends State<BloomApp> {
                 builder: (lightColorScheme, darkColorScheme) {
                   return MaterialApp.router(
                     title: 'Bloom',
-                    routerConfig: _router,
+                    routerConfig: _navigationService.router,
                     themeMode: switch (model.brightnessLevel) {
                       BrightnessLevel.auto => ThemeMode.system,
                       BrightnessLevel.light => ThemeMode.light,

@@ -1,14 +1,31 @@
+import 'package:bloom_flutter/routes/bloom_routes.dart';
+import 'package:bloom_flutter/screens/home/home_screen.dart';
+import 'package:bloom_flutter/screens/settings/settings_screen.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+
 import 'navigation_service.dart';
-import 'package:bloom_flutter/routs/bloom_routs.dart';
 
 class NavigationServiceImpl implements NavigationService {
-  final GoRouter router;
+  final GoRouter _router = GoRouter(
+    initialLocation: BloomRoutes.home,
+    routes: [
+      GoRoute(
+        path: BloomRoutes.home,
+        builder: (context, state) => const HomeScreen(),
+      ),
+      GoRoute(
+        path: BloomRoutes.settings,
+        builder: (context, state) => const SettingsScreen(),
+      ),
+    ],
+  );
 
-  NavigationServiceImpl(this.router);
+  @override
+  RouterConfig<Object> get router => _router;
 
   @override
   void navigateToSettings() {
-    router.push(bloom_routs.settings);
+    _router.push(BloomRoutes.settings);
   }
 }

@@ -4,7 +4,7 @@ import 'package:bloom_flutter/services/foreground/task/foreground_task_handler.d
 import 'package:bloom_flutter/services/storage/storage_service_impl.dart';
 import 'package:bloom_flutter/services/time/time_service.dart';
 import 'package:bloom_flutter/services/time/time_service_impl.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 
 @pragma('vm:entry-point')
