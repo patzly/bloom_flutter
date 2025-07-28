@@ -142,8 +142,8 @@ class HomeScreen extends StatelessWidget {
           child: SvgPicture.asset(
             assetName,
             semanticsLabel: 'Flower',
-            width: 320,
-            height: 320,
+            width: 300,
+            height: 300,
           ),
         ),
       ),

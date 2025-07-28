@@ -47,7 +47,9 @@ class ForegroundTaskHandler extends TaskHandler {
   @override
   void onReceiveData(Object data) {
     debugPrint('onReceiveData: $data');
-    if (data == ActionData.timePrefsChanged) {
+    if (data == ActionData.update) {
+      _update();
+    } else if (data == ActionData.timePrefsChanged) {
       timeService.loadFromStorage();
     }
   }

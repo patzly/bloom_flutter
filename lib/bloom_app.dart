@@ -42,6 +42,8 @@ class _BloomAppState extends State<BloomApp> {
         foregroundService: foregroundService,
         storageService: storageService,
       );
+      // Sync UI data with service data
+      foregroundService.sendDataToService(ActionData.update);
     });
   }
 
