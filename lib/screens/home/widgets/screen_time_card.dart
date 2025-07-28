@@ -7,10 +7,10 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
-class PhoneTimeCard extends StatelessWidget {
+class ScreenTimeCard extends StatelessWidget {
   final BloomModel model;
 
-  const PhoneTimeCard({super.key, required this.model});
+  const ScreenTimeCard({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {

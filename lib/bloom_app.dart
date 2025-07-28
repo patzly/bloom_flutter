@@ -49,7 +49,6 @@ class _BloomAppState extends State<BloomApp> {
       final foregroundService = await ForegroundServiceImpl.create(
         TimeServiceImpl(storageService),
       );
-
       _controller = BloomControllerImpl(
         navigationService: navigationService,
         foregroundService: foregroundService,
@@ -71,7 +70,7 @@ class _BloomAppState extends State<BloomApp> {
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           // Wait for controller to be initialized while splash screen is shown
-          return MaterialApp();
+          return const SizedBox();
         }
         WidgetsBinding.instance.addPostFrameCallback((_) {
           // Remove splash screen after the first frame is drawn

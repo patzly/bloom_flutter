@@ -40,6 +40,7 @@ dependencies:
   material_symbols_icons: ^4.2815.1
   screen_state: ^4.1.1
   shared_preferences: ^2.5.3
+  flutter_svg: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/icon/
+    - assets/flower/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

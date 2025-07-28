@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" width="100" height="100">
+  <defs>
+    <linearGradient id="d">
+      <stop offset="0" stop-color="#ffe086"/>
+      <stop offset=".6" stop-color="#904a40"/>
+    </linearGradient>
+    <linearGradient id="c">
+      <stop offset="0" stop-color="#cdeda4"/>
+      <stop offset="1" stop-color="#4b662c"/>
+    </linearGradient>
+    <linearGradient id="b">
+      <stop offset="0" stop-color="#c3c8bb"/>
+      <stop offset="1" stop-color="#74796d"/>
+    </linearGradient>
+    <linearGradient id="a">
+      <stop offset="0" stop-color="#d8e7cb"/>
+      <stop offset="1" stop-color="#55624c"/>
+    </linearGradient>
+    <linearGradient xlink:href="#a" id="h" x1="50" x2="50" y1="60" y2="145" gradientTransform="translate(0 5)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#b" id="i" x1="50" x2="50" y1="60" y2="135" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#c" id="g" x1="37.17" x2="45.56" y1="33.07" y2="77.68" gradientTransform="translate(2)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#c" id="f" x1="20.76" x2="43.76" y1="27" y2="73" gradientTransform="matrix(-1 0 0 1 93.43 .14)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#c" id="e" x1="19.16" x2="44.76" y1="14.88" y2="77" gradientTransform="translate(-1.76)" gradientUnits="userSpaceOnUse"/>
+    <radialGradient xlink:href="#d" id="j" cx="32.5" cy="42.5" r="9.64" fx="32.5" fy="42.5" gradientUnits="userSpaceOnUse"/>
+    <radialGradient xlink:href="#d" id="k" cx="32.5" cy="42.5" r="9.64" fx="32.5" fy="42.5" gradientTransform="translate(25 -15)" gradientUnits="userSpaceOnUse"/>
+    <radialGradient xlink:href="#d" id="l" cx="32.5" cy="42.5" r="9.64" fx="32.5" fy="42.5" gradientTransform="translate(35 10)" gradientUnits="userSpaceOnUse"/>
+  </defs>
+  <path fill="#bbebec" fill-opacity=".3" d="M25 10a10 10 0 0 0-10 10v70h70V20a10 10 0 0 0-10-10Z"/>
+  <circle cx="33" cy="42.5" r="3.5" fill="#4b662c"/>
+  <path fill="url(#e)" d="M41.24 71c-11.72-1.13-12.97-9.37-14.29-15.68 5.22 1.04 16.49.72 16.29 15.68"/>
+  <path fill="url(#f)" d="M51 71c12.07-1.96 13.95-12.61 14-19.33-7.66 2.69-16.68 4.87-16 19.33"/>
+  <path fill="none" stroke="#4b662c" stroke-linecap="round" stroke-linejoin="round" d="M43 71c-7-41 14.5-43.5 14.5-43.5"/>
+  <path fill="none" stroke="#4b662c" stroke-linecap="round" stroke-linejoin="round" d="M45 71c0-28-12.5-28.5-12.5-28.5"/>
+  <path fill="url(#g)" d="M45 71c-8.52-6.97-3.42-11.56 6.68-20.97 2.4 9.05 3.58 15.2-4.68 20.97"/>
+  <path fill="none" stroke="#4b662c" stroke-linecap="round" stroke-linejoin="round" d="M50 71c0-15 17.5-18.5 17.5-18.5"/>
+  <path fill="url(#h)" d="M35 70h30s2 13-7 20H42c-9-7-7-20-7-20Z"/>
+  <path fill="#c3c8bb" d="M5 90h90v5H5z"/>
+  <path fill="#d8e7cb" d="M33 70h34v5H33z"/>
+  <path fill="url(#i)" d="M25 5a15 15 0 0 0-15 15v70h5V20a10 10 0 0 1 10-10h50a10 10 0 0 1 10 10v70h5V20A15 15 0 0 0 75 5H25z"/>
+  <path fill="url(#j)" d="M32.5 32.86c-3.4 0-1.46 4.28 0 8.93 1.46-4.65 3.4-8.93 0-8.93zM27.06 35c-.44-.02-.9.2-1.38.68-2.4 2.4 2 4.06 6.32 6.32-1.8-3.44-3.22-6.94-4.94-7zm10.88 0c-1.72.06-3.14 3.56-4.94 7 4.32-2.26 8.72-3.92 6.32-6.32-.49-.49-.94-.7-1.38-.68zM24.7 40.61c-1.15.01-1.85.51-1.85 1.89 0 3.4 4.28 1.46 8.93 0-2.76-.86-5.4-1.9-7.08-1.89zm15.58 0c-1.69-.01-4.32 1.03-7.08 1.89 4.65 1.46 8.93 3.4 8.93 0 0-1.38-.7-1.88-1.85-1.89zM32 43c-4.32 2.26-8.72 3.92-6.32 6.32 2.4 2.4 4.06-2 6.32-6.32zm1 0c2.26 4.32 3.92 8.72 6.32 6.32 2.4-2.4-2-4.06-6.32-6.32zm-.5.2c-1.46 4.66-3.4 8.94 0 8.94s1.46-4.28 0-8.93z"/>
+  <circle cx="32.5" cy="42.5" r="2.5" fill="#ffe086"/>
+  <circle cx="57.27" cy="27.56" r="3.5" fill="#4b662c"/>
+  <path fill="url(#k)" d="M57.5 17.86c-3.4 0-1.46 4.28 0 8.93 1.46-4.65 3.4-8.93 0-8.93zM52.06 20c-.44-.02-.9.2-1.38.68-2.4 2.4 2 4.06 6.32 6.32-1.8-3.44-3.22-6.94-4.94-7Zm10.88 0c-1.72.06-3.14 3.56-4.94 7 4.32-2.26 8.72-3.92 6.32-6.32-.49-.49-.94-.7-1.38-.68ZM49.7 25.61c-1.15.01-1.85.51-1.85 1.89 0 3.4 4.28 1.46 8.93 0-2.76-.86-5.4-1.9-7.08-1.89zm15.58 0c-1.69-.01-4.32 1.03-7.08 1.89 4.65 1.46 8.93 3.4 8.93 0 0-1.38-.7-1.88-1.85-1.89zM57 28c-4.32 2.26-8.72 3.92-6.32 6.32 2.4 2.4 4.06-2 6.32-6.32Zm1 0c2.26 4.32 3.92 8.72 6.32 6.32 2.4-2.4-2-4.06-6.32-6.32Zm-.5.2c-1.46 4.66-3.4 8.94 0 8.94s1.46-4.28 0-8.93z"/>
+  <circle cx="57.5" cy="27.5" r="2.5" fill="#ffe086"/>
+  <circle cx="67.11" cy="52.4" r="3.5" fill="#4b662c"/>
+  <path fill="url(#l)" d="M67.5 42.86c-3.4 0-1.46 4.28 0 8.93 1.46-4.65 3.4-8.93 0-8.93zM62.06 45c-.44-.02-.9.2-1.38.68-2.4 2.4 2 4.06 6.32 6.32-1.8-3.44-3.22-6.94-4.94-7Zm10.88 0c-1.72.06-3.14 3.56-4.94 7 4.32-2.26 8.72-3.92 6.32-6.32-.49-.49-.94-.7-1.38-.68ZM59.7 50.61c-1.15.01-1.85.51-1.85 1.89 0 3.4 4.28 1.46 8.93 0-2.76-.86-5.4-1.9-7.08-1.89zm15.58 0c-1.69-.01-4.32 1.03-7.08 1.89 4.65 1.46 8.93 3.4 8.93 0 0-1.38-.7-1.88-1.85-1.89zM67 53c-4.32 2.26-8.72 3.92-6.32 6.32 2.4 2.4 4.06-2 6.32-6.32Zm1 0c2.26 4.32 3.92 8.72 6.32 6.32 2.4-2.4-2-4.06-6.32-6.32Zm-.5.2c-1.46 4.66-3.4 8.94 0 8.94s1.46-4.28 0-8.93z"/>
+  <circle cx="67.5" cy="52.5" r="2.5" fill="#ffe086"/>
+</svg>
