@@ -12,15 +12,15 @@ extension DurationFormatting on Duration {
       if (minutes == 0 && seconds == 0) {
         return '$hours ${hours == 1 ? "Stunde" : "Stunden"}';
       } else if (seconds == 0) {
-        return '$hours:${twoDigits(minutes)} ${hours == 1 ? "Stunde" : "Stunden"}';
+        return '$hours:${twoDigits(minutes)} ${hours == 1 && minutes == 0 ? "Stunde" : "Stunden"}';
       } else {
-        return '$hours:${twoDigits(minutes)}:${twoDigits(seconds)} ${hours == 1 ? "Stunde" : "Stunden"}';
+        return '$hours:${twoDigits(minutes)}:${twoDigits(seconds)} ${hours == 1 && minutes == 0 && seconds == 0 ? "Stunde" : "Stunden"}';
       }
     } else if (minutes > 0) {
       if (seconds == 0) {
         return '$minutes ${minutes == 1 ? "Minute" : "Minuten"}';
       } else {
-        return '$minutes:${twoDigits(seconds)} ${minutes == 1 ? "Minute" : "Minuten"}';
+        return '$minutes:${twoDigits(seconds)} ${minutes == 1 && seconds == 0 ? "Minute" : "Minuten"}';
       }
     } else {
       return '$seconds ${seconds == 1 ? "Sekunde" : "Sekunden"}';
@@ -38,7 +38,7 @@ extension DurationFormatting on Duration {
       if (minutes == 0) {
         return '$hours ${hours == 1 ? "Stunde" : "Stunden"}';
       } else {
-        return '$hours:${minutes.toString().padLeft(2, '0')} ${hours == 1 ? "Stunde" : "Stunden"}';
+        return '$hours:${minutes.toString().padLeft(2, '0')} ${hours == 1 && minutes == 0 ? "Stunde" : "Stunden"}';
       }
     } else {
       return '$roundedMinutes ${roundedMinutes == 1 ? "Minute" : "Minuten"}';
@@ -55,7 +55,7 @@ extension DurationFormatting on Duration {
       if (minutes == 0) {
         return '$hours ${hours == 1 ? "Stunde" : "Stunden"}';
       } else {
-        return '$hours:${minutes.toString().padLeft(2, '0')} ${hours == 1 ? "Stunde" : "Stunden"}';
+        return '$hours:${minutes.toString().padLeft(2, '0')} ${hours == 1 && minutes == 0 ? "Stunde" : "Stunden"}';
       }
     } else {
       return '$roundedMinutes ${roundedMinutes == 1 ? "Minute" : "Minuten"}';
@@ -73,15 +73,15 @@ extension DurationFormatting on Duration {
       return '$hours ${hours == 1 ? "Stunde" : "Stunden"}';
     } else if (hideSeconds) {
       if (hours > 0) {
-        return '$hours:${twoDigits(minutes)} ${hours == 1 ? "Stunde" : "Stunden"}';
+        return '$hours:${twoDigits(minutes)} ${hours == 1 && minutes == 0 ? "Stunde" : "Stunden"}';
       } else {
         return '$minutes ${minutes == 1 ? "Minute" : "Minuten"}';
       }
     } else {
       if (hours > 0) {
-        return '$hours:${twoDigits(minutes)}:${twoDigits(seconds)} ${hours == 1 ? "Stunde" : "Stunden"}';
+        return '$hours:${twoDigits(minutes)}:${twoDigits(seconds)} ${hours == 1 && minutes == 0 && seconds == 0 ? "Stunde" : "Stunden"}';
       } else if (minutes > 0) {
-        return '$minutes:${twoDigits(seconds)} ${minutes == 1 ? "Minute" : "Minuten"}';
+        return '$minutes:${twoDigits(seconds)} ${minutes == 1 && seconds == 0 ? "Minute" : "Minuten"}';
       } else {
         return '$seconds ${seconds == 1 ? "Sekunde" : "Sekunden"}';
       }
