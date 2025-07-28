@@ -2,8 +2,6 @@ import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/controller/bloom_controller_impl.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
-import 'package:bloom_flutter/screens/home/home_screen.dart';
-import 'package:bloom_flutter/screens/settings/settings_screen.dart';
 import 'package:bloom_flutter/services/foreground/foreground_service_impl.dart';
 import 'package:bloom_flutter/services/navigation/navigation_service_impl.dart';
 import 'package:bloom_flutter/services/time/time_service_impl.dart';

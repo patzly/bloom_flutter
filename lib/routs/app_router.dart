@@ -1,6 +1,5 @@
 
 import 'package:go_router/go_router.dart';
-import 'package:flutter/material.dart';
 import 'bloom_routs.dart';
 import 'package:bloom_flutter/screens/home/home_screen.dart';
 import 'package:bloom_flutter/screens/settings/settings_screen.dart';
