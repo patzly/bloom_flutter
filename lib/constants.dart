@@ -9,7 +9,7 @@ class PrefKeys {
   static const sessionTimeFraction = 'sessionTimeFraction';
   static const sessionTimeToleranceFraction = 'sessionTimeToleranceFraction';
   static const screenTimeFraction = 'screenTimeFraction';
-  static const daysStreak = 'daysStreak';
+  static const streak = 'streak';
   static const waterDrops = 'waterDrops';
   static const brightnessLevel = 'brightnessLevel';
   static const contrastLevel = 'contrastLevel';
@@ -46,7 +46,7 @@ class TransactionKeys {
   static const breakTimeMillis = 'breakTimeMillis';
   static const screenTimeMillis = 'screenTimeMillis';
   static const screenTimeFraction = 'screenTimeFraction';
-  static const daysStreak = 'daysStreak';
+  static const streak = 'streak';
   static const waterDrops = 'waterDrops';
 }
 

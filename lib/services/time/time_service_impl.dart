@@ -200,7 +200,7 @@ class TimeServiceImpl implements TimeService {
   }
 
   @override
-  int getDaysStreak() {
+  int getStreak() {
     // TODO: Implement streak logic
     return 0;
   }

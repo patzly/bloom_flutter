@@ -10,7 +10,7 @@ class BloomModel {
   final Duration breakTime;
   final Duration screenTime;
   final double screenTimeFraction;
-  final int daysStreak;
+  final int streak;
   final int waterDrops;
   final bool isServiceRunning;
   final BrightnessLevel brightnessLevel;
@@ -30,7 +30,7 @@ class BloomModel {
     this.breakTime = const Duration(),
     this.screenTime = const Duration(),
     this.screenTimeFraction = 0.0,
-    this.daysStreak = 0,
+    this.streak = 0,
     this.waterDrops = 0,
     this.isServiceRunning = false,
     this.brightnessLevel = BrightnessLevel.auto,
@@ -51,7 +51,7 @@ class BloomModel {
     Duration? breakTime,
     Duration? screenTime,
     double? screenTimeFraction,
-    int? daysStreak,
+    int? streak,
     int? waterDrops,
     bool? isServiceRunning,
     BrightnessLevel? brightnessLevel,
@@ -72,7 +72,7 @@ class BloomModel {
       breakTime: breakTime ?? this.breakTime,
       screenTime: screenTime ?? this.screenTime,
       screenTimeFraction: screenTimeFraction ?? this.screenTimeFraction,
-      daysStreak: daysStreak ?? this.daysStreak,
+      streak: streak ?? this.streak,
       waterDrops: waterDrops ?? this.waterDrops,
       isServiceRunning: isServiceRunning ?? this.isServiceRunning,
       brightnessLevel: brightnessLevel ?? this.brightnessLevel,

@@ -30,7 +30,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
         screenTimeFraction: storageService.getDouble(
           PrefKeys.screenTimeFraction,
         ),
-        daysStreak: storageService.getInt(PrefKeys.daysStreak),
+        streak: storageService.getInt(PrefKeys.streak),
         waterDrops: storageService.getInt(PrefKeys.waterDrops),
         brightnessLevel: BrightnessLevel.values.byName(
           storageService.getString(PrefKeys.brightnessLevel) ??
@@ -157,13 +157,13 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   @override
   void reset() {
     foregroundService.stop();
-    int daysStreak = state.daysStreak;
+    int streak = state.streak;
     int waterDrops = state.waterDrops;
     storageService.clear().then((_) {
-      storageService.saveInt(PrefKeys.daysStreak, daysStreak);
+      storageService.saveInt(PrefKeys.streak, streak);
       storageService.saveInt(PrefKeys.waterDrops, waterDrops);
     });
-    emit(BloomModel(daysStreak: daysStreak, waterDrops: waterDrops));
+    emit(BloomModel(streak: streak, waterDrops: waterDrops));
   }
 
   Future<void> _initService() async {
@@ -184,7 +184,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
         final screenTimeMillis =
             data[TransactionKeys.screenTimeMillis] as int? ?? 0;
         final screenTimeFraction = data[PrefKeys.screenTimeFraction] as double?;
-        final daysStreak = data[PrefKeys.daysStreak] as int?;
+        final streak = data[PrefKeys.streak] as int?;
         final waterDrops = data[PrefKeys.waterDrops] as int?;
         emit(
           state.copyWith(
@@ -200,7 +200,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
             breakTime: Duration(milliseconds: breakTimeMillis),
             screenTime: Duration(milliseconds: screenTimeMillis),
             screenTimeFraction: screenTimeFraction,
-            daysStreak: daysStreak,
+            streak: streak,
             waterDrops: waterDrops,
           ),
         );

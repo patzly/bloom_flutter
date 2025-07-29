@@ -23,7 +23,7 @@ abstract class TimeService {
 
   double getScreenTimeFraction();
 
-  int getDaysStreak();
+  int getStreak();
 
   int getWaterDrops();
 }
