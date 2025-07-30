@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloom_flutter/constants.dart';
+import 'package:bloom_flutter/services/notification/notification_service.dart';
 import 'package:bloom_flutter/services/time/listener/time_listener.dart';
 import 'package:bloom_flutter/services/time/time_service.dart';
 import 'package:flutter/foundation.dart';
@@ -9,14 +10,20 @@ import 'package:screen_state/screen_state.dart';
 
 class ForegroundTaskHandler extends TaskHandler implements TimeListener {
   late final TimeService timeService;
+  late final NotificationService notificationService;
   late Screen _screen;
   late StreamSubscription<ScreenStateEvent> _subscription;
 
-  ForegroundTaskHandler(this.timeService);
+  ForegroundTaskHandler({
+    required this.timeService,
+    required this.notificationService,
+  });
 
   @override
   Future<void> onStart(DateTime timestamp, TaskStarter starter) async {
     print('onStart(starter: ${starter.name})');
+
+    notificationService.init();
 
     timeService.setListener(this);
     timeService.loadFromStorage();

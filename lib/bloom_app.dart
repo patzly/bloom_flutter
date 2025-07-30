@@ -2,7 +2,7 @@ import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/controller/bloom_controller_impl.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
-import 'package:bloom_flutter/services/foreground/foreground_service_impl.dart';
+import 'package:bloom_flutter/services/background/background_service_impl.dart';
 import 'package:bloom_flutter/services/navigation/navigation_service.dart';
 import 'package:bloom_flutter/services/navigation/navigation_service_impl.dart';
 import 'package:bloom_flutter/services/storage/storage_service_impl.dart';
@@ -34,16 +34,16 @@ class _BloomAppState extends State<BloomApp> {
     _initController = Future(() async {
       // Initialize services and controller
       final storageService = await StorageServiceImpl.create();
-      final foregroundService = await ForegroundServiceImpl.create(
+      final backgroundService = await BackgroundServiceImpl.create(
         TimeServiceImpl(storageService),
       );
       _controller = BloomControllerImpl(
         navigationService: _navigationService,
-        foregroundService: foregroundService,
+        backgroundService: backgroundService,
         storageService: storageService,
       );
       // Sync UI data with service data
-      foregroundService.sendDataToService(ActionData.update);
+      backgroundService.sendDataToService(ActionData.update);
     });
   }
 
