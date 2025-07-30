@@ -1,12 +1,13 @@
 import 'dart:async';
 
 import 'package:bloom_flutter/constants.dart';
+import 'package:bloom_flutter/services/time/listener/time_listener.dart';
 import 'package:bloom_flutter/services/time/time_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:screen_state/screen_state.dart';
 
-class ForegroundTaskHandler extends TaskHandler {
+class ForegroundTaskHandler extends TaskHandler implements TimeListener {
   late final TimeService timeService;
   late Screen _screen;
   late StreamSubscription<ScreenStateEvent> _subscription;
@@ -17,6 +18,7 @@ class ForegroundTaskHandler extends TaskHandler {
   Future<void> onStart(DateTime timestamp, TaskStarter starter) async {
     print('onStart(starter: ${starter.name})');
 
+    timeService.setListener(this);
     timeService.loadFromStorage();
     timeService.setUserPresence(UserPresence.UNLOCKED);
     _update();
@@ -54,6 +56,40 @@ class ForegroundTaskHandler extends TaskHandler {
     }
   }
 
+  @override
+  void onPhoneTimeIncreased() {
+    /*double sessionTimeToleranceFraction = timeService.getSessionTimeToleranceFraction();
+    if (sessionTimeToleranceFraction > 0 && sessionTimeToleranceFraction < 1) {
+      notificationUtil.createNotificationChannelLiveUpdates();
+      // create live update
+      String breakMinutesString = getResources().getQuantityString(
+          R.plurals.label_minutes,
+          phoneTimeUtil.getBreakTimeMinutes(),
+          phoneTimeUtil.getBreakTimeMinutes()
+      );
+      Notification notification = notificationUtil.getLiveUpdateNotification(
+          getString(R.string.msg_flower_thirsty),
+          getString(
+              R.string.msg_flower_thirsty_description,
+              breakMinutesString,
+              phoneTimeUtil.getSessionTimeRemainingMinutesString()
+          ),
+          R.drawable.illustration_notification_2
+      );
+      notificationUtil.updateLiveUpdateNotification(notification, false);
+    }*/
+  }
+
+  @override
+  void onToleranceExceeded() {
+    // TODO: implement onToleranceExceeded
+  }
+
+  @override
+  void onBreak() {
+    // TODO: implement onBreak
+  }
+
   void _update() async {
     await timeService.update();
 
@@ -76,22 +112,21 @@ class ForegroundTaskHandler extends TaskHandler {
   }
 
   void _onScreenStateChanged(ScreenStateEvent event) {
+    ForegroundTaskEventAction eventAction;
     if (event == ScreenStateEvent.SCREEN_OFF) {
       timeService.setUserPresence(UserPresence.OFF);
+      eventAction = ForegroundTaskEventAction.nothing();
     } else if (event == ScreenStateEvent.SCREEN_ON) {
       timeService.setUserPresence(UserPresence.LOCKED);
+      eventAction = ForegroundTaskEventAction.nothing();
     } else {
       timeService.setUserPresence(UserPresence.UNLOCKED);
+      eventAction = ForegroundTaskEventAction.repeat(
+        Constants.updateInterval.inMilliseconds,
+      );
     }
     FlutterForegroundTask.updateService(
-      foregroundTaskOptions: ForegroundTaskOptions(
-        eventAction:
-            event == ScreenStateEvent.SCREEN_UNLOCKED
-                ? ForegroundTaskEventAction.repeat(
-                  Constants.updateInterval.inMilliseconds,
-                )
-                : ForegroundTaskEventAction.nothing(),
-      ),
+      foregroundTaskOptions: ForegroundTaskOptions(eventAction: eventAction),
     );
   }
 }

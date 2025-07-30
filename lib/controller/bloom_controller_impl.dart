@@ -152,6 +152,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
     storageService.saveInt(PrefKeys.dailyResetHour, dailyResetTime.hour);
     storageService.saveInt(PrefKeys.dailyResetMinute, dailyResetTime.minute);
     emit(state.copyWith(dailyResetTime: dailyResetTime));
+    sendDataToService(ActionData.timePrefsChanged);
   }
 
   @override

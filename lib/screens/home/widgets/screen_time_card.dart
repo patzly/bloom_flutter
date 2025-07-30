@@ -264,10 +264,10 @@ class ScreenTimeCard extends StatelessWidget {
               materialTapTargetSize: MaterialTapTargetSize.padded,
               onPressed: () {
                 String msg =
-                    "Halte deine Zeitlimits einen Tag lang ein, um einen Wassertropfen zu verdienen. Wassertropfen retten deine Pflanze vor dem Vertrocknen, indem sie dir 5 Minuten Extrazeit geben.";
+                    "Halte deine Zeitlimits einen Tag lang ein, um einen Wassertropfen zu verdienen. Wassertropfen retten deine Pflanze vor dem Vertrocknen, indem sie dir bei Bedarf 5 Minuten Extrazeit geben.";
                 if (model.waterDrops > 0) {
                   msg =
-                      "Du hast noch ${model.waterDrops} Wassertropfen! Wassertropfen retten deine Pflanze vor dem Vertrockne, indem sie dir 5 Minuten Extrazeit geben.";
+                      "Du hast noch ${model.waterDrops} Wassertropfen! Wassertropfen retten deine Pflanze vor dem Vertrockne, indem sie dir bei Bedarf 5 Minuten Extrazeit geben.";
                 }
                 showMsgDialog(context, title: "Wassertropfen", msg: msg);
               },
