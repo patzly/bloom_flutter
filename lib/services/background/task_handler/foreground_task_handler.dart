@@ -88,14 +88,14 @@ class ForegroundTaskHandler extends TaskHandler implements TimeListener {
         notificationService.updateLiveUpdateNotification(
           title: "Deine Blume braucht Wasser!",
           text:
-              "Leg dein Smartphone für mindestens $breakTimeString weg, damit sie ausreichend gegossen wird. Ansonsten vertrocknet sie in $remainingStringMinutes.",
+              "Lege dein Smartphone für mindestens $breakTimeString weg, damit sie ausreichend gegossen wird. Ansonsten vertrocknet sie in $remainingStringMinutes.",
         );
       } else {
         String remainingString = remaining.toPrettyStringShortest();
         notificationService.updateLiveUpdateNotification(
           title: "Deine Blume vertrocknet in $remainingString!",
           text:
-              "Leg dein Smartphone jetzt für mindestens $breakTimeString weg, damit sie ausreichend gegossen wird.",
+              "Lege dein Smartphone jetzt für mindestens $breakTimeString weg, damit sie ausreichend gegossen wird.",
         );
       }
     }
@@ -113,7 +113,7 @@ class ForegroundTaskHandler extends TaskHandler implements TimeListener {
     notificationService.updateEventNotification(
       title: "Deine Blume ist vertrocknet!",
       text:
-      "Leg dein Smartphone für heute weg und versuche, dich morgen an deine Zeitlimits zu halten.",
+      "Lege dein Smartphone für heute weg und versuche, dich morgen an deine Zeitlimits zu halten.",
     );
   }
 
