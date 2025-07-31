@@ -6,6 +6,7 @@ import 'package:bloom_flutter/screens/settings/widgets/settings/setting_with_ico
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ScreenTimeMaxSetting extends StatelessWidget {
   final BloomModel model;
@@ -32,7 +33,7 @@ class ScreenTimeMaxSetting extends StatelessWidget {
       ),
       children: [
         Text(
-          'Maximale Bildschirmzeit pro Tag',
+          "settings.max_screen_time".tr(),
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         Text(

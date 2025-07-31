@@ -1,0 +1,25 @@
+{
+  "settings": {
+    "title": "Settings",
+    "back": "Back",
+    "service_running": "Background service is running",
+    "service_not_running": "Background service is not running",
+    "notification_info": "The service is required to measure screen time and displays a low-priority permanent notification to stay alive.",
+    "start_service": "Start service",
+    "stop_service": "Stop service",
+    "max_session_time": "Maximum session duration",
+    "max_screen_time": "Maximum screen time per day",
+    "min_break_time" : "Minimaldauer einer Pause",
+    "resetDialogTitle": "Alles zurücksetzen?",
+    "resetDialogContent": "Möchtest du wirklich die gesamte App zurücksetzen? Dies kann nicht rückgängig gemacht werden. Dein Streak und deine Wassertropfen bleiben erhalten.",
+    "cancel": "Abbrechen",
+    "reset": "Zurücksetzen",
+    "resetAll": "Alles zurücksetzen",
+    "cannotUndo": "Kann nicht rückgängig gemacht werden",
+    "brightness": "Helligkeit",
+    "brightness_description": "Kann die Lesbarkeit je nach Tageszeit verbessern",
+    "brightness_auto": "Auto",
+    "brightness_light": "Hell",
+    "brightness_dark": "Dunkel"
+  }
+}

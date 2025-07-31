@@ -4,6 +4,7 @@ import 'package:bloom_flutter/screens/settings/widgets/settings/setting_with_ico
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ResetSetting extends StatelessWidget {
   final BloomModel model;
@@ -25,21 +26,19 @@ class ResetSetting extends StatelessWidget {
           ),
           builder: (context) {
             return AlertDialog(
-              title: const Text("Alles zurücksetzen?"),
-              content: const Text(
-                'Möchtest du wirklich die gesamte App zurücksetzen? Dies kann nicht rückgängig gemacht werden. Dein Streak und deine Wassertropfen bleiben erhalten.',
-              ),
+              title: Text("settings.resetDialogTitle".tr()),
+              content: Text("settings.resetDialogContent".tr()),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('Abbrechen'),
+                  child: Text("settings.cancel".tr()),
                 ),
                 TextButton(
                   onPressed: () {
                     controller.reset();
                     Navigator.pop(context);
                   },
-                  child: const Text('Zurücksetzen'),
+                  child: Text("settings.reset".tr()),
                 ),
               ],
               actionsPadding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
@@ -53,11 +52,11 @@ class ResetSetting extends StatelessWidget {
       ),
       children: [
         Text(
-          'Alles zurücksetzen',
+          "settings.resetAll".tr(),
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         Text(
-          'Kann nicht rückgängig gemacht werden',
+          "settings.cannotUndo".tr(),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),

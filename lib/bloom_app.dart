@@ -12,6 +12,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BloomApp extends StatefulWidget {
   const BloomApp({super.key});
@@ -91,6 +92,10 @@ class _BloomAppState extends State<BloomApp> {
                       contrastLevel: model.contrastLevel,
                     ),
                     debugShowCheckedModeBanner: false,
+
+                    locale: context.locale,
+                    supportedLocales: context.supportedLocales,
+                    localizationsDelegates: context.localizationDelegates,
                   );
                 },
               );

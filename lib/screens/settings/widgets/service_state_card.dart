@@ -3,6 +3,7 @@ import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:bloom_flutter/screens/settings/dialogs/permission_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ServiceStateCard extends StatelessWidget {
   final BloomModel model;
@@ -30,14 +31,12 @@ class ServiceStateCard extends StatelessWidget {
             children: [
               Text(
                 model.isServiceRunning
-                    ? "Hintergrundservice läuft"
-                    : "Hintergrundservice läuft nicht",
+                    ? "settings.service_running".tr()
+                    : "settings.service_not_running".tr(),
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 4),
-              Text(
-                "Der Service ist für die Messung der Bildschirmzeit erforderlich und zeigt eine permanente Benachrichtigung mit niedriger Priorität an, um erhalten zu bleiben.",
-              ),
+              Text("settings.notification_info".tr()),
               const SizedBox(height: 8),
               Align(
                 alignment: Alignment.centerRight,
@@ -66,8 +65,8 @@ class ServiceStateCard extends StatelessWidget {
                   },
                   child: Text(
                     model.isServiceRunning
-                        ? "Service stoppen"
-                        : "Service starten",
+                        ? "settings.stop_service".tr()
+                        : "settings.start_service".tr(),
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                       color: Theme.of(context).colorScheme.onSecondaryContainer,
                     ),

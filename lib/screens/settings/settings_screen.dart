@@ -12,6 +12,7 @@ import 'package:bloom_flutter/screens/settings/widgets/settings/session_time_max
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -22,7 +23,7 @@ class SettingsScreen extends StatelessWidget {
       builder: (context, model) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Einstellungen'),
+            title: Text('settings.title'.tr()),
             centerTitle: true,
             elevation: 3,
             scrolledUnderElevation: 3,
@@ -33,7 +34,7 @@ class SettingsScreen extends StatelessWidget {
                 Symbols.arrow_back_rounded,
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
-              tooltip: "Zurück",
+              tooltip: "settings.back".tr(),
               onPressed: () => Navigator.maybePop(context),
             ),
           ),
