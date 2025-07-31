@@ -52,7 +52,15 @@ class ServiceStateCard extends StatelessWidget {
                       if (hasPermission) {
                         controller.startService();
                       } else {
-                        showPermissionDialog(context);
+                        bool? request = await showPermissionDialog(context);
+                        if (request != null && request) {
+                          bool granted =
+                              await controller.requestNotificationPermission();
+                          if (granted) {
+                            // Start background service if permission is granted
+                            controller.startService();
+                          }
+                        }
                       }
                     }
                   },

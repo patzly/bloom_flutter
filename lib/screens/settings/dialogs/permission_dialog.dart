@@ -2,11 +2,11 @@ import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-Future<void> showPermissionDialog(BuildContext context) async {
+Future<bool?> showPermissionDialog(BuildContext context) async {
   final controller = BlocProvider.of<BloomController>(context);
   bool hasPermission = await controller.hasNotificationPermission();
   if (hasPermission) {
-    return;
+    return false;
   }
   bool isDeniedPermanently =
       await controller.isNotificationPermissionDeniedPermanently();
@@ -15,7 +15,7 @@ Future<void> showPermissionDialog(BuildContext context) async {
           ? 'Die Berechtigung wurde dauerhaft verweigert. Bitte erlaube Bloom das Anzeigen von Benachrichtigungen in den System-Einstellungen.'
           : 'Erlaube Bloom beim folgenden Dialog, Benachrichtigungen zum Erhalt des Hintergrundservices und zur Warnung vor Überschreiten deiner Zeitlimits anzuzeigen.';
   String action = isDeniedPermanently ? 'Schließen' : 'Weiter';
-  return showDialog<void>(
+  return showDialog<bool>(
     context: context,
     animationStyle: AnimationStyle(
       duration: Duration(milliseconds: 200),
@@ -29,16 +29,7 @@ Future<void> showPermissionDialog(BuildContext context) async {
         content: Text(msg),
         actions: [
           TextButton(
-            onPressed: () async {
-              Navigator.of(context).pop();
-              if (!isDeniedPermanently) {
-                bool granted = await controller.requestNotificationPermission();
-                if (granted) {
-                  // Start background service if permission is granted
-                  controller.startService();
-                }
-              }
-            },
+            onPressed: () => Navigator.pop(context, true),
             child: Text(action),
           ),
         ],
