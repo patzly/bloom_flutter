@@ -23,7 +23,6 @@ void main() {
     backgroundService = MockBackgroundService();
     storageService = MockStorageService();
 
-    // Mocks auf Default-Werte setzen
     when(() => storageService.getDouble(any())).thenReturn(null);
     when(() => storageService.getInt(any())).thenReturn(null);
     when(() => storageService.getBool(any())).thenReturn(null);
@@ -52,6 +51,4 @@ void main() {
     controller.navigateToSettings();
     verify(() => navigationService.navigateToSettings()).called(1);
   });
-
 }
-

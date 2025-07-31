@@ -1,8 +1,7 @@
+import 'package:bloom_flutter/services/storage/storage_service_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:bloom_flutter/services/storage/storage_service_impl.dart';
-import 'package:bloom_flutter/services/storage/storage_service.dart';
 
 class MockSharedPreferences extends Mock implements SharedPreferences {}
 
@@ -17,7 +16,9 @@ void main() {
 
   group('StorageServiceImpl', () {
     test('saveString calls SharedPreferences.setString', () async {
-      when(() => mockPrefs.setString('key', 'value')).thenAnswer((_) async => true);
+      when(
+        () => mockPrefs.setString('key', 'value'),
+      ).thenAnswer((_) async => true);
 
       await storageService.saveString('key', 'value');
 
@@ -68,7 +69,9 @@ void main() {
     });
 
     test('saveDouble calls SharedPreferences.setDouble', () async {
-      when(() => mockPrefs.setDouble('key', 3.14)).thenAnswer((_) async => true);
+      when(
+        () => mockPrefs.setDouble('key', 3.14),
+      ).thenAnswer((_) async => true);
 
       await storageService.saveDouble('key', 3.14);
 
