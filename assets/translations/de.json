@@ -11,7 +11,7 @@
     "stop": "Service stoppen"
   },
   "permission": {
-    "dialog_title": "Die Berechtigung wurde dauerhaft verweigert. Bitte erlaube Bloom das Anzeigen von Benachrichtigungen in den System-Einstellungen.",
+    "dialog_title": "Berechtigung erforderlich",
     "dialog_msg": "Erlaube Bloom beim folgenden Dialog, Benachrichtigungen zum Erhalt des Hintergrundservices und zur Warnung vor Überschreiten deiner Zeitlimits anzuzeigen.",
     "dialog_msg_denied": "Die Berechtigung wurde dauerhaft verweigert. Bitte erlaube Bloom das Anzeigen von Benachrichtigungen in den System-Einstellungen.",
     "info": "Der Service ist für die Messung der Bildschirmzeit erforderlich und zeigt eine permanente Benachrichtigung mit niedriger Priorität an, um erhalten zu bleiben.",
