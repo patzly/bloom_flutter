@@ -125,28 +125,62 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildFlowerImage(BuildContext context, BloomModel model) {
-    String assetName = 'assets/flower/flower1.svg';
-    if (model.sessionTimeToleranceFraction >= 1 ||
-        model.screenTimeFraction >= 1) {
-      assetName = 'assets/flower/flower3.svg';
-    } else if (model.sessionTimeFraction >= 1 &&
-        model.sessionTimeToleranceFraction < 1 &&
-        model.screenTimeFraction < 1) {
-      assetName = 'assets/flower/flower2.svg';
-    }
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(48),
-        child: FittedBox(
-          fit: BoxFit.contain,
-          child: SvgPicture.asset(
-            assetName,
-            semanticsLabel: 'Flower',
-            width: 300,
-            height: 300,
+    if (model.isServiceRunning) {
+      String assetName = 'assets/flower/flower1.svg';
+      if (model.sessionTimeToleranceFraction >= 1 ||
+          model.screenTimeFraction >= 1) {
+        assetName = 'assets/flower/flower3.svg';
+      } else if (model.sessionTimeFraction >= 1 &&
+          model.sessionTimeToleranceFraction < 1 &&
+          model.screenTimeFraction < 1) {
+        assetName = 'assets/flower/flower2.svg';
+      }
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(48),
+          child: FittedBox(
+            fit: BoxFit.contain,
+            child: SvgPicture.asset(
+              assetName,
+              semanticsLabel: 'Flower',
+              width: 300,
+              height: 300,
+            ),
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(32),
+            child: Center(
+              child: Text(
+                'Bloom hilft dir, deine Bildschirmzeit zu reduzieren und genügend Pausen einzulegen. Um anzufangen, starte den Hintergrundservice und halte dich an deine Zeitlimits, damit es deiner Blume gut geht.',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ),
+          ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(48),
+              child: Column(children: [
+                FittedBox(
+                  fit: BoxFit.contain,
+                  child: SvgPicture.asset(
+                    'assets/flower/flower1.svg',
+                    semanticsLabel: 'Flower',
+                    width: 250,
+                    height: 250,
+                  ),
+                )
+              ]),
+            ),
+          ),
+        ],
+      );
+    }
   }
 }
