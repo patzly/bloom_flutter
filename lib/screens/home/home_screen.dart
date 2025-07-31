@@ -128,7 +128,7 @@ class HomeScreen extends StatelessWidget {
     if (model.isServiceRunning) {
       String assetName = 'assets/flower/flower1.svg';
       if (model.sessionTimeToleranceFraction >= 1 ||
-          model.screenTimeFraction >= 1) {
+          model.screenTimeFraction >= 1 || model.hasDriedOut) {
         assetName = 'assets/flower/flower3.svg';
       } else if (model.sessionTimeFraction >= 1 &&
           model.sessionTimeToleranceFraction < 1 &&
@@ -150,35 +150,44 @@ class HomeScreen extends StatelessWidget {
         ),
       );
     } else {
+      final isPortrait =
+          MediaQuery.of(context).orientation == Orientation.portrait;
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(32),
-            child: Center(
-              child: Text(
-                'Bloom hilft dir, deine Bildschirmzeit zu reduzieren und genügend Pausen einzulegen. Um anzufangen, starte den Hintergrundservice und halte dich an deine Zeitlimits, damit es deiner Blume gut geht.',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge,
+          Expanded(
+            flex: 4,
+            child: Align(
+              alignment: isPortrait ? Alignment.bottomCenter : Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Text(
+                  'Bloom hilft dir, deine Bildschirmzeit zu reduzieren und genügend Pausen einzulegen. Um anzufangen, starte den Hintergrundservice und halte dich an deine Zeitlimits, damit es deiner Blume gut geht.',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
               ),
             ),
           ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(48),
-              child: Column(children: [
-                FittedBox(
-                  fit: BoxFit.contain,
-                  child: SvgPicture.asset(
-                    'assets/flower/flower1.svg',
-                    semanticsLabel: 'Flower',
-                    width: 250,
-                    height: 250,
+          if (isPortrait)
+            Expanded(
+              flex: 6,
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: const EdgeInsets.all(48),
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: SvgPicture.asset(
+                      'assets/flower/flower1.svg',
+                      semanticsLabel: 'Flower',
+                      width: 250,
+                      height: 250,
+                    ),
                   ),
-                )
-              ]),
+                ),
+              ),
             ),
-          ),
         ],
       );
     }

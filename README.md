@@ -1,4 +1,5 @@
-# 📱 Bloom App
+# 📱 Bloom App 
+<img src="assets/icon/icon.png" alt="Home Screen" width="250"/>
 
 ## 🌐 Abstract
 
@@ -34,12 +35,46 @@ Break times are automatically subtracted from active sessions to ensure a smooth
 **Pain Point:** Struggles to manage screen time and often feels digitally fatigued  
 **How Bloom Helps:** Emma uses Bloom to set healthy usage limits, take regular breaks, and improve her sleep and focus
 
-## 🧭 Screens Overview
+## 📱 Screens
 
-| Screen             | Description                                                                    |
-|--------------------|--------------------------------------------------------------------------------|
-| **Home Screen**     | Displays current session and screen time stats with clear visual indicators    |
-| **Settings Screen** | Allows users to adjust session duration, break length, and screen time cap     |
+### ⚙️ Settings Screen
+
+This screen lets users **customize their time limits and visual look**:
+
+- 🔋 **Background Service**  
+  Required for accurate screen time tracking. Runs continuously with a notification.
+
+- 🌗 **Brightness & Contrast Settings**  
+  Users can switch between **Auto**, **Light**, or **Dark mode**, and choose between **Standard**, **Medium**, or **High contrast** for better readability and accessibility.
+
+- 🎨 **Dynamic Colors**  
+  Optionally use system-wide colors for a more personalized look.
+
+- ⏱️ **Custom Time Limits**  
+  Users can freely adjust:
+  - **Max session duration**
+  - **Min break duration**
+  - **Daily screen time limit**
+  - **Start of the day** (useful for night owls)
+
+- 🔄 **Reset Settings**  
+  All settings can be reset with a single tap — irreversible.
+
+
+### 🌼 Home Screen
+
+The home screen visually reflects your daily phone use:
+
+- 🌱 If you're within your limits, you’ll see a **healthy flower** and motivating stats.
+- 🌾 If the **session time ends**, you enter a **grace period** – the flower looks **slightly wilted**, but **can still be saved** by putting your phone away in time.
+- 🥀 If the **grace period** is also exceeded, the flower **fully withers**, and a gentle message encourages you to try again tomorrow.
+
+Key data shown:
+- **Session time** (since last break)
+- **Total screen time today**
+- **Daily streak** and **earned drops**, shown with icons
+
+This visual system turns screen time awareness into a small daily habit — **rewarding balance, not punishment**.
 
 ## 📸 Screenshots
 <div style="display: flex; gap: 5px;">

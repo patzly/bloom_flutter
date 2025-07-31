@@ -32,6 +32,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
         ),
         streak: storageService.getInt(PrefKeys.streak),
         waterDrops: storageService.getInt(PrefKeys.waterDrops),
+        hasDriedOut: storageService.getBool(PrefKeys.hasDriedOut),
         brightnessLevel: BrightnessLevel.values.byName(
           storageService.getString(PrefKeys.brightnessLevel) ??
               state.brightnessLevel.name,
@@ -202,6 +203,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
         final screenTimeFraction = data[PrefKeys.screenTimeFraction] as double?;
         final streak = data[PrefKeys.streak] as int?;
         final waterDrops = data[PrefKeys.waterDrops] as int?;
+        final hasDriedOut = data[PrefKeys.hasDriedOut] as bool?;
         emit(
           state.copyWith(
             sessionTime: Duration(milliseconds: sessionTimeMillis),
@@ -218,6 +220,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
             screenTimeFraction: screenTimeFraction,
             streak: streak,
             waterDrops: waterDrops,
+            hasDriedOut: hasDriedOut,
           ),
         );
       }

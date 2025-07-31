@@ -30,4 +30,6 @@ abstract class TimeService {
   int getStreak();
 
   int getWaterDrops();
+
+  bool hasDriedOut();
 }

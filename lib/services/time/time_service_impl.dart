@@ -19,6 +19,7 @@ class TimeServiceImpl implements TimeService {
   int streak = 0;
   int waterDrops = 0;
   TimeOfDay dailyResetTime = Defaults.dailyResetTime;
+  bool driedOut = false;
 
   TimeServiceImpl(this.storageService);
 
@@ -47,6 +48,7 @@ class TimeServiceImpl implements TimeService {
         (screenTimeFraction * screenTimeMaxMinutes * 60 * 1000).toInt();
     streak = storageService.getInt(PrefKeys.streak) ?? 0;
     waterDrops = storageService.getInt(PrefKeys.waterDrops) ?? 0;
+    driedOut = storageService.getBool(PrefKeys.hasDriedOut) ?? false;
     int dailyResetHour =
         storageService.getInt(PrefKeys.dailyResetHour) ??
         Defaults.dailyResetTime.hour;
@@ -156,6 +158,8 @@ class TimeServiceImpl implements TimeService {
       }
       if (isToleranceExceeded) {
         listener?.onToleranceExceeded();
+        driedOut = true;
+        storageService.saveBool(PrefKeys.hasDriedOut, true);
       }
     }
   }
@@ -224,6 +228,11 @@ class TimeServiceImpl implements TimeService {
   @override
   int getWaterDrops() {
     return waterDrops;
+  }
+
+  @override
+  bool hasDriedOut() {
+    return driedOut;
   }
 
   int _computeSessionTimeMillis(double sessionTimeFraction) {

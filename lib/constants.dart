@@ -11,6 +11,7 @@ class PrefKeys {
   static const screenTimeFraction = 'screenTimeFraction';
   static const streak = 'streak';
   static const waterDrops = 'waterDrops';
+  static const hasDriedOut = 'hasDriedOut';
   static const brightnessLevel = 'brightnessLevel';
   static const contrastLevel = 'contrastLevel';
   static const useDynamicColors = 'useDynamicColors';
@@ -48,6 +49,7 @@ class TransactionKeys {
   static const screenTimeFraction = 'screenTimeFraction';
   static const streak = 'streak';
   static const waterDrops = 'waterDrops';
+  static const hasDriedOut = 'hasDriedOut';
 }
 
 enum BrightnessLevel { auto, light, dark }
