@@ -9,10 +9,10 @@ import 'package:bloom_flutter/services/storage/storage_service_impl.dart';
 import 'package:bloom_flutter/services/time/time_service_impl.dart';
 import 'package:bloom_flutter/theme/bloom_theme.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class BloomApp extends StatefulWidget {
   const BloomApp({super.key});
@@ -74,7 +74,7 @@ class _BloomAppState extends State<BloomApp> {
               return DynamicColorBuilder(
                 builder: (lightColorScheme, darkColorScheme) {
                   return MaterialApp.router(
-                    title: 'Bloom',
+                    title: 'app.name'.tr(),
                     routerConfig: _navigationService.router,
                     themeMode: switch (model.brightnessLevel) {
                       BrightnessLevel.auto => ThemeMode.system,
@@ -92,7 +92,6 @@ class _BloomAppState extends State<BloomApp> {
                       contrastLevel: model.contrastLevel,
                     ),
                     debugShowCheckedModeBanner: false,
-
                     locale: context.locale,
                     supportedLocales: context.supportedLocales,
                     localizationsDelegates: context.localizationDelegates,

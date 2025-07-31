@@ -1,26 +1,70 @@
 {
+  "app": {
+    "name": "Bloom"
+  },
+  "service": {
+    "running": "Hintergrundservice läuft",
+    "not_running": "Hintergrundservice läuft nicht",
+    "info": "Der Service ist für die Messung der Bildschirmzeit erforderlich und zeigt eine permanente Benachrichtigung mit niedriger Priorität an, um erhalten zu bleiben.",
+    "start": "Service starten",
+    "stop": "Service stoppen"
+  },
+  "permission": {
+    "dialog_title": "Die Berechtigung wurde dauerhaft verweigert. Bitte erlaube Bloom das Anzeigen von Benachrichtigungen in den System-Einstellungen.",
+    "dialog_msg": "Erlaube Bloom beim folgenden Dialog, Benachrichtigungen zum Erhalt des Hintergrundservices und zur Warnung vor Überschreiten deiner Zeitlimits anzuzeigen.",
+    "dialog_msg_denied": "Die Berechtigung wurde dauerhaft verweigert. Bitte erlaube Bloom das Anzeigen von Benachrichtigungen in den System-Einstellungen.",
+    "info": "Der Service ist für die Messung der Bildschirmzeit erforderlich und zeigt eine permanente Benachrichtigung mit niedriger Priorität an, um erhalten zu bleiben.",
+    "start": "Service starten",
+    "stop": "Service stoppen"
+  },
   "settings": {
     "title": "Einstellungen",
-    "back": "Zurück",
-    "service_running": "Backgroundservice is not running",
-    "service_not_running": "Backgroundservice is running",
-    "notification_info": "Der Service ist für die Messung der Bildschirmzeit erforderlich und zeigt eine permanente Benachrichtigung mit niedriger Priorität an, um erhalten zu bleiben.",
-    "start_service": "Service starten",
-    "stop_service": "Service stoppen",
-    "max_session_time": "Maximaldauer einer Sitzung12",
-    "max_screen_time": "Maximale Bildschirmzeit pro Tag",
+    "brightness": {
+      "title": "Helligkeit",
+      "description": "Kann die Lesbarkeit je nach Tageszeit verbessern",
+      "auto": "Auto",
+      "light": "Hell",
+      "dark": "Dunkel"
+    },
+    "dynamic_colors": {
+      "title": "Dynamische Farben",
+      "description": "Farben des Systems nutzen"
+    },
+    "contrast": {
+      "title": "Kontrast",
+      "description": "Kann die Lesbarkeit bei Sehschwäche verbessern",
+      "standard": "Standard",
+      "medium": "Mittel",
+      "heigh": "Hoch"
+    },
+    "max_session_time": "Maximaldauer einer Sitzung",
     "min_break_time" : "Minimaldauer einer Pause",
-    "resetDialogTitle": "Alles zurücksetzen?",
-    "resetDialogContent": "Möchtest du wirklich die gesamte App zurücksetzen? Dies kann nicht rückgängig gemacht werden. Dein Streak und deine Wassertropfen bleiben erhalten.",
+    "max_screen_time": "Maximale Bildschirmzeit pro Tag",
+    "duration_dialog_title": "Dauer auswählen",
+    "daily_reset_time": {
+      "title": "Tagesbeginn",
+      "dialog_title": "Uhrzeit auswählen"
+    },
+    "reset": {
+      "title": "Alles zurücksetzen",
+      "description": "Kann nicht rückgängig gemacht werden",
+      "dialog_title": "Alles zurücksetzen?",
+      "dialog_msg": "Möchtest du wirklich die gesamte App zurücksetzen? Dies kann nicht rückgängig gemacht werden. Dein Streak und deine Wassertropfen bleiben erhalten."
+    }
+  },
+  "actions": {
+    "back": "Zurück",
+    "select": "Auswählen",
     "cancel": "Abbrechen",
     "reset": "Zurücksetzen",
-    "resetAll": "Alles zurücksetzen",
-    "cannotUndo": "Kann nicht rückgängig gemacht werden",
-    "brightness": "Helligkeit",
-    "brightness_description": "Kann die Lesbarkeit je nach Tageszeit verbessern",
-    "brightness_auto": "Auto",
-    "brightness_light": "Hell",
-    "brightness_dark": "Dunkel"
+    "close": "Schließen",
+    "next": "Weiter"
+  },
+  "time": {
+    "minutes": "{count} Minute",
+    "minutes_plural": "{count} Minuten",
+    "hours": "{count} Stunde",
+    "hours_plural": "{count} Stunden"
   }
 }
 

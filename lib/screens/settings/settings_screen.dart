@@ -9,10 +9,10 @@ import 'package:bloom_flutter/screens/settings/widgets/settings/dynamic_color_se
 import 'package:bloom_flutter/screens/settings/widgets/settings/reset_setting.dart';
 import 'package:bloom_flutter/screens/settings/widgets/settings/screen_time_max_setting.dart';
 import 'package:bloom_flutter/screens/settings/widgets/settings/session_time_max_setting.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -34,7 +34,7 @@ class SettingsScreen extends StatelessWidget {
                 Symbols.arrow_back_rounded,
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
-              tooltip: "settings.back".tr(),
+              tooltip: "actions.back".tr(),
               onPressed: () => Navigator.maybePop(context),
             ),
           ),

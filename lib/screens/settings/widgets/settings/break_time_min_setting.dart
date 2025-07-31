@@ -3,10 +3,10 @@ import 'package:bloom_flutter/extensions/time_extensions.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:bloom_flutter/screens/settings/dialogs/duration_dialog.dart';
 import 'package:bloom_flutter/screens/settings/widgets/settings/setting_with_icon.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class BreakTimeMinSetting extends StatelessWidget {
   final BloomModel model;
