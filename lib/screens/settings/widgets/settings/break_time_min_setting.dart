@@ -7,18 +7,22 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
-
 class BreakTimeMinSetting extends StatelessWidget {
   final BloomModel model;
+  final Future<Duration?> Function(BuildContext context, Duration initialDuration) showDialogFn;
 
-  const BreakTimeMinSetting({super.key, required this.model});
+  const BreakTimeMinSetting({
+    super.key,
+    required this.model,
+    this.showDialogFn = showDurationDialog, // default auf Originalfunktion
+  });
 
   @override
   Widget build(BuildContext context) {
     final controller = BlocProvider.of<BloomController>(context);
     return SettingWithIcon(
       onTap: () {
-        showDurationDialog(context, model.breakTimeMin).then((duration) {
+        showDialogFn(context, model.breakTimeMin).then((duration) {
           if (duration != null) {
             if (duration.inMinutes < 1) {
               duration = const Duration(minutes: 1);

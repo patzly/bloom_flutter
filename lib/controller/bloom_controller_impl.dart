@@ -83,7 +83,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   }
 
   @override
-  void startService() async {
+  Future<void> startService() async {
     final result = await backgroundService.start();
     if (result) {
       emit(state.copyWith(isServiceRunning: true));
@@ -91,7 +91,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   }
 
   @override
-  void stopService() async {
+  Future<void> stopService() async {
     final success = await backgroundService.stop();
     if (success) {
       emit(state.copyWith(isServiceRunning: false));
