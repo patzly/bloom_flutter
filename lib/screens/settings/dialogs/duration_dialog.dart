@@ -37,11 +37,7 @@ Future<Duration?> showDurationDialog(
                   children: List.generate(
                     24,
                     (i) => Center(
-                      child: Text(
-                        "time.hours_short".tr(
-                          namedArgs: {'count': i.toString()},
-                        ),
-                      ),
+                      child: Text("time.hours_short".tr(args: [i.toString()])),
                     ),
                   ),
                 ),
@@ -57,9 +53,7 @@ Future<Duration?> showDurationDialog(
                     12,
                     (i) => Center(
                       child: Text(
-                        "time.minutes_short".tr(
-                          namedArgs: {'count': (i * 5).toString()},
-                        ),
+                        "time.minutes_short".tr(args: [(i * 5).toString()]),
                       ),
                     ),
                   ),

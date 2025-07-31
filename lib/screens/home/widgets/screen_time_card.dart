@@ -43,10 +43,9 @@ class ScreenTimeCard extends StatelessWidget {
                 _buildExceededBlock(
                   context,
                   "time.session_time_exceeded".tr(
-                    namedArgs: {
-                      'session_time_tolerance': model.sessionTimeTolerance
-                          .toPrettyString(false, false),
-                    },
+                    args: [
+                      model.sessionTimeTolerance.toPrettyString(false, false),
+                    ],
                   ),
                   Constants.sessionTimeToleranceMax.toPrettyStringShortest(),
                   model.sessionTimeToleranceFraction,
@@ -61,14 +60,12 @@ class ScreenTimeCard extends StatelessWidget {
                 _buildChips(
                   context,
                   model.streak == 1
-                      ? "time.days".tr(namedArgs: {'count': '1'})
-                      : "time.days".tr(
-                        namedArgs: {'count': model.streak.toString()},
-                      ),
+                      ? "time.days".tr(args: ['1'])
+                      : "time.days".tr(args: [model.streak.toString()]),
                   model.waterDrops == 1
-                      ? "time.water_drops".tr(namedArgs: {'count': '1'})
+                      ? "time.water_drops".tr(args: ['1'])
                       : "time.water_drops".tr(
-                        namedArgs: {'count': model.waterDrops.toString()},
+                        args: [model.waterDrops.toString()],
                       ),
                 ),
               ],
@@ -252,7 +249,7 @@ class ScreenTimeCard extends StatelessWidget {
                   msg = "time.streak_dialog.msg_one".tr();
                 } else if (model.streak > 1) {
                   msg = "time.streak_dialog.msg_more".tr(
-                    namedArgs: {"streak": model.streak.toString()},
+                    args: [model.streak.toString()],
                   );
                 }
                 showMsgDialog(
@@ -284,7 +281,7 @@ class ScreenTimeCard extends StatelessWidget {
                   msg = "time.water_drops_dialog.msg_one".tr();
                 } else if (model.waterDrops > 1) {
                   msg = "time.water_drops_dialog.msg_more".tr(
-                    namedArgs: {"water_drops": model.waterDrops.toString()},
+                    args: [model.waterDrops.toString()],
                   );
                 }
                 showMsgDialog(

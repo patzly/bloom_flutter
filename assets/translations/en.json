@@ -1,6 +1,7 @@
 {
   "app": {
-    "name": "Bloom"
+    "name": "Bloom",
+    "intro": "Bloom hilft dir, deine Bildschirmzeit zu reduzieren und genügend Pausen einzulegen. Um anzufangen, starte den Hintergrundservice und halte dich an deine Zeitlimits, damit es deiner Blume gut geht."
   },
   "service": {
     "running": "Hintergrundservice läuft",
@@ -61,10 +62,40 @@
     "next": "Weiter"
   },
   "time": {
-    "minutes": "{count} Minute",
-    "minutes_plural": "{count} Minuten",
-    "hours": "{count} Stunde",
-    "hours_plural": "{count} Stunden"
+    "title_1": "Deiner Blume geht es gut!",
+    "title_2": "Deine Blume braucht Wasser!",
+    "title_3": "Deine Blume ist vertrocknet!",
+    "msg_1": "Lege dein Smartphone trotzdem weg, wenn du es nicht brauchst.",
+    "msg_2": "Lege dein Smartphone für mindestens {break_time} weg, damit sie ausreichend gegossen wird. Ansonsten vertrocknet sie in {session_time_remaining}.",
+    "msg_3": "Lege dein Smartphone für heute weg und versuche, dich morgen an deine Zeitlimits zu halten.",
+    "session_time": "Sitzungszeit",
+    "session_time_exceeded": "{} überschritten",
+    "screen_time": "Bildschirmzeit",
+    "streak_dialog": {
+      "title": "Streak",
+      "msg_none": "Halte deine Zeitlimits einen Tag lang ein, um einen Streak aufzubauen!",
+      "msg_one": "Du hast einen Tag lang deine Zeitlimits eingehalten, weiter so!",
+      "msg_more": "Du hast {} Tage in Folge deine Zeitlimits eingehalten. Weiter so, damit du deinen Streak nicht verlierst!"
+    },
+    "water_drops_dialog": {
+      "title": "Wassertropfen",
+      "msg_none": "Halte deine Zeitlimits einen Tag lang ein, um einen Wassertropfen zu verdienen. Wassertropfen retten deine Pflanze vor dem Vertrocknen, indem sie dir bei Bedarf 5 Minuten Extrazeit geben.",
+      "msg_one": "Du hast noch einen Wassertropfen! Wassertropfen retten deine Pflanze vor dem Vertrocknen, indem sie dir bei Bedarf 5 Minuten Extrazeit geben.",
+      "msg_more": "Du hast noch {} Wassertropfen! Wassertropfen retten deine Pflanze vor dem Vertrocknen, indem sie dir bei Bedarf 5 Minuten Extrazeit geben."
+    },
+    "time_hours_minutes": "{hours}:{minutes} Uhr",
+    "seconds": "{} Sekunden",
+    "seconds_plural": "{} Sekunden",
+    "minutes": "{} Minute",
+    "minutes_plural": "{} Minuten",
+    "minutes_short": "{} min",
+    "hours": "{} Stunde",
+    "hours_plural": "{} Stunden",
+    "hours_short": "{} h",
+    "days": "{} Tag",
+    "days_plural": "{} Tage",
+    "water_drops": "{} Wassertropfen",
+    "water_drops_plural": "{} Wassertropfen"
   }
 }
 

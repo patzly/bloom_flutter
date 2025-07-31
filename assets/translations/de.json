@@ -69,30 +69,33 @@
     "msg_2": "Lege dein Smartphone für mindestens {break_time} weg, damit sie ausreichend gegossen wird. Ansonsten vertrocknet sie in {session_time_remaining}.",
     "msg_3": "Lege dein Smartphone für heute weg und versuche, dich morgen an deine Zeitlimits zu halten.",
     "session_time": "Sitzungszeit",
-    "session_time_exceeded": "{session_time_tolerance} überschritten",
+    "session_time_exceeded": "{} überschritten",
     "screen_time": "Bildschirmzeit",
     "streak_dialog": {
       "title": "Streak",
       "msg_none": "Halte deine Zeitlimits einen Tag lang ein, um einen Streak aufzubauen!",
       "msg_one": "Du hast einen Tag lang deine Zeitlimits eingehalten, weiter so!",
-      "msg_more": "Du hast {streak} Tage in Folge deine Zeitlimits eingehalten. Weiter so, damit du deinen Streak nicht verlierst!"
+      "msg_more": "Du hast {} Tage in Folge deine Zeitlimits eingehalten. Weiter so, damit du deinen Streak nicht verlierst!"
     },
     "water_drops_dialog": {
       "title": "Wassertropfen",
       "msg_none": "Halte deine Zeitlimits einen Tag lang ein, um einen Wassertropfen zu verdienen. Wassertropfen retten deine Pflanze vor dem Vertrocknen, indem sie dir bei Bedarf 5 Minuten Extrazeit geben.",
-      "msg_one": "Du hast noch einen Wassertropfen! Wassertropfen retten deine Pflanze vor dem Vertrockne, indem sie dir bei Bedarf 5 Minuten Extrazeit geben.",
-      "msg_more": "Du hast noch {water_drops} Wassertropfen! Wassertropfen retten deine Pflanze vor dem Vertrockne, indem sie dir bei Bedarf 5 Minuten Extrazeit geben."
+      "msg_one": "Du hast noch einen Wassertropfen! Wassertropfen retten deine Pflanze vor dem Vertrocknen, indem sie dir bei Bedarf 5 Minuten Extrazeit geben.",
+      "msg_more": "Du hast noch {} Wassertropfen! Wassertropfen retten deine Pflanze vor dem Vertrocknen, indem sie dir bei Bedarf 5 Minuten Extrazeit geben."
     },
-    "minutes": "{count} Minute",
-    "minutes_plural": "{count} Minuten",
-    "minutes_short": "{count} min",
-    "hours": "{count} Stunde",
-    "hours_plural": "{count} Stunden",
-    "hours_short": "{count} h",
-    "days": "{count} Tag",
-    "days_plural": "{count} Tage",
-    "water_drops": "{count} Wassertropfen",
-    "water_drops_plural": "{count} Wassertropfen"
+    "time_hours_minutes": "{hours}:{minutes} Uhr",
+    "seconds": "{} Sekunden",
+    "seconds_plural": "{} Sekunden",
+    "minutes": "{} Minute",
+    "minutes_plural": "{} Minuten",
+    "minutes_short": "{} min",
+    "hours": "{} Stunde",
+    "hours_plural": "{} Stunden",
+    "hours_short": "{} h",
+    "days": "{} Tag",
+    "days_plural": "{} Tage",
+    "water_drops": "{} Wassertropfen",
+    "water_drops_plural": "{} Wassertropfen"
   }
 }
 
