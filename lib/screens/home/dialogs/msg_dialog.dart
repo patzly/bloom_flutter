@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 Future<void> showMsgDialog(
@@ -20,7 +21,7 @@ Future<void> showMsgDialog(
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Schließen'),
+            child: Text("actions.close".tr()),
           ),
         ],
         actionsPadding: const EdgeInsets.fromLTRB(20, 0, 20, 20),

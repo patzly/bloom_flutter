@@ -36,7 +36,13 @@ Future<Duration?> showDurationDialog(
                   onSelectedItemChanged: (index) => selectedHours = index,
                   children: List.generate(
                     24,
-                    (i) => Center(child: Text('$i h')),
+                    (i) => Center(
+                      child: Text(
+                        "time.hours_short".tr(
+                          namedArgs: {'count': i.toString()},
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -49,7 +55,13 @@ Future<Duration?> showDurationDialog(
                   onSelectedItemChanged: (index) => selectedMinutes = index * 5,
                   children: List.generate(
                     12,
-                    (i) => Center(child: Text('${i * 5} min')),
+                    (i) => Center(
+                      child: Text(
+                        "time.minutes_short".tr(
+                          namedArgs: {'count': (i * 5).toString()},
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),

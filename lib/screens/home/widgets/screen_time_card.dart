@@ -5,6 +5,7 @@ import 'package:bloom_flutter/extensions/time_extensions.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:bloom_flutter/screens/home/dialogs/msg_dialog.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
@@ -32,7 +33,7 @@ class ScreenTimeCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildTextBlock(context, model),
-                _buildTitleBlock(context, "Sitzungszeit"),
+                _buildTitleBlock(context, "time.session_time".tr()),
                 _buildTimeRow(
                   context,
                   model.sessionTime.toPrettyString(false, true),
@@ -41,12 +42,16 @@ class ScreenTimeCard extends StatelessWidget {
                 _buildProgressBar(context, model.sessionTimeFraction),
                 _buildExceededBlock(
                   context,
-                  model.sessionTimeTolerance.toPrettyString(false, false) +
-                      " überschritten",
+                  "time.session_time_exceeded".tr(
+                    namedArgs: {
+                      'session_time_tolerance': model.sessionTimeTolerance
+                          .toPrettyString(false, false),
+                    },
+                  ),
                   Constants.sessionTimeToleranceMax.toPrettyStringShortest(),
                   model.sessionTimeToleranceFraction,
                 ),
-                _buildTitleBlock(context, "Bildschirmzeit"),
+                _buildTitleBlock(context, "time.screen_time".tr()),
                 _buildTimeRow(
                   context,
                   model.screenTime.toPrettyString(false, true),
@@ -55,10 +60,16 @@ class ScreenTimeCard extends StatelessWidget {
                 _buildProgressBar(context, model.screenTimeFraction),
                 _buildChips(
                   context,
-                  model.streak == 1 ? '1 Tag' : '${model.streak} Tage',
+                  model.streak == 1
+                      ? "time.days".tr(namedArgs: {'count': '1'})
+                      : "time.days".tr(
+                        namedArgs: {'count': model.streak.toString()},
+                      ),
                   model.waterDrops == 1
-                      ? '1 Wassertropfen'
-                      : '${model.waterDrops} Wassertropfen',
+                      ? "time.water_drops".tr(namedArgs: {'count': '1'})
+                      : "time.water_drops".tr(
+                        namedArgs: {'count': model.waterDrops.toString()},
+                      ),
                 ),
               ],
             ),
@@ -69,23 +80,25 @@ class ScreenTimeCard extends StatelessWidget {
   }
 
   Widget _buildTextBlock(BuildContext context, BloomModel model) {
-    String title = 'Deiner Blume geht es gut!';
-    String msg = 'Lege dein Smartphone trotzdem weg, wenn du es nicht brauchst.';
-
+    String title = "time.title_1".tr();
+    String msg = "time.msg_1".tr();
     if (model.sessionTimeToleranceFraction >= 1 ||
         model.screenTimeFraction >= 1) {
-      title = 'Deine Blume ist vertrocknet!';
-      msg =
-          'Lege dein Smartphone für heute weg und versuche, dich morgen an deine Zeitlimits zu halten.';
+      title = "time.title_3".tr();
+      msg = "time.msg_3".tr();
     } else if (model.sessionTimeFraction >= 1 &&
         model.sessionTimeToleranceFraction < 1 &&
         model.screenTimeFraction < 1) {
-      title = 'Deine Blume braucht Wasser!';
+      title = "time.title_2".tr();
       String breakTimeMinutes = model.breakTime.toPrettyStringRoundSecondsUp();
       String sessionTimeRemaining =
           model.sessionTimeRemaining.toPrettyStringRoundSecondsDown();
-      msg =
-          'Lege dein Smartphone für mindestens $breakTimeMinutes weg, damit sie ausreichend gegossen wird. Ansonsten vertrocknet sie in $sessionTimeRemaining.';
+      msg = "time.msg_2".tr(
+        namedArgs: {
+          'break_time': breakTimeMinutes,
+          'session_time_remaining': sessionTimeRemaining,
+        },
+      );
     }
 
     return Padding(
@@ -234,18 +247,21 @@ class ScreenTimeCard extends StatelessWidget {
               side: BorderSide(color: Colors.transparent, width: 0),
               materialTapTargetSize: MaterialTapTargetSize.padded,
               onPressed: () {
-                String msg =
-                    "Halte deine Zeitlimits einen Tag lang ein, um einen Streak aufzubauen!";
+                String msg = "time.streak_dialog.msg_none".tr();
                 if (model.streak == 1) {
-                  msg =
-                      "Du hast einen Tag lang deine Zeitlimits eingehalten, weiter so!";
+                  msg = "time.streak_dialog.msg_one".tr();
                 } else if (model.streak > 1) {
-                  msg =
-                      "Du hast ${model.streak} Tage in Folge deine Zeitlimits eingehalten. Weiter so, damit du deinen Streak nicht verlierst!";
+                  msg = "time.streak_dialog.msg_more".tr(
+                    namedArgs: {"streak": model.streak.toString()},
+                  );
                 }
-                showMsgDialog(context, title: "Streak", msg: msg);
+                showMsgDialog(
+                  context,
+                  title: "time.streak_dialog.title".tr(),
+                  msg: msg,
+                );
               },
-            ), // Use SizedBox to avoid rendering issues
+            ),
           ),
           const SizedBox(width: 8),
           Theme(
@@ -263,13 +279,19 @@ class ScreenTimeCard extends StatelessWidget {
               side: BorderSide(color: Colors.transparent, width: 0),
               materialTapTargetSize: MaterialTapTargetSize.padded,
               onPressed: () {
-                String msg =
-                    "Halte deine Zeitlimits einen Tag lang ein, um einen Wassertropfen zu verdienen. Wassertropfen retten deine Pflanze vor dem Vertrocknen, indem sie dir bei Bedarf 5 Minuten Extrazeit geben.";
-                if (model.waterDrops > 0) {
-                  msg =
-                      "Du hast noch ${model.waterDrops} Wassertropfen! Wassertropfen retten deine Pflanze vor dem Vertrockne, indem sie dir bei Bedarf 5 Minuten Extrazeit geben.";
+                String msg = "time.water_drops_dialog.msg_none".tr();
+                if (model.waterDrops == 1) {
+                  msg = "time.water_drops_dialog.msg_one".tr();
+                } else if (model.waterDrops > 1) {
+                  msg = "time.water_drops_dialog.msg_more".tr(
+                    namedArgs: {"water_drops": model.waterDrops.toString()},
+                  );
                 }
-                showMsgDialog(context, title: "Wassertropfen", msg: msg);
+                showMsgDialog(
+                  context,
+                  title: "time.water_drops_dialog.title".tr(),
+                  msg: msg,
+                );
               },
             ),
           ),
