@@ -12,6 +12,7 @@ class BloomModel {
   final double screenTimeFraction;
   final int streak;
   final int waterDrops;
+  final bool hasDriedOut;
   final bool isServiceRunning;
   final BrightnessLevel brightnessLevel;
   final ContrastLevel contrastLevel;
@@ -32,6 +33,7 @@ class BloomModel {
     this.screenTimeFraction = 0.0,
     this.streak = 0,
     this.waterDrops = 0,
+    this.hasDriedOut = false,
     this.isServiceRunning = false,
     this.brightnessLevel = BrightnessLevel.auto,
     this.contrastLevel = ContrastLevel.standard,
@@ -53,6 +55,7 @@ class BloomModel {
     double? screenTimeFraction,
     int? streak,
     int? waterDrops,
+    bool? hasDriedOut,
     bool? isServiceRunning,
     BrightnessLevel? brightnessLevel,
     ContrastLevel? contrastLevel,
@@ -74,6 +77,7 @@ class BloomModel {
       screenTimeFraction: screenTimeFraction ?? this.screenTimeFraction,
       streak: streak ?? this.streak,
       waterDrops: waterDrops ?? this.waterDrops,
+      hasDriedOut: hasDriedOut ?? this.hasDriedOut,
       isServiceRunning: isServiceRunning ?? this.isServiceRunning,
       brightnessLevel: brightnessLevel ?? this.brightnessLevel,
       contrastLevel: contrastLevel ?? this.contrastLevel,

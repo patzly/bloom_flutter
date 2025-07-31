@@ -140,6 +140,8 @@ class ForegroundTaskHandler extends TaskHandler implements TimeListener {
       TransactionKeys.screenTimeFraction: timeService.getScreenTimeFraction(),
       TransactionKeys.streak: timeService.getStreak(),
       TransactionKeys.waterDrops: timeService.getWaterDrops(),
+      TransactionKeys.hasDriedOut: timeService.hasDriedOut(),
+
     };
     FlutterForegroundTask.sendDataToMain(data);
   }

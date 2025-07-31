@@ -128,7 +128,7 @@ class HomeScreen extends StatelessWidget {
     if (model.isServiceRunning) {
       String assetName = 'assets/flower/flower1.svg';
       if (model.sessionTimeToleranceFraction >= 1 ||
-          model.screenTimeFraction >= 1) {
+          model.screenTimeFraction >= 1 || model.hasDriedOut) {
         assetName = 'assets/flower/flower3.svg';
       } else if (model.sessionTimeFraction >= 1 &&
           model.sessionTimeToleranceFraction < 1 &&
