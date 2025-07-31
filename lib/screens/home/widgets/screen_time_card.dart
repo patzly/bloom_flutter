@@ -61,10 +61,10 @@ class ScreenTimeCard extends StatelessWidget {
                   context,
                   model.streak == 1
                       ? 'time.days'.tr(args: ['1'])
-                      : 'time.days'.tr(args: [model.streak.toString()]),
+                      : 'time.days_plural'.tr(args: [model.streak.toString()]),
                   model.waterDrops == 1
                       ? 'time.water_drops'.tr(args: ['1'])
-                      : 'time.water_drops'.tr(
+                      : 'time.water_drops_plural'.tr(
                         args: [model.waterDrops.toString()],
                       ),
                 ),

@@ -13,9 +13,9 @@ void main() async {
 
   runApp(
     EasyLocalization(
-      supportedLocales: const [Locale('de')],
+      supportedLocales: const [Locale('de'), Locale('en')],
       path: 'assets/translations',
-      fallbackLocale: const Locale('de'),
+      fallbackLocale: const Locale('en'),
       child: const BloomApp(),
     ),
   );

@@ -1,101 +1,100 @@
 {
   "app": {
     "name": "Bloom",
-    "intro": "Bloom hilft dir, deine Bildschirmzeit zu reduzieren und genügend Pausen einzulegen. Um anzufangen, starte den Hintergrundservice und halte dich an deine Zeitlimits, damit es deiner Blume gut geht."
+    "intro": "Bloom helps you reduce your screen time and take enough breaks. To get started, launch the background service and stick to your time limits to keep your flower healthy."
   },
   "service": {
-    "running": "Hintergrundservice läuft",
-    "not_running": "Hintergrundservice läuft nicht",
-    "info": "Der Service ist für die Messung der Bildschirmzeit erforderlich und zeigt eine permanente Benachrichtigung mit niedriger Priorität an, um erhalten zu bleiben.",
-    "start": "Service starten",
-    "stop": "Service stoppen"
+    "running": "Background service is running",
+    "not_running": "Background service is not running",
+    "info": "The service is required to track screen time and displays a low-priority persistent notification to stay alive.",
+    "start": "Start service",
+    "stop": "Stop service"
   },
   "permission": {
-    "dialog_title": "Die Berechtigung wurde dauerhaft verweigert. Bitte erlaube Bloom das Anzeigen von Benachrichtigungen in den System-Einstellungen.",
-    "dialog_msg": "Erlaube Bloom beim folgenden Dialog, Benachrichtigungen zum Erhalt des Hintergrundservices und zur Warnung vor Überschreiten deiner Zeitlimits anzuzeigen.",
-    "dialog_msg_denied": "Die Berechtigung wurde dauerhaft verweigert. Bitte erlaube Bloom das Anzeigen von Benachrichtigungen in den System-Einstellungen.",
-    "info": "Der Service ist für die Messung der Bildschirmzeit erforderlich und zeigt eine permanente Benachrichtigung mit niedriger Priorität an, um erhalten zu bleiben.",
-    "start": "Service starten",
-    "stop": "Service stoppen"
+    "dialog_title": "Permission permanently denied. Please allow Bloom to show notifications in the system settings.",
+    "dialog_msg": "In the next dialog, please allow Bloom to show notifications to keep the background service running and to warn you when you exceed your time limits.",
+    "dialog_msg_denied": "Permission permanently denied. Please allow Bloom to show notifications in the system settings.",
+    "info": "The service is required to track screen time and displays a low-priority persistent notification to stay alive.",
+    "start": "Start service",
+    "stop": "Stop service"
   },
   "settings": {
-    "title": "Einstellungen",
+    "title": "Settings",
     "brightness": {
-      "title": "Helligkeit",
-      "description": "Kann die Lesbarkeit je nach Tageszeit verbessern",
+      "title": "Brightness",
+      "description": "Can improve readability depending on the time of day",
       "auto": "Auto",
-      "light": "Hell",
-      "dark": "Dunkel"
-    },
-    "dynamic_colors": {
-      "title": "Dynamische Farben",
-      "description": "Farben des Systems nutzen"
+      "light": "Light",
+      "dark": "Dark"
     },
     "contrast": {
-      "title": "Kontrast",
-      "description": "Kann die Lesbarkeit bei Sehschwäche verbessern",
+      "title": "Contrast",
+      "description": "Can improve readability for visual impairments",
       "standard": "Standard",
-      "medium": "Mittel",
-      "heigh": "Hoch"
+      "medium": "Medium",
+      "heigh": "High"
     },
-    "max_session_time": "Maximaldauer einer Sitzung",
-    "min_break_time" : "Minimaldauer einer Pause",
-    "max_screen_time": "Maximale Bildschirmzeit pro Tag",
-    "duration_dialog_title": "Dauer auswählen",
+    "dynamic_colors": {
+      "title": "Dynamic colors",
+      "description": "Use system colors"
+    },
+    "max_session_time": "Maximum session duration",
+    "min_break_time": "Minimum break duration",
+    "max_screen_time": "Maximum daily screen time",
+    "duration_dialog_title": "Select duration",
     "daily_reset_time": {
-      "title": "Tagesbeginn",
-      "dialog_title": "Uhrzeit auswählen"
+      "title": "Start of day",
+      "dialog_title": "Select time"
     },
     "reset": {
-      "title": "Alles zurücksetzen",
-      "description": "Kann nicht rückgängig gemacht werden",
-      "dialog_title": "Alles zurücksetzen?",
-      "dialog_msg": "Möchtest du wirklich die gesamte App zurücksetzen? Dies kann nicht rückgängig gemacht werden. Dein Streak und deine Wassertropfen bleiben erhalten."
+      "title": "Reset all",
+      "description": "Cannot be undone",
+      "dialog_title": "Reset all?",
+      "dialog_msg": "Do you really want to reset the entire app? This cannot be undone. Your streak and water drops will be preserved."
     }
   },
   "actions": {
-    "back": "Zurück",
-    "select": "Auswählen",
-    "cancel": "Abbrechen",
-    "reset": "Zurücksetzen",
-    "close": "Schließen",
-    "next": "Weiter"
+    "back": "Back",
+    "select": "Select",
+    "cancel": "Cancel",
+    "reset": "Reset",
+    "close": "Close",
+    "next": "Next"
   },
   "time": {
-    "title_1": "Deiner Blume geht es gut!",
-    "title_2": "Deine Blume braucht Wasser!",
-    "title_3": "Deine Blume ist vertrocknet!",
-    "msg_1": "Lege dein Smartphone trotzdem weg, wenn du es nicht brauchst.",
-    "msg_2": "Lege dein Smartphone für mindestens {break_time} weg, damit sie ausreichend gegossen wird. Ansonsten vertrocknet sie in {session_time_remaining}.",
-    "msg_3": "Lege dein Smartphone für heute weg und versuche, dich morgen an deine Zeitlimits zu halten.",
-    "session_time": "Sitzungszeit",
-    "session_time_exceeded": "{} überschritten",
-    "screen_time": "Bildschirmzeit",
+    "title_1": "Your flower is doing well!",
+    "title_2": "Your flower needs water!",
+    "title_3": "Your flower has dried out!",
+    "msg_1": "Still, put your phone away if you don't need it.",
+    "msg_2": "Put your phone away for at least {break_time} to give your flower enough water. Otherwise, it will dry out in {session_time_remaining}.",
+    "msg_3": "Put your phone away for the rest of the day and try to stick to your time limits tomorrow.",
+    "session_time": "Session time",
+    "session_time_exceeded": "{} exceeded",
+    "screen_time": "Screen time",
     "streak_dialog": {
       "title": "Streak",
-      "msg_none": "Halte deine Zeitlimits einen Tag lang ein, um einen Streak aufzubauen!",
-      "msg_one": "Du hast einen Tag lang deine Zeitlimits eingehalten, weiter so!",
-      "msg_more": "Du hast {} Tage in Folge deine Zeitlimits eingehalten. Weiter so, damit du deinen Streak nicht verlierst!"
+      "msg_none": "Stick to your time limits for one day to start a streak!",
+      "msg_one": "You stuck to your time limits for one day, great job!",
+      "msg_more": "You’ve stuck to your time limits for {} days in a row. Keep it up to maintain your streak!"
     },
     "water_drops_dialog": {
-      "title": "Wassertropfen",
-      "msg_none": "Halte deine Zeitlimits einen Tag lang ein, um einen Wassertropfen zu verdienen. Wassertropfen retten deine Pflanze vor dem Vertrocknen, indem sie dir bei Bedarf 5 Minuten Extrazeit geben.",
-      "msg_one": "Du hast noch einen Wassertropfen! Wassertropfen retten deine Pflanze vor dem Vertrocknen, indem sie dir bei Bedarf 5 Minuten Extrazeit geben.",
-      "msg_more": "Du hast noch {} Wassertropfen! Wassertropfen retten deine Pflanze vor dem Vertrocknen, indem sie dir bei Bedarf 5 Minuten Extrazeit geben."
+      "title": "Water drops",
+      "msg_none": "Stick to your time limits for one day to earn a water drop. Water drops save your flower from drying out by giving you 5 extra minutes when needed.",
+      "msg_one": "You have one water drop left! Water drops save your flower from drying out by giving you 5 extra minutes when needed.",
+      "msg_more": "You have {} water drops left! Water drops save your flower from drying out by giving you 5 extra minutes when needed."
     },
-    "time_hours_minutes": "{hours}:{minutes} Uhr",
-    "seconds": "{} Sekunden",
-    "seconds_plural": "{} Sekunden",
-    "minutes": "{} Minute",
-    "minutes_plural": "{} Minuten",
+    "time_hours_minutes": "{hours}:{minutes}",
+    "seconds": "{} second",
+    "seconds_plural": "{} seconds",
+    "minutes": "{} minute",
+    "minutes_plural": "{} minutes",
     "minutes_short": "{} min",
-    "hours": "{} Stunde",
-    "hours_plural": "{} Stunden",
+    "hours": "{} hour",
+    "hours_plural": "{} hours",
     "hours_short": "{} h",
-    "days": "{} Tag",
-    "days_plural": "{} Tage",
-    "water_drops": "{} Wassertropfen",
-    "water_drops_plural": "{} Wassertropfen"
+    "days": "{} day",
+    "days_plural": "{} days",
+    "water_drops": "{} water drop",
+    "water_drops_plural": "{} water drops"
   }
 }
-
