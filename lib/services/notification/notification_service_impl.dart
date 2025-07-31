@@ -111,7 +111,7 @@ class NotificationServiceImpl implements NotificationService {
         styleInformation: BigTextStyleInformation(text, contentTitle: title),
         visibility: NotificationVisibility.public,
         icon: 'ic_rounded_potted_plant',
-        largeIcon: DrawableResourceAndroidBitmap("flower_thirsty_icon"),
+        largeIcon: DrawableResourceAndroidBitmap('flower_thirsty_icon'),
       ),
     );
   }
@@ -129,7 +129,7 @@ class NotificationServiceImpl implements NotificationService {
         styleInformation: BigTextStyleInformation(text, contentTitle: title),
         visibility: NotificationVisibility.public,
         icon: 'ic_rounded_potted_plant',
-        largeIcon: DrawableResourceAndroidBitmap("flower_dried_out_icon"),
+        largeIcon: DrawableResourceAndroidBitmap('flower_dried_out_icon'),
       ),
     );
   }

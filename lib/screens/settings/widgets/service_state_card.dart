@@ -1,9 +1,9 @@
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:bloom_flutter/screens/settings/dialogs/permission_dialog.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class ServiceStateCard extends StatelessWidget {
   final BloomModel model;
@@ -31,12 +31,12 @@ class ServiceStateCard extends StatelessWidget {
             children: [
               Text(
                 model.isServiceRunning
-                    ? "settings.service_running".tr()
-                    : "settings.service_not_running".tr(),
+                    ? 'service.running'.tr()
+                    : 'service.not_running'.tr(),
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 4),
-              Text("settings.notification_info".tr()),
+              Text('service.info'.tr()),
               const SizedBox(height: 8),
               Align(
                 alignment: Alignment.centerRight,
@@ -65,8 +65,8 @@ class ServiceStateCard extends StatelessWidget {
                   },
                   child: Text(
                     model.isServiceRunning
-                        ? "settings.stop_service".tr()
-                        : "settings.start_service".tr(),
+                        ? 'service.stop'.tr()
+                        : 'service.start'.tr(),
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                       color: Theme.of(context).colorScheme.onSecondaryContainer,
                     ),

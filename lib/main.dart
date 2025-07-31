@@ -1,27 +1,21 @@
 import 'package:bloom_flutter/bloom_app.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:easy_localization/easy_localization.dart';
 
-/*
-void main() {
-  // Keep splash screen until controller is initialized
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
-  runApp(const BloomApp());
-}*/
 void main() async {
+  // Keep splash screen until controller is initialized
   WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: WidgetsBinding.instance);
 
+  // Initialize localization
   await EasyLocalization.ensureInitialized();
 
   runApp(
     EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('de')],
+      supportedLocales: const [Locale('de')],
       path: 'assets/translations',
-      fallbackLocale: const Locale('en'),
+      fallbackLocale: const Locale('de'),
       child: const BloomApp(),
     ),
   );

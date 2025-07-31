@@ -43,7 +43,7 @@ dependencies:
   shared_preferences: ^2.5.3
   flutter_svg: ^2.2.0
   flutter_local_notifications: ^19.4.0
-  easy_localization: ^3.0.0
+  easy_localization: ^3.0.8
 
 
 dev_dependencies:

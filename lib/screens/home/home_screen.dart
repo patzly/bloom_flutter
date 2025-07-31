@@ -2,6 +2,7 @@ import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:bloom_flutter/screens/home/widgets/screen_time_card.dart';
 import 'package:bloom_flutter/screens/settings/widgets/service_state_card.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,7 +36,7 @@ class HomeScreen extends StatelessWidget {
           child: Image.asset('assets/icon/monochrome.png'),
         ),
       ),
-      title: Text("Bloom"),
+      title: Text('app.name'.tr()),
       centerTitle: true,
       elevation: 3,
       scrolledUnderElevation: 3,
@@ -128,7 +129,8 @@ class HomeScreen extends StatelessWidget {
     if (model.isServiceRunning) {
       String assetName = 'assets/flower/flower1.svg';
       if (model.sessionTimeToleranceFraction >= 1 ||
-          model.screenTimeFraction >= 1 || model.hasDriedOut) {
+          model.screenTimeFraction >= 1 ||
+          model.hasDriedOut) {
         assetName = 'assets/flower/flower3.svg';
       } else if (model.sessionTimeFraction >= 1 &&
           model.sessionTimeToleranceFraction < 1 &&
@@ -140,12 +142,7 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.all(48),
           child: FittedBox(
             fit: BoxFit.contain,
-            child: SvgPicture.asset(
-              assetName,
-              semanticsLabel: 'Flower',
-              width: 300,
-              height: 300,
-            ),
+            child: SvgPicture.asset(assetName, width: 300, height: 300),
           ),
         ),
       );
@@ -162,7 +159,7 @@ class HomeScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(32),
                 child: Text(
-                  'Bloom hilft dir, deine Bildschirmzeit zu reduzieren und genügend Pausen einzulegen. Um anzufangen, starte den Hintergrundservice und halte dich an deine Zeitlimits, damit es deiner Blume gut geht.',
+                  'app.intro'.tr(),
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
@@ -180,7 +177,6 @@ class HomeScreen extends StatelessWidget {
                     fit: BoxFit.contain,
                     child: SvgPicture.asset(
                       'assets/flower/flower1.svg',
-                      semanticsLabel: 'Flower',
                       width: 250,
                       height: 250,
                     ),

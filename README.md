@@ -1,9 +1,19 @@
-# 📱 Bloom App 
-<img src="assets/icon/icon.png" alt="Home Screen" width="250"/>
+<img src="assets/github/header.png" />
 
-## 🌐 Abstract
+# Bloom: Digital Balance
 
-**Bloom** is a Flutter-based mobile application designed to help users regulate their screen time in a motivating and positive way. By tracking usage and encouraging regular breaks, it promotes healthier digital habits and supports overall well-being.
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)  [![Release](https://img.shields.io/github/v/release/patzly/bloom_flutter?label=Release)](https://github.com/patzly/bloom_flutter/releases)  [![Downloads](https://img.shields.io/github/downloads/patzly/bloom_flutter/total.svg?label=Downloads)](https://github.com/patzly/bloom_flutter/releases)
+
+Bloom is a Flutter-based mobile application designed to help users regulate their screen time in a motivating and positive way. By tracking usage and encouraging regular breaks, it promotes healthier digital habits and supports overall well-being.
+
+## Downloads
+
+<a href='https://github.com/patzly/bloom_flutter/releases'><img alt='Get it on GitHub' height="80" src='assets/github/badge_github.png'/></a>
+
+## Screenshots
+
+<a href="https://raw.githubusercontent.com/patzly/bloom_flutter/main/assets/github/screenshots/home_screen.png"><img src="assets/github/screenshots/home_screen.png" alt="Home Screen" height="240px"/></a>
+<a href="https://raw.githubusercontent.com/patzly/bloom_flutter/main/assets/github/screenshots/settings_screen.png"><img src="assets/github/screenshots/settings_screen.png" alt="Settings Screen" height="240px"/></a>
 
 ## 🧭 Vision
 
@@ -75,13 +85,6 @@ Key data shown:
 - **Daily streak** and **earned drops**, shown with icons
 
 This visual system turns screen time awareness into a small daily habit — **rewarding balance, not punishment**.
-
-## 📸 Screenshots
-<div style="display: flex; gap: 5px;">
-  <img src="assets/screenshots/home_screen.png" alt="Home Screen" width="250"/>
-  <img src="assets/screenshots/settings_screen.png" alt="Swipe Screen" width="250"/>
-</div>
-
 
 ## 🏗 **Architecture**
 

@@ -2,6 +2,7 @@ import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/extensions/time_extensions.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
 import 'package:bloom_flutter/screens/settings/widgets/settings/setting_with_icon.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
@@ -27,9 +28,9 @@ class DailyResetTimeSetting extends StatelessWidget {
               child: child!,
             );
           },
-          helpText: "Uhrzeit auswählen",
-          confirmText: "Auswählen",
-          cancelText: "Abbrechen",
+          helpText: 'settings.daily_reset_time.dialog_title'.tr(),
+          confirmText: 'actions.select'.tr(),
+          cancelText: 'actions.cancel'.tr(),
         ).then((time) {
           if (time != null) {
             controller.setDailyResetTime(time);
@@ -41,7 +42,10 @@ class DailyResetTimeSetting extends StatelessWidget {
         color: Theme.of(context).colorScheme.onSurfaceVariant,
       ),
       children: [
-        Text('Tagesbeginn', style: Theme.of(context).textTheme.bodyLarge),
+        Text(
+          'settings.daily_reset_time.title'.tr(),
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
         Text(
           model.dailyResetTime.to24hString(),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(

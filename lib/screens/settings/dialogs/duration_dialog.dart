@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ Future<Duration?> showDurationDialog(
     ),
     builder: (context) {
       return AlertDialog(
-        title: const Text("Dauer auswählen"),
+        title: Text('settings.duration_dialog_title'.tr()),
         content: SizedBox(
           height: 150,
           child: Row(
@@ -35,7 +36,9 @@ Future<Duration?> showDurationDialog(
                   onSelectedItemChanged: (index) => selectedHours = index,
                   children: List.generate(
                     24,
-                    (i) => Center(child: Text('$i h')),
+                    (i) => Center(
+                      child: Text('time.hours_short'.tr(args: [i.toString()])),
+                    ),
                   ),
                 ),
               ),
@@ -48,7 +51,11 @@ Future<Duration?> showDurationDialog(
                   onSelectedItemChanged: (index) => selectedMinutes = index * 5,
                   children: List.generate(
                     12,
-                    (i) => Center(child: Text('${i * 5} min')),
+                    (i) => Center(
+                      child: Text(
+                        'time.minutes_short'.tr(args: [(i * 5).toString()]),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -58,7 +65,7 @@ Future<Duration?> showDurationDialog(
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Abbrechen'),
+            child: Text('actions.cancel'.tr()),
           ),
           TextButton(
             onPressed:
@@ -66,7 +73,7 @@ Future<Duration?> showDurationDialog(
                   context,
                   Duration(hours: selectedHours, minutes: selectedMinutes),
                 ),
-            child: const Text('Auswählen'),
+            child: Text('actions.select'.tr()),
           ),
         ],
         contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
