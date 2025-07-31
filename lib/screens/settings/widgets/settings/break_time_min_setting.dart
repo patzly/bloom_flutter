@@ -17,7 +17,7 @@ class BreakTimeMinSetting extends StatelessWidget {
     final controller = BlocProvider.of<BloomController>(context);
     return SettingWithIcon(
       onTap: () {
-        showDurationPicker(context, model.breakTimeMin).then((duration) {
+        showDurationDialog(context, model.breakTimeMin).then((duration) {
           if (duration != null) {
             if (duration.inMinutes < 1) {
               duration = const Duration(minutes: 1);

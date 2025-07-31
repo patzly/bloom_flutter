@@ -2,10 +2,13 @@ import 'dart:math';
 
 import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/services/storage/storage_service.dart';
+import 'package:bloom_flutter/services/time/listener/time_listener.dart';
 import 'package:bloom_flutter/services/time/time_service.dart';
+import 'package:flutter/material.dart';
 
 class TimeServiceImpl implements TimeService {
   final StorageService storageService;
+  TimeListener? listener = null;
   UserPresence? userPresence = null;
   int sessionTimeMaxMinutes = 0;
   int sessionTimeMillis = 0;
@@ -13,8 +16,16 @@ class TimeServiceImpl implements TimeService {
   int screenTimeMaxMinutes = 0;
   int screenTimeMillis = 0;
   int screenOffTimestamp = 0;
+  int streak = 0;
+  int waterDrops = 0;
+  TimeOfDay dailyResetTime = Defaults.dailyResetTime;
 
   TimeServiceImpl(this.storageService);
+
+  @override
+  void setListener(TimeListener listener) {
+    this.listener = listener;
+  }
 
   @override
   void loadFromStorage() {
@@ -34,6 +45,15 @@ class TimeServiceImpl implements TimeService {
         storageService.getDouble(PrefKeys.screenTimeFraction) ?? 0.0;
     screenTimeMillis =
         (screenTimeFraction * screenTimeMaxMinutes * 60 * 1000).toInt();
+    streak = storageService.getInt(PrefKeys.streak) ?? 0;
+    waterDrops = storageService.getInt(PrefKeys.waterDrops) ?? 0;
+    int dailyResetHour =
+        storageService.getInt(PrefKeys.dailyResetHour) ??
+        Defaults.dailyResetTime.hour;
+    int dailyResetMinute =
+        storageService.getInt(PrefKeys.dailyResetMinute) ??
+        Defaults.dailyResetTime.minute;
+    dailyResetTime = TimeOfDay(hour: dailyResetHour, minute: dailyResetMinute);
   }
 
   @override
@@ -51,7 +71,7 @@ class TimeServiceImpl implements TimeService {
     if (presence == UserPresence.OFF || presence == UserPresence.LOCKED) {
       // save screen off timestamp
       screenOffTimestamp = DateTime.now().millisecondsSinceEpoch;
-      // TODO: listener.onBreak();
+      listener?.onBreak();
     } else if (presence == UserPresence.UNLOCKED) {
       // calculate break time fraction
       int screenOnTimestamp = DateTime.now().millisecondsSinceEpoch;
@@ -87,7 +107,6 @@ class TimeServiceImpl implements TimeService {
         // calculate session time with break time fraction subtracted
         sessionTimeMillis = _computeSessionTimeMillis(sessionTimeFraction);
       }
-      // TODO: listener.onPhoneTimeChanged();
     }
   }
 
@@ -96,18 +115,17 @@ class TimeServiceImpl implements TimeService {
     if (userPresence == UserPresence.UNLOCKED) {
       // update session time
       sessionTimeMillis += Constants.updateInterval.inMilliseconds;
+      // callback exactly on time and not 1 second later
       int absoluteToleranceMillis =
           (sessionTimeMaxMinutes +
               Constants.sessionTimeToleranceMax.inMinutes) *
           60 *
           1000;
-      // callback exactly on time and not 1 second later
-      absoluteToleranceMillis -= 1000;
+
       int toleranceMillisLastMinute = absoluteToleranceMillis - (60 * 1000);
       bool isToleranceLastMinute = false;
       if (sessionTimeMillis > toleranceMillisLastMinute) {
-        if (sessionTimeMillis - Constants.updateInterval.inMilliseconds <=
-            toleranceMillisLastMinute) {
+        if (sessionTimeMillis - Constants.updateInterval.inMilliseconds <= toleranceMillisLastMinute) {
           isToleranceLastMinute = true;
         }
       }
@@ -132,14 +150,13 @@ class TimeServiceImpl implements TimeService {
         getScreenTimeFraction(),
       );
 
-      // TODO: listener.onPhoneTimeChanged();
-      /* listener.onPhoneTimeIncreased();
+      listener?.onPhoneTimeIncreased();
       if (isToleranceLastMinute) {
-        listener.onLastToleranceMinuteStarted();
+        listener?.onLastToleranceMinuteStarted();
       }
       if (isToleranceExceeded) {
-        listener.onToleranceExceeded();
-      }*/
+        listener?.onToleranceExceeded();
+      }
     }
   }
 
@@ -200,15 +217,13 @@ class TimeServiceImpl implements TimeService {
   }
 
   @override
-  int getDaysStreak() {
-    // TODO: Implement streak logic
-    return 0;
+  int getStreak() {
+    return streak;
   }
 
   @override
   int getWaterDrops() {
-    // TODO: Implement water drops logic
-    return 0;
+    return waterDrops;
   }
 
   int _computeSessionTimeMillis(double sessionTimeFraction) {

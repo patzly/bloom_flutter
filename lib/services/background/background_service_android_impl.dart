@@ -1,21 +1,29 @@
 import 'package:bloom_flutter/constants.dart';
-import 'package:bloom_flutter/services/foreground/foreground_service.dart';
-import 'package:bloom_flutter/services/foreground/task/foreground_task_handler.dart';
+import 'package:bloom_flutter/services/background/background_service.dart';
+import 'package:bloom_flutter/services/background/task_handler/foreground_task_handler.dart';
+import 'package:bloom_flutter/services/notification/notification_service.dart';
+import 'package:bloom_flutter/services/notification/notification_service_impl.dart';
 import 'package:bloom_flutter/services/storage/storage_service_impl.dart';
 import 'package:bloom_flutter/services/time/time_service.dart';
 import 'package:bloom_flutter/services/time/time_service_impl.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 
 @pragma('vm:entry-point')
 void startCallback() {
   StorageServiceImpl.create().then((storageService) {
     TimeService timeService = TimeServiceImpl(storageService);
-    FlutterForegroundTask.setTaskHandler(ForegroundTaskHandler(timeService));
+    NotificationService notificationService = NotificationServiceImpl();
+    FlutterForegroundTask.setTaskHandler(
+      ForegroundTaskHandler(
+        timeService: timeService,
+        notificationService: notificationService,
+      ),
+    );
   });
 }
 
-class ForegroundServiceAndroidImpl implements ForegroundService {
+class BackgroundServiceAndroidImpl implements BackgroundService {
   late void Function(Object data) _callback;
 
   @override
@@ -34,8 +42,13 @@ class ForegroundServiceAndroidImpl implements ForegroundService {
   Future<bool> start() async {
     bool isRunning = await this.isRunning();
     if (!isRunning) {
-      // Request permissions and initialize the service.
-      await _requestPermissions();
+      // Check notification permission
+      final bool hasPermission = await this.hasNotificationPermission();
+      if (!hasPermission) {
+        debugPrint('Foreground task requires notification permission.');
+        return false;
+      }
+      // Initialize foreground task
       FlutterForegroundTask.init(
         androidNotificationOptions: AndroidNotificationOptions(
           channelId: 'background_service',
@@ -55,9 +68,9 @@ class ForegroundServiceAndroidImpl implements ForegroundService {
     }
 
     final result = await FlutterForegroundTask.startService(
-      notificationTitle: "Screen time service is running",
+      notificationTitle: "Service zur Messung der Bildschirmzeit läuft",
       notificationText:
-          "This notification is required to keep the service alive",
+          "Diese Benachrichtigung ist erforderlich, um den Service am Laufen zu halten.",
       // meta data added in android manifest
       notificationIcon: NotificationIcon(metaDataName: "notification_icon"),
       callback: startCallback,
@@ -87,22 +100,29 @@ class ForegroundServiceAndroidImpl implements ForegroundService {
     FlutterForegroundTask.sendDataToTask(data);
   }
 
-  Future<void> _requestPermissions() async {
-    // Android 13+, you need to allow notification permission to display foreground service notification.
-    //
-    // iOS: If you need notification, ask for permission.
-    final NotificationPermission notificationPermission =
+  @override
+  Future<bool> hasNotificationPermission() async {
+    final NotificationPermission permission =
         await FlutterForegroundTask.checkNotificationPermission();
-    if (notificationPermission != NotificationPermission.granted) {
-      await FlutterForegroundTask.requestNotificationPermission();
-    }
+    return permission == NotificationPermission.granted;
+  }
 
-    // Android 12+, there are restrictions on starting a foreground service.
-    //
-    // To restart the service on device reboot or unexpected problem, you need to allow below permission.
-    if (!await FlutterForegroundTask.isIgnoringBatteryOptimizations) {
-      // This function requires `android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` permission.
-      await FlutterForegroundTask.requestIgnoreBatteryOptimization();
+  @override
+  Future<bool> isNotificationPermissionDeniedPermanently() async {
+    final NotificationPermission permission =
+        await FlutterForegroundTask.checkNotificationPermission();
+    return permission == NotificationPermission.permanently_denied;
+  }
+
+  @override
+  Future<bool> requestNotificationPermission() async {
+    final bool hasPermission = await this.hasNotificationPermission();
+    if (hasPermission) {
+      return true;
+    } else {
+      final NotificationPermission permission =
+          await FlutterForegroundTask.requestNotificationPermission();
+      return permission == NotificationPermission.granted;
     }
   }
 }

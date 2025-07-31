@@ -1,5 +1,6 @@
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
+import 'package:bloom_flutter/screens/settings/dialogs/permission_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,11 +42,26 @@ class ServiceStateCard extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: FilledButton.tonal(
-                  onPressed: () {
+                  onPressed: () async {
                     if (model.isServiceRunning) {
                       controller.stopService();
                     } else {
-                      controller.startService();
+                      // Check if notification permission is granted
+                      final hasPermission =
+                          await controller.hasNotificationPermission();
+                      if (hasPermission) {
+                        controller.startService();
+                      } else {
+                        bool? request = await showPermissionDialog(context);
+                        if (request != null && request) {
+                          bool granted =
+                              await controller.requestNotificationPermission();
+                          if (granted) {
+                            // Start background service if permission is granted
+                            controller.startService();
+                          }
+                        }
+                      }
                     }
                   },
                   child: Text(

@@ -1,7 +1,7 @@
 import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/controller/bloom_controller.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
-import 'package:bloom_flutter/services/foreground/foreground_service.dart';
+import 'package:bloom_flutter/services/background/background_service.dart';
 import 'package:bloom_flutter/services/navigation/navigation_service.dart';
 import 'package:bloom_flutter/services/storage/storage_service.dart';
 import 'package:flutter/material.dart';
@@ -9,13 +9,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
   final NavigationService navigationService;
-  final ForegroundService foregroundService;
+  final BackgroundService backgroundService;
   final StorageService storageService;
 
   @override
   BloomControllerImpl({
     required this.navigationService,
-    required this.foregroundService,
+    required this.backgroundService,
     required this.storageService,
   }) : super(BloomModel()) {
     // Load initial state from storage
@@ -30,7 +30,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
         screenTimeFraction: storageService.getDouble(
           PrefKeys.screenTimeFraction,
         ),
-        daysStreak: storageService.getInt(PrefKeys.daysStreak),
+        streak: storageService.getInt(PrefKeys.streak),
         waterDrops: storageService.getInt(PrefKeys.waterDrops),
         brightnessLevel: BrightnessLevel.values.byName(
           storageService.getString(PrefKeys.brightnessLevel) ??
@@ -72,7 +72,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
 
   @override
   void dispose() {
-    foregroundService.dispose();
+    backgroundService.dispose();
     super.close();
   }
 
@@ -83,7 +83,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
 
   @override
   void startService() async {
-    final result = await foregroundService.start();
+    final result = await backgroundService.start();
     if (result) {
       emit(state.copyWith(isServiceRunning: true));
     }
@@ -91,7 +91,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
 
   @override
   void stopService() async {
-    final success = await foregroundService.stop();
+    final success = await backgroundService.stop();
     if (success) {
       emit(state.copyWith(isServiceRunning: false));
     }
@@ -99,13 +99,28 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
 
   @override
   void sendDataToService(Object data) {
-    foregroundService.isRunning().then((isRunning) {
+    backgroundService.isRunning().then((isRunning) {
       if (isRunning) {
-        foregroundService.sendDataToService(data);
+        backgroundService.sendDataToService(data);
       } else {
         debugPrint('Service is not running, cannot send data: $data');
       }
     });
+  }
+
+  @override
+  Future<bool> hasNotificationPermission() {
+    return backgroundService.hasNotificationPermission();
+  }
+
+  @override
+  Future<bool> isNotificationPermissionDeniedPermanently() {
+    return backgroundService.isNotificationPermissionDeniedPermanently();
+  }
+
+  @override
+  Future<bool> requestNotificationPermission() {
+    return backgroundService.requestNotificationPermission();
   }
 
   @override
@@ -152,22 +167,23 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
     storageService.saveInt(PrefKeys.dailyResetHour, dailyResetTime.hour);
     storageService.saveInt(PrefKeys.dailyResetMinute, dailyResetTime.minute);
     emit(state.copyWith(dailyResetTime: dailyResetTime));
+    sendDataToService(ActionData.timePrefsChanged);
   }
 
   @override
   void reset() {
-    foregroundService.stop();
-    int daysStreak = state.daysStreak;
+    backgroundService.stop();
+    int streak = state.streak;
     int waterDrops = state.waterDrops;
     storageService.clear().then((_) {
-      storageService.saveInt(PrefKeys.daysStreak, daysStreak);
+      storageService.saveInt(PrefKeys.streak, streak);
       storageService.saveInt(PrefKeys.waterDrops, waterDrops);
     });
-    emit(BloomModel(daysStreak: daysStreak, waterDrops: waterDrops));
+    emit(BloomModel(streak: streak, waterDrops: waterDrops));
   }
 
   Future<void> _initService() async {
-    await foregroundService.init((Object data) {
+    await backgroundService.init((Object data) {
       if (data is Map<String, dynamic>) {
         final sessionTimeMillis =
             data[TransactionKeys.sessionTimeMillis] as int? ?? 0;
@@ -184,7 +200,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
         final screenTimeMillis =
             data[TransactionKeys.screenTimeMillis] as int? ?? 0;
         final screenTimeFraction = data[PrefKeys.screenTimeFraction] as double?;
-        final daysStreak = data[PrefKeys.daysStreak] as int?;
+        final streak = data[PrefKeys.streak] as int?;
         final waterDrops = data[PrefKeys.waterDrops] as int?;
         emit(
           state.copyWith(
@@ -200,7 +216,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
             breakTime: Duration(milliseconds: breakTimeMillis),
             screenTime: Duration(milliseconds: screenTimeMillis),
             screenTimeFraction: screenTimeFraction,
-            daysStreak: daysStreak,
+            streak: streak,
             waterDrops: waterDrops,
           ),
         );
@@ -208,7 +224,7 @@ class BloomControllerImpl extends Cubit<BloomModel> implements BloomController {
     });
 
     // Check if the service is running
-    bool isRunning = await foregroundService.isRunning();
+    bool isRunning = await backgroundService.isRunning();
     emit(state.copyWith(isServiceRunning: isRunning));
   }
 }

@@ -18,6 +18,12 @@ abstract class BloomController extends Cubit<BloomModel> {
 
   void sendDataToService(Object data);
 
+  Future<bool> hasNotificationPermission();
+
+  Future<bool> isNotificationPermissionDeniedPermanently();
+
+  Future<bool> requestNotificationPermission();
+
   void setBrightnessLevel(BrightnessLevel brightnessLevel);
 
   void setContrastLevel(ContrastLevel contrastLevel);

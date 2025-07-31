@@ -17,7 +17,7 @@ class SessionTimeMaxSetting extends StatelessWidget {
     final controller = BlocProvider.of<BloomController>(context);
     return SettingWithIcon(
       onTap: () {
-        showDurationPicker(context, model.sessionTimeMax).then((duration) {
+        showDurationDialog(context, model.sessionTimeMax).then((duration) {
           if (duration != null) {
             if (duration.inMinutes < 1) {
               duration = const Duration(minutes: 1);

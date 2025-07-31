@@ -17,7 +17,7 @@ class ScreenTimeMaxSetting extends StatelessWidget {
     final controller = BlocProvider.of<BloomController>(context);
     return SettingWithIcon(
       onTap: () {
-        showDurationPicker(context, model.screenTimeMax).then((duration) {
+        showDurationDialog(context, model.screenTimeMax).then((duration) {
           if (duration != null) {
             if (duration.inMinutes < 1) {
               duration = const Duration(minutes: 1);

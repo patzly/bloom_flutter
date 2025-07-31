@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:bloom_flutter/constants.dart';
 import 'package:bloom_flutter/extensions/time_extensions.dart';
 import 'package:bloom_flutter/model/bloom_model.dart';
+import 'package:bloom_flutter/screens/home/dialogs/msg_dialog.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
@@ -54,7 +55,7 @@ class ScreenTimeCard extends StatelessWidget {
                 _buildProgressBar(context, model.screenTimeFraction),
                 _buildChips(
                   context,
-                  model.daysStreak == 1 ? '1 Tag' : '${model.daysStreak} Tage',
+                  model.streak == 1 ? '1 Tag' : '${model.streak} Tage',
                   model.waterDrops == 1
                       ? '1 Wassertropfen'
                       : '${model.waterDrops} Wassertropfen',
@@ -233,7 +234,16 @@ class ScreenTimeCard extends StatelessWidget {
               side: BorderSide(color: Colors.transparent, width: 0),
               materialTapTargetSize: MaterialTapTargetSize.padded,
               onPressed: () {
-                // Handle tap
+                String msg =
+                    "Halte deine Zeitlimits einen Tag lang ein, um einen Streak aufzubauen!";
+                if (model.streak == 1) {
+                  msg =
+                      "Du hast einen Tag lang deine Zeitlimits eingehalten, weiter so!";
+                } else if (model.streak > 1) {
+                  msg =
+                      "Du hast ${model.streak} Tage in Folge deine Zeitlimits eingehalten. Weiter so, damit du deinen Streak nicht verlierst!";
+                }
+                showMsgDialog(context, title: "Streak", msg: msg);
               },
             ), // Use SizedBox to avoid rendering issues
           ),
@@ -252,7 +262,15 @@ class ScreenTimeCard extends StatelessWidget {
               backgroundColor: blueColorScheme.primaryContainer,
               side: BorderSide(color: Colors.transparent, width: 0),
               materialTapTargetSize: MaterialTapTargetSize.padded,
-              onPressed: () {},
+              onPressed: () {
+                String msg =
+                    "Halte deine Zeitlimits einen Tag lang ein, um einen Wassertropfen zu verdienen. Wassertropfen retten deine Pflanze vor dem Vertrocknen, indem sie dir bei Bedarf 5 Minuten Extrazeit geben.";
+                if (model.waterDrops > 0) {
+                  msg =
+                      "Du hast noch ${model.waterDrops} Wassertropfen! Wassertropfen retten deine Pflanze vor dem Vertrockne, indem sie dir bei Bedarf 5 Minuten Extrazeit geben.";
+                }
+                showMsgDialog(context, title: "Wassertropfen", msg: msg);
+              },
             ),
           ),
         ],

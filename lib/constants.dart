@@ -9,7 +9,7 @@ class PrefKeys {
   static const sessionTimeFraction = 'sessionTimeFraction';
   static const sessionTimeToleranceFraction = 'sessionTimeToleranceFraction';
   static const screenTimeFraction = 'screenTimeFraction';
-  static const daysStreak = 'daysStreak';
+  static const streak = 'streak';
   static const waterDrops = 'waterDrops';
   static const brightnessLevel = 'brightnessLevel';
   static const contrastLevel = 'contrastLevel';
@@ -25,14 +25,15 @@ class Defaults {
   static const brightnessLevel = BrightnessLevel.auto;
   static const contrastLevel = ContrastLevel.standard;
   static const useDynamicColors = false;
-  static const sessionTimeMax = Duration(minutes: 1);
+  static const sessionTimeMax = Duration(minutes: 10);
   static const sessionTimeToleranceMax = Duration(minutes: 5);
-  static const breakTimeMin = Duration(minutes: 1);
+  static const breakTimeMin = Duration(minutes: 10);
   static const screenTimeMax = Duration(hours: 2);
   static const dailyResetTime = TimeOfDay(hour: 3, minute: 0);
 }
 
 class ActionData {
+  static const update = 'update';
   static const timePrefsChanged = 'timePrefsChanged';
 }
 
@@ -45,7 +46,7 @@ class TransactionKeys {
   static const breakTimeMillis = 'breakTimeMillis';
   static const screenTimeMillis = 'screenTimeMillis';
   static const screenTimeFraction = 'screenTimeFraction';
-  static const daysStreak = 'daysStreak';
+  static const streak = 'streak';
   static const waterDrops = 'waterDrops';
 }
 

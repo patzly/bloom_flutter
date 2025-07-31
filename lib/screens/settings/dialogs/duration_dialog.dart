@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Future<Duration?> showDurationPicker(
+Future<Duration?> showDurationDialog(
   BuildContext context,
   Duration initialDuration,
 ) async {
