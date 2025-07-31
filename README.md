@@ -60,7 +60,6 @@ This screen lets users **customize their time limits and visual look**:
 - 🔄 **Reset Settings**  
   All settings can be reset with a single tap — irreversible.
 
----
 
 ### 🌼 Home Screen
 
