@@ -4,7 +4,8 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)  [![Release](https://img.shields.io/github/v/release/patzly/bloom_flutter?label=Release)](https://github.com/patzly/bloom_flutter/releases)  [![Downloads](https://img.shields.io/github/downloads/patzly/bloom_flutter/total.svg?label=Downloads)](https://github.com/patzly/bloom_flutter/releases)
 
-Bloom is a Flutter-based mobile application designed to help users regulate their screen time in a motivating and positive way. By tracking usage and encouraging regular breaks, it promotes healthier digital habits and supports overall well-being.
+Bloom is a Flutter-based mobile application designed to help users regulate their screen time in a motivating way. By tracking screen time and encouraging regular breaks, it promotes healthier digital habits and supports overall well-being.  
+This project is a graded assignment for the Mobile Applications lecture at HTWG Konstanz. Due to various technical limitations, this app has been developed primarily for Android.
 
 ## Downloads
 
