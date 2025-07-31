@@ -1,67 +1,66 @@
-📱 Bloom App
-🌐 Abstract
-Bloom is a Flutter-based mobile application that promotes healthier digital habits by helping users manage their screen time and session duration. It monitors screen usage and encourages regular breaks to avoid digital fatigue and promote well-being.
+# 📱 Bloom App
 
-📖 Detailed Description
-Bloom is designed for users who spend long hours on their smartphones or tablets. The app tracks how long the device screen remains active (screen time) and the duration of continuous usage sessions (session time). Based on configurable thresholds, it reminds users to take breaks and gently enforces boundaries if necessary. It also adjusts session behavior based on whether the user locked or unlocked the device, recalculating the remaining time accordingly.
+## 🌐 Abstract
 
-It uses persistent storage to save session configurations (e.g. max session time, break length), ensuring continuity across app launches. The app applies intelligent logic to subtract break time from ongoing sessions, allowing a more dynamic and personalized experience.
+**Bloom** is a Flutter-based mobile application designed to help users regulate their screen time in a motivating and positive way. By tracking usage and encouraging regular breaks, it promotes healthier digital habits and supports overall well-being.
 
-💡 Problem Solved
-Today's users often lose track of time spent on digital devices, which can lead to fatigue, decreased productivity, and health issues like eye strain or insomnia. Bloom solves this by:
+## 🧭 Vision
 
-Tracking screen and session usage
+Bloom motivates users to spend more time offline by connecting their digital habits to the health of a digital flower — encouraging balance between screen use and real-life moments.
 
-Enforcing healthy usage patterns with breaks
+## 💡 Problem
 
-Adapting to user behavior in real time
+In everyday life, users in Germany (and beyond) often spend too much time on their smartphones. Excessive usage can negatively affect sleep quality, concentration, and mental health. However, limiting screen time independently can be difficult. Bloom provides gentle support and guidance to build better habits.
 
-👤 Target Persona
-Name: Emma
-Age: 25
-Occupation: University Student
-Habits: Uses phone for studying, social media, and communication for several hours daily.
-Pain Point: Loses track of time and suffers from digital fatigue.
-How Bloom helps: Emma uses Bloom to set healthy usage limits, take regular breaks, and improve her focus and sleep quality.
+## 📖 Detailed Description
 
-🧭 Screens Overview
-Screen	Description
-Home Screen	Shows current session and screen time stats, visual indicators for limits
-Settings Screen	Lets users adjust max session duration, break time, and screen time cap
-Break Screen	Encourages the user to take a break, possibly locking out for a moment
-Stats Screen	Displays historical data about user’s screen and session usage
-Onboarding	Guides the user through initial setup and permission requests
+Bloom is tailored for people who spend long periods on their phones or tablets. It monitors:
 
-🧱 Architecture
-The app follows a modular MVC-inspired architecture with Service Layer and Shared Preferences for persistent data.
+- **Screen time**: total time the display is active
+- **Session time**: how long the user actively uses the device in one go
 
-Layers:
-pgsql
-Kopieren
-Bearbeiten
-+----------------------+
-|       View (UI)      | ← Flutter Widgets & Screens
-+----------------------+
-           |
-           ↓
-+----------------------+
-|     Controller       | ← Handles user interaction & navigation logic
-+----------------------+
-           |
-           ↓
-+----------------------+
-|      Service Layer   | ← e.g. TimeServiceImpl: Manages timing logic
-+----------------------+
-           |
-           ↓
-+----------------------+
-|   Local Persistence  | ← SharedPreferences (e.g. session time, screen time)
-+----------------------+
-Key Components:
-TimeServiceImpl: Core logic for session and screen time tracking
+Based on customizable thresholds, the app reminds users to take breaks and enforces limits gently when needed. If the user locks or unlocks the phone, Bloom recalculates remaining session time intelligently.
 
-SharedPreferences: Stores user settings and current session state
+All settings — such as maximum session length and break duration — are stored using persistent local storage, allowing seamless continuity between sessions.
 
-Constants: Central location for thresholds and update intervals
+Break times are automatically subtracted from active sessions to ensure a smooth, personalized experience.
 
-UserPresence: Enum that differentiates between OFF, LOCKED, and UNLOCKED states to adjust session timing
+## 👤 Target Persona
+
+**Name:** Emma  
+**Age:** 25  
+**Occupation:** University Student  
+**Habits:** Uses her smartphone extensively for studying, messaging, and social media  
+**Pain Point:** Struggles to manage screen time and often feels digitally fatigued  
+**How Bloom Helps:** Emma uses Bloom to set healthy usage limits, take regular breaks, and improve her sleep and focus
+
+## 🧭 Screens Overview
+
+| Screen             | Description                                                                    |
+|--------------------|--------------------------------------------------------------------------------|
+| **Home Screen**     | Displays current session and screen time stats with clear visual indicators    |
+| **Settings Screen** | Allows users to adjust session duration, break length, and screen time cap     |
+
+## 📸 Screenshots
+<div style="display: flex; gap: 5px;">
+  <img src="assets/screenshots/home_screen.png" alt="Home Screen" width="250"/>
+  <img src="assets/screenshots/settings_screen.png" alt="Swipe Screen" width="250"/>
+</div>
+
+
+## 🏗 **Architecture**
+
+Bloom follows a **modular architecture** inspired by MVC principles, focusing on clear separation of concerns and platform abstraction. Each layer is responsible for a specific part of the app and interacts only through well-defined interfaces.
+
+## 🧱 **Layers**
+
+### 🖥️ **View Layer**  
+Responsible for rendering the user interface. Contains widgets and screens that display data, receive user input, and forward actions to the controller. No business logic is included here.
+
+### 🧩 **Controller Layer**  
+Handles interaction logic and application flow. It interprets user actions, communicates with services, and updates the UI based on results.
+
+### ⚙️ **Service Layer**  
+Contains core app functionality such as time tracking, session handling, and break logic.
+
+
