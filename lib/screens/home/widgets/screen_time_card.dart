@@ -33,7 +33,7 @@ class ScreenTimeCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildTextBlock(context, model),
-                _buildTitleBlock(context, "time.session_time".tr()),
+                _buildTitleBlock(context, 'time.session_time'.tr()),
                 _buildTimeRow(
                   context,
                   model.sessionTime.toPrettyString(false, true),
@@ -42,7 +42,7 @@ class ScreenTimeCard extends StatelessWidget {
                 _buildProgressBar(context, model.sessionTimeFraction),
                 _buildExceededBlock(
                   context,
-                  "time.session_time_exceeded".tr(
+                  'time.session_time_exceeded'.tr(
                     args: [
                       model.sessionTimeTolerance.toPrettyString(false, false),
                     ],
@@ -50,7 +50,7 @@ class ScreenTimeCard extends StatelessWidget {
                   Constants.sessionTimeToleranceMax.toPrettyStringShortest(),
                   model.sessionTimeToleranceFraction,
                 ),
-                _buildTitleBlock(context, "time.screen_time".tr()),
+                _buildTitleBlock(context, 'time.screen_time'.tr()),
                 _buildTimeRow(
                   context,
                   model.screenTime.toPrettyString(false, true),
@@ -60,11 +60,11 @@ class ScreenTimeCard extends StatelessWidget {
                 _buildChips(
                   context,
                   model.streak == 1
-                      ? "time.days".tr(args: ['1'])
-                      : "time.days".tr(args: [model.streak.toString()]),
+                      ? 'time.days'.tr(args: ['1'])
+                      : 'time.days'.tr(args: [model.streak.toString()]),
                   model.waterDrops == 1
-                      ? "time.water_drops".tr(args: ['1'])
-                      : "time.water_drops".tr(
+                      ? 'time.water_drops'.tr(args: ['1'])
+                      : 'time.water_drops'.tr(
                         args: [model.waterDrops.toString()],
                       ),
                 ),
@@ -77,20 +77,20 @@ class ScreenTimeCard extends StatelessWidget {
   }
 
   Widget _buildTextBlock(BuildContext context, BloomModel model) {
-    String title = "time.title_1".tr();
-    String msg = "time.msg_1".tr();
+    String title = 'time.title_1'.tr();
+    String msg = 'time.msg_1'.tr();
     if (model.sessionTimeToleranceFraction >= 1 ||
         model.screenTimeFraction >= 1) {
-      title = "time.title_3".tr();
-      msg = "time.msg_3".tr();
+      title = 'time.title_3'.tr();
+      msg = 'time.msg_3'.tr();
     } else if (model.sessionTimeFraction >= 1 &&
         model.sessionTimeToleranceFraction < 1 &&
         model.screenTimeFraction < 1) {
-      title = "time.title_2".tr();
+      title = 'time.title_2'.tr();
       String breakTimeMinutes = model.breakTime.toPrettyStringRoundSecondsUp();
       String sessionTimeRemaining =
           model.sessionTimeRemaining.toPrettyStringRoundSecondsDown();
-      msg = "time.msg_2".tr(
+      msg = 'time.msg_2'.tr(
         namedArgs: {
           'break_time': breakTimeMinutes,
           'session_time_remaining': sessionTimeRemaining,
@@ -244,17 +244,17 @@ class ScreenTimeCard extends StatelessWidget {
               side: BorderSide(color: Colors.transparent, width: 0),
               materialTapTargetSize: MaterialTapTargetSize.padded,
               onPressed: () {
-                String msg = "time.streak_dialog.msg_none".tr();
+                String msg = 'time.streak_dialog.msg_none'.tr();
                 if (model.streak == 1) {
-                  msg = "time.streak_dialog.msg_one".tr();
+                  msg = 'time.streak_dialog.msg_one'.tr();
                 } else if (model.streak > 1) {
-                  msg = "time.streak_dialog.msg_more".tr(
+                  msg = 'time.streak_dialog.msg_more'.tr(
                     args: [model.streak.toString()],
                   );
                 }
                 showMsgDialog(
                   context,
-                  title: "time.streak_dialog.title".tr(),
+                  title: 'time.streak_dialog.title'.tr(),
                   msg: msg,
                 );
               },
@@ -276,17 +276,17 @@ class ScreenTimeCard extends StatelessWidget {
               side: BorderSide(color: Colors.transparent, width: 0),
               materialTapTargetSize: MaterialTapTargetSize.padded,
               onPressed: () {
-                String msg = "time.water_drops_dialog.msg_none".tr();
+                String msg = 'time.water_drops_dialog.msg_none'.tr();
                 if (model.waterDrops == 1) {
-                  msg = "time.water_drops_dialog.msg_one".tr();
+                  msg = 'time.water_drops_dialog.msg_one'.tr();
                 } else if (model.waterDrops > 1) {
-                  msg = "time.water_drops_dialog.msg_more".tr(
+                  msg = 'time.water_drops_dialog.msg_more'.tr(
                     args: [model.waterDrops.toString()],
                   );
                 }
                 showMsgDialog(
                   context,
-                  title: "time.water_drops_dialog.title".tr(),
+                  title: 'time.water_drops_dialog.title'.tr(),
                   msg: msg,
                 );
               },

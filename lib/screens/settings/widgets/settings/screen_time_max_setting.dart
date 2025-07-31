@@ -33,7 +33,7 @@ class ScreenTimeMaxSetting extends StatelessWidget {
       ),
       children: [
         Text(
-          "settings.max_screen_time".tr(),
+          'settings.max_screen_time'.tr(),
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         Text(

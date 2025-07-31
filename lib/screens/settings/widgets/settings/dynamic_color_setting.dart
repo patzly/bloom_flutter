@@ -28,11 +28,11 @@ class DynamicColorSetting extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "settings.dynamic_colors.title".tr(),
+                    'settings.dynamic_colors.title'.tr(),
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   Text(
-                    "settings.dynamic_colors.description".tr(),
+                    'settings.dynamic_colors.description'.tr(),
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),

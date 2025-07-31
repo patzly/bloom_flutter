@@ -33,7 +33,7 @@ class BreakTimeMinSetting extends StatelessWidget {
       ),
       children: [
         Text(
-          "settings.min_break_time".tr(),
+          'settings.min_break_time'.tr(),
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         Text(

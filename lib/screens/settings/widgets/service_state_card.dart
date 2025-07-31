@@ -31,12 +31,12 @@ class ServiceStateCard extends StatelessWidget {
             children: [
               Text(
                 model.isServiceRunning
-                    ? "service.running".tr()
-                    : "service.not_running".tr(),
+                    ? 'service.running'.tr()
+                    : 'service.not_running'.tr(),
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 4),
-              Text("service.info".tr()),
+              Text('service.info'.tr()),
               const SizedBox(height: 8),
               Align(
                 alignment: Alignment.centerRight,
@@ -65,8 +65,8 @@ class ServiceStateCard extends StatelessWidget {
                   },
                   child: Text(
                     model.isServiceRunning
-                        ? "service.stop".tr()
-                        : "service.start".tr(),
+                        ? 'service.stop'.tr()
+                        : 'service.start'.tr(),
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                       color: Theme.of(context).colorScheme.onSecondaryContainer,
                     ),

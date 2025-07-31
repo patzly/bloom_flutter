@@ -22,7 +22,7 @@ Future<Duration?> showDurationDialog(
     ),
     builder: (context) {
       return AlertDialog(
-        title: Text("settings.duration_dialog_title".tr()),
+        title: Text('settings.duration_dialog_title'.tr()),
         content: SizedBox(
           height: 150,
           child: Row(
@@ -37,7 +37,7 @@ Future<Duration?> showDurationDialog(
                   children: List.generate(
                     24,
                     (i) => Center(
-                      child: Text("time.hours_short".tr(args: [i.toString()])),
+                      child: Text('time.hours_short'.tr(args: [i.toString()])),
                     ),
                   ),
                 ),
@@ -53,7 +53,7 @@ Future<Duration?> showDurationDialog(
                     12,
                     (i) => Center(
                       child: Text(
-                        "time.minutes_short".tr(args: [(i * 5).toString()]),
+                        'time.minutes_short'.tr(args: [(i * 5).toString()]),
                       ),
                     ),
                   ),
@@ -65,7 +65,7 @@ Future<Duration?> showDurationDialog(
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text("actions.cancel".tr()),
+            child: Text('actions.cancel'.tr()),
           ),
           TextButton(
             onPressed:
@@ -73,7 +73,7 @@ Future<Duration?> showDurationDialog(
                   context,
                   Duration(hours: selectedHours, minutes: selectedMinutes),
                 ),
-            child: Text("actions.select".tr()),
+            child: Text('actions.select'.tr()),
           ),
         ],
         contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),

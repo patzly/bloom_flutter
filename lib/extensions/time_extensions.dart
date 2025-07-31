@@ -11,34 +11,34 @@ extension DurationFormatting on Duration {
 
     if (hours > 0) {
       if (minutes == 0 && seconds == 0) {
-        return (hours == 1 ? "time.hours" : "time.hours_plural").tr(
+        return (hours == 1 ? 'time.hours' : 'time.hours_plural').tr(
           args: [hours.toString()],
         );
       } else if (seconds == 0) {
         String duration = '$hours:${twoDigits(minutes)}';
-        return (hours == 1 && minutes == 0 ? "time.hours" : "time.hours_plural")
+        return (hours == 1 && minutes == 0 ? 'time.hours' : 'time.hours_plural')
             .tr(args: [duration]);
       } else {
         String duration = '$hours:${twoDigits(minutes)}:${twoDigits(seconds)}';
         return (hours == 1 && minutes == 0 && seconds == 0
-                ? "time.hours"
-                : "time.hours_plural")
+                ? 'time.hours'
+                : 'time.hours_plural')
             .tr(args: [duration]);
       }
     } else if (minutes > 0) {
       if (seconds == 0) {
-        return (minutes == 1 ? "time.minutes" : "time.minutes_plural").tr(
+        return (minutes == 1 ? 'time.minutes' : 'time.minutes_plural').tr(
           args: [minutes.toString()],
         );
       } else {
         String duration = '$minutes:${twoDigits(seconds)}';
         return (minutes == 1 && seconds == 0
-                ? "time.minutes"
-                : "time.minutes_plural")
+                ? 'time.minutes'
+                : 'time.minutes_plural')
             .tr(args: [duration]);
       }
     } else {
-      return (seconds == 1 ? "time.seconds" : "time.seconds_plural").tr(
+      return (seconds == 1 ? 'time.seconds' : 'time.seconds_plural').tr(
         args: [seconds.toString()],
       );
     }
@@ -53,16 +53,16 @@ extension DurationFormatting on Duration {
 
     if (hours > 0) {
       if (minutes == 0) {
-        return (hours == 1 ? "time.hours" : "time.hours_plural").tr(
+        return (hours == 1 ? 'time.hours' : 'time.hours_plural').tr(
           args: [hours.toString()],
         );
       } else {
         String duration = '$hours:${minutes.toString().padLeft(2, '0')}';
-        return (hours == 1 && minutes == 0 ? "time.hours" : "time.hours_plural")
+        return (hours == 1 && minutes == 0 ? 'time.hours' : 'time.hours_plural')
             .tr(args: [duration]);
       }
     } else {
-      return (roundedMinutes == 1 ? "time.minutes" : "time.minutes_plural").tr(
+      return (roundedMinutes == 1 ? 'time.minutes' : 'time.minutes_plural').tr(
         args: [roundedMinutes.toString()],
       );
     }
@@ -76,16 +76,16 @@ extension DurationFormatting on Duration {
 
     if (hours > 0) {
       if (minutes == 0) {
-        return (hours == 1 ? "time.hours" : "time.hours_plural").tr(
+        return (hours == 1 ? 'time.hours' : 'time.hours_plural').tr(
           args: [hours.toString()],
         );
       } else {
         String duration = '$hours:${minutes.toString().padLeft(2, '0')}';
-        return (hours == 1 && minutes == 0 ? "time.hours" : "time.hours_plural")
+        return (hours == 1 && minutes == 0 ? 'time.hours' : 'time.hours_plural')
             .tr(args: [duration]);
       }
     } else {
-      return (roundedMinutes == 1 ? "time.minutes" : "time.minutes_plural").tr(
+      return (roundedMinutes == 1 ? 'time.minutes' : 'time.minutes_plural').tr(
         args: [roundedMinutes.toString()],
       );
     }
@@ -99,16 +99,16 @@ extension DurationFormatting on Duration {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
 
     if (hideMinutes && hideSeconds) {
-      return (hours == 1 ? "time.hours" : "time.hours_plural").tr(
+      return (hours == 1 ? 'time.hours' : 'time.hours_plural').tr(
         args: [hours.toString()],
       );
     } else if (hideSeconds) {
       if (hours > 0) {
         String duration = '$hours:${twoDigits(minutes)}';
-        return (hours == 1 && minutes == 0 ? "time.hours" : "time.hours_plural")
+        return (hours == 1 && minutes == 0 ? 'time.hours' : 'time.hours_plural')
             .tr(args: [duration]);
       } else {
-        return (minutes == 1 ? "time.minutes" : "time.minutes_plural").tr(
+        return (minutes == 1 ? 'time.minutes' : 'time.minutes_plural').tr(
           args: [minutes.toString()],
         );
       }
@@ -116,17 +116,17 @@ extension DurationFormatting on Duration {
       if (hours > 0) {
         String duration = '$hours:${twoDigits(minutes)}:${twoDigits(seconds)}';
         return (hours == 1 && minutes == 0 && seconds == 0
-                ? "time.hours"
-                : "time.hours_plural")
+                ? 'time.hours'
+                : 'time.hours_plural')
             .tr(args: [duration]);
       } else if (minutes > 0) {
         String duration = '$minutes:${twoDigits(seconds)}';
         return (minutes == 1 && seconds == 0
-                ? "time.minutes"
-                : "time.minutes_plural")
+                ? 'time.minutes'
+                : 'time.minutes_plural')
             .tr(args: [duration]);
       } else {
-        return (seconds == 1 ? "time.seconds" : "time.seconds_plural").tr(
+        return (seconds == 1 ? 'time.seconds' : 'time.seconds_plural').tr(
           args: [seconds.toString()],
         );
       }
@@ -138,7 +138,7 @@ extension TimeOfDayFormatting on TimeOfDay {
   String to24hString() {
     final hh = hour.toString().padLeft(2, '0');
     final mm = minute.toString().padLeft(2, '0');
-    return "time.time_hours_minutes".tr(
+    return 'time.time_hours_minutes'.tr(
       namedArgs: {'hours': hh, 'minutes': mm},
     );
   }

@@ -68,11 +68,11 @@ class BackgroundServiceAndroidImpl implements BackgroundService {
     }
 
     final result = await FlutterForegroundTask.startService(
-      notificationTitle: "Service zur Messung der Bildschirmzeit läuft",
+      notificationTitle: 'Service zur Messung der Bildschirmzeit läuft',
       notificationText:
-          "Diese Benachrichtigung ist erforderlich, um den Service am Laufen zu halten.",
+          'Diese Benachrichtigung ist erforderlich, um den Service am Laufen zu halten.',
       // meta data added in android manifest
-      notificationIcon: NotificationIcon(metaDataName: "notification_icon"),
+      notificationIcon: NotificationIcon(metaDataName: 'notification_icon'),
       callback: startCallback,
     );
     if (result is ServiceRequestFailure) {

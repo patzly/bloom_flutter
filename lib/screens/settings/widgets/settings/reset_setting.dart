@@ -26,19 +26,19 @@ class ResetSetting extends StatelessWidget {
           ),
           builder: (context) {
             return AlertDialog(
-              title: Text("settings.reset.dialog_title".tr()),
-              content: Text("settings.reset.dialog_msg".tr()),
+              title: Text('settings.reset.dialog_title'.tr()),
+              content: Text('settings.reset.dialog_msg'.tr()),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: Text("actions.cancel".tr()),
+                  child: Text('actions.cancel'.tr()),
                 ),
                 TextButton(
                   onPressed: () {
                     controller.reset();
                     Navigator.pop(context);
                   },
-                  child: Text("actions.reset".tr()),
+                  child: Text('actions.reset'.tr()),
                 ),
               ],
               actionsPadding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
@@ -52,11 +52,11 @@ class ResetSetting extends StatelessWidget {
       ),
       children: [
         Text(
-          "settings.reset.title".tr(),
+          'settings.reset.title'.tr(),
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         Text(
-          "settings.reset.description".tr(),
+          'settings.reset.description'.tr(),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),

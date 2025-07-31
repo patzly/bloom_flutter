@@ -21,7 +21,7 @@ Future<void> showMsgDialog(
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text("actions.close".tr()),
+            child: Text('actions.close'.tr()),
           ),
         ],
         actionsPadding: const EdgeInsets.fromLTRB(20, 0, 20, 20),

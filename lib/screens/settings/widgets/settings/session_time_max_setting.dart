@@ -33,7 +33,7 @@ class SessionTimeMaxSetting extends StatelessWidget {
       ),
       children: [
         Text(
-          "settings.max_session_time".tr(),
+          'settings.max_session_time'.tr(),
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         Text(

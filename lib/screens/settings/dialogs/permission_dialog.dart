@@ -13,10 +13,10 @@ Future<bool?> showPermissionDialog(BuildContext context) async {
       await controller.isNotificationPermissionDeniedPermanently();
   String msg =
       isDeniedPermanently
-          ? "permission.dialog_msg_denied".tr()
-          : "permission.dialog_msg".tr();
+          ? 'permission.dialog_msg_denied'.tr()
+          : 'permission.dialog_msg'.tr();
   String action =
-      isDeniedPermanently ? "actions.close".tr() : "actions.next".tr();
+      isDeniedPermanently ? 'actions.close'.tr() : 'actions.next'.tr();
   return showDialog<bool>(
     context: context,
     animationStyle: AnimationStyle(
@@ -27,13 +27,13 @@ Future<bool?> showPermissionDialog(BuildContext context) async {
     ),
     builder: (context) {
       return AlertDialog(
-        title: Text("permission.dialog_title".tr()),
+        title: Text('permission.dialog_title'.tr()),
         content: Text(msg),
         actions: [
           if (!isDeniedPermanently)
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: Text("actions.cancel".tr()),
+              child: Text('actions.cancel'.tr()),
             ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),

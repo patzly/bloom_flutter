@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
           child: Image.asset('assets/icon/monochrome.png'),
         ),
       ),
-      title: Text("app.name".tr()),
+      title: Text('app.name'.tr()),
       centerTitle: true,
       elevation: 3,
       scrolledUnderElevation: 3,
@@ -159,7 +159,7 @@ class HomeScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(32),
                 child: Text(
-                  "app.intro".tr(),
+                  'app.intro'.tr(),
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),

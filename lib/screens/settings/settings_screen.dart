@@ -34,7 +34,7 @@ class SettingsScreen extends StatelessWidget {
                 Symbols.arrow_back_rounded,
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
-              tooltip: "actions.back".tr(),
+              tooltip: 'actions.back'.tr(),
               onPressed: () => Navigator.maybePop(context),
             ),
           ),
