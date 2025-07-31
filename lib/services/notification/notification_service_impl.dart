@@ -26,12 +26,12 @@ class NotificationServiceImpl implements NotificationService {
     const AndroidNotificationChannel liveUpdatesChannel =
         AndroidNotificationChannel(
           _channelIdLiveUpdates,
-          'Live Updates',
+          'Live-Updates',
           importance: Importance.max,
         );
     const AndroidNotificationChannel eventsChannel = AndroidNotificationChannel(
       _channelIdEvents,
-      'Events',
+      'Ereignisse',
       importance: Importance.defaultImportance,
     );
 
@@ -53,7 +53,7 @@ class NotificationServiceImpl implements NotificationService {
       notificationIdLiveUpdate,
       title,
       text,
-      _liveUpdateDetails(),
+      _liveUpdateDetails(title, text),
     );
   }
 
@@ -66,7 +66,7 @@ class NotificationServiceImpl implements NotificationService {
       notificationIdLiveUpdateLastMinute,
       title,
       text,
-      _liveUpdateDetails(),
+      _liveUpdateDetails(title, text),
     );
   }
 
@@ -85,7 +85,12 @@ class NotificationServiceImpl implements NotificationService {
     required String title,
     required String text,
   }) async {
-    await _plugin.show(notificationIdEvent, title, text, _eventDetails());
+    await _plugin.show(
+      notificationIdEvent,
+      title,
+      text,
+      _eventDetails(title, text),
+    );
   }
 
   @override
@@ -93,36 +98,38 @@ class NotificationServiceImpl implements NotificationService {
     await _plugin.cancel(notificationIdEvent);
   }
 
-  NotificationDetails _liveUpdateDetails() {
-    return const NotificationDetails(
+  NotificationDetails _liveUpdateDetails(String title, String text) {
+    return NotificationDetails(
       android: AndroidNotificationDetails(
         _channelIdLiveUpdates,
-        'Live Updates',
+        'Live-Updates',
         importance: Importance.max,
         priority: Priority.max,
         ongoing: true,
         onlyAlertOnce: true,
         showWhen: false,
-        styleInformation: BigTextStyleInformation(''),
+        styleInformation: BigTextStyleInformation(text, contentTitle: title),
         visibility: NotificationVisibility.public,
         icon: 'ic_rounded_potted_plant',
+        largeIcon: DrawableResourceAndroidBitmap("flower_thirsty_icon"),
       ),
     );
   }
 
-  NotificationDetails _eventDetails() {
-    return const NotificationDetails(
+  NotificationDetails _eventDetails(String title, String text) {
+    return NotificationDetails(
       android: AndroidNotificationDetails(
         _channelIdEvents,
-        'Events',
+        'Ereignisse',
         importance: Importance.defaultImportance,
         priority: Priority.defaultPriority,
         ongoing: false,
         onlyAlertOnce: false,
         showWhen: true,
-        styleInformation: BigTextStyleInformation(''),
+        styleInformation: BigTextStyleInformation(text, contentTitle: title),
         visibility: NotificationVisibility.public,
         icon: 'ic_rounded_potted_plant',
+        largeIcon: DrawableResourceAndroidBitmap("flower_dried_out_icon"),
       ),
     );
   }
