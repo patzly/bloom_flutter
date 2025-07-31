@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloom_flutter/constants.dart';
+import 'package:bloom_flutter/extensions/time_extensions.dart';
 import 'package:bloom_flutter/services/notification/notification_service.dart';
 import 'package:bloom_flutter/services/time/listener/time_listener.dart';
 import 'package:bloom_flutter/services/time/time_service.dart';
@@ -24,6 +25,7 @@ class ForegroundTaskHandler extends TaskHandler implements TimeListener {
     print('onStart(starter: ${starter.name})');
 
     notificationService.init();
+    notificationService.createChannels();
 
     timeService.setListener(this);
     timeService.loadFromStorage();
@@ -65,36 +67,36 @@ class ForegroundTaskHandler extends TaskHandler implements TimeListener {
 
   @override
   void onPhoneTimeIncreased() {
-    /*double sessionTimeToleranceFraction = timeService.getSessionTimeToleranceFraction();
+    double sessionTimeToleranceFraction =
+        timeService.getSessionTimeToleranceFraction();
     if (sessionTimeToleranceFraction > 0 && sessionTimeToleranceFraction < 1) {
-      notificationUtil.createNotificationChannelLiveUpdates();
       // create live update
-      String breakMinutesString = getResources().getQuantityString(
-          R.plurals.label_minutes,
-          phoneTimeUtil.getBreakTimeMinutes(),
-          phoneTimeUtil.getBreakTimeMinutes()
+      int breakTimeMillis = timeService.getBreakTimeMillis();
+      String breakTimeString =
+          Duration(
+            milliseconds: breakTimeMillis,
+          ).toPrettyStringRoundSecondsUp();
+      int remainingMillis = timeService.getSessionTimeRemainingMillis();
+      String remainingString =
+          Duration(
+            milliseconds: remainingMillis,
+          ).toPrettyStringRoundSecondsDown();
+      notificationService.updateLiveUpdateNotification(
+        title: "Deine Blume braucht Wasser!",
+        text:
+            "Leg dein Smartphone für mindestens $breakTimeString weg, damit sie ausreichend gegossen wird. Ansonsten vertrocknet sie in $remainingString.",
       );
-      Notification notification = notificationUtil.getLiveUpdateNotification(
-          getString(R.string.msg_flower_thirsty),
-          getString(
-              R.string.msg_flower_thirsty_description,
-              breakMinutesString,
-              phoneTimeUtil.getSessionTimeRemainingMinutesString()
-          ),
-          R.drawable.illustration_notification_2
-      );
-      notificationUtil.updateLiveUpdateNotification(notification, false);
-    }*/
+    }
   }
 
   @override
   void onToleranceExceeded() {
-    // TODO: implement onToleranceExceeded
+    notificationService.cancelLiveUpdateNotification();
   }
 
   @override
   void onBreak() {
-    // TODO: implement onBreak
+    notificationService.cancelLiveUpdateNotification();
   }
 
   void _update() async {

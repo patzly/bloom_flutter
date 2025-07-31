@@ -1,8 +1,6 @@
 abstract class NotificationService {
   Future<void> init();
 
-  Future<bool> hasPermission();
-
   Future<void> createChannels();
 
   Future<void> updateLiveUpdateNotification({

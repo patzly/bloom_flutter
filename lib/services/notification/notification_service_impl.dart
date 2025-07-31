@@ -1,5 +1,4 @@
 import 'package:bloom_flutter/services/notification/notification_service.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationServiceImpl implements NotificationService {
@@ -19,16 +18,6 @@ class NotificationServiceImpl implements NotificationService {
       android: androidInit,
     );
     await _plugin.initialize(initSettings);
-  }
-
-  @override
-  Future<bool> hasPermission() async {
-    final androidPlugin =
-        _plugin
-            .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin
-            >();
-    return (await androidPlugin?.areNotificationsEnabled()) ?? false;
   }
 
   @override
@@ -59,7 +48,6 @@ class NotificationServiceImpl implements NotificationService {
     required String title,
     required String text,
   }) async {
-    if (!await hasPermission()) return;
     await _plugin.show(
       notificationIdLiveUpdate,
       title,
@@ -70,7 +58,6 @@ class NotificationServiceImpl implements NotificationService {
 
   @override
   Future<void> cancelLiveUpdateNotification() async {
-    if (!await hasPermission()) return;
     await _plugin.cancel(notificationIdLiveUpdate);
   }
 
@@ -79,7 +66,6 @@ class NotificationServiceImpl implements NotificationService {
     required String title,
     required String text,
   }) async {
-    if (!await hasPermission()) return;
     await _plugin.show(
       notificationIdEvent,
       title,
@@ -90,7 +76,6 @@ class NotificationServiceImpl implements NotificationService {
 
   @override
   Future<void> cancelEventNotification() async {
-    if (!await hasPermission()) return;
     await _plugin.cancel(notificationIdEvent);
   }
 
@@ -104,7 +89,6 @@ class NotificationServiceImpl implements NotificationService {
         ongoing: true,
         onlyAlertOnce: true,
         showWhen: false,
-        color: Colors.green,
         styleInformation: BigTextStyleInformation(''),
         visibility: NotificationVisibility.public,
         icon: 'ic_rounded_potted_plant',
@@ -122,7 +106,6 @@ class NotificationServiceImpl implements NotificationService {
         ongoing: false,
         onlyAlertOnce: false,
         showWhen: true,
-        color: Colors.green,
         styleInformation: BigTextStyleInformation(''),
         visibility: NotificationVisibility.public,
         icon: 'ic_rounded_potted_plant',
