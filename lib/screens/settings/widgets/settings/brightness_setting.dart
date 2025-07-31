@@ -5,6 +5,7 @@ import 'package:bloom_flutter/screens/settings/widgets/settings/setting_with_ico
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BrightnessSetting extends StatelessWidget {
   final BloomModel model;
@@ -25,9 +26,9 @@ class BrightnessSetting extends StatelessWidget {
         color: Theme.of(context).colorScheme.onSurfaceVariant,
       ),
       children: [
-        Text('Helligkeit', style: Theme.of(context).textTheme.bodyLarge),
+        Text('settings.brightness'.tr(), style: Theme.of(context).textTheme.bodyLarge),
         Text(
-          'Kann die Lesbarkeit je nach Tageszeit verbessern',
+          'settings.brightness_description'.tr(),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
@@ -61,10 +62,10 @@ class BrightnessSetting extends StatelessWidget {
           maxHeight: 40,
           minWidth: 100,
         ),
-        children: const [
-          Text('Auto', style: TextStyle(fontWeight: FontWeight.bold)),
-          Text('Hell', style: TextStyle(fontWeight: FontWeight.bold)),
-          Text('Dunkel', style: TextStyle(fontWeight: FontWeight.bold)),
+        children: [
+          Text('settings.brightness_auto'.tr(), style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text('settings.brightness_light'.tr(), style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text('settings.brightness_dark'.tr(), style: const TextStyle(fontWeight: FontWeight.bold)),
         ],
       ),
     );
