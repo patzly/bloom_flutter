@@ -8,7 +8,14 @@ abstract class NotificationService {
     required String text,
   });
 
+  Future<void> updateLiveUpdateLastMinuteNotification({
+    required String title,
+    required String text,
+  });
+
   Future<void> cancelLiveUpdateNotification();
+
+  Future<void> cancelLiveUpdateLastMinuteNotification();
 
   Future<void> updateEventNotification({
     required String title,

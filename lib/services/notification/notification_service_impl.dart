@@ -5,7 +5,8 @@ class NotificationServiceImpl implements NotificationService {
   static const String _channelIdLiveUpdates = 'live_updates';
   static const String _channelIdEvents = 'events';
   static const int notificationIdLiveUpdate = 0;
-  static const int notificationIdEvent = 1;
+  static const int notificationIdLiveUpdateLastMinute = 1;
+  static const int notificationIdEvent = 2;
 
   final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
@@ -52,7 +53,20 @@ class NotificationServiceImpl implements NotificationService {
       notificationIdLiveUpdate,
       title,
       text,
-      _liveUpdateDetails(title, text),
+      _liveUpdateDetails(),
+    );
+  }
+
+  @override
+  Future<void> updateLiveUpdateLastMinuteNotification({
+    required String title,
+    required String text,
+  }) async {
+    await _plugin.show(
+      notificationIdLiveUpdateLastMinute,
+      title,
+      text,
+      _liveUpdateDetails(),
     );
   }
 
@@ -62,16 +76,16 @@ class NotificationServiceImpl implements NotificationService {
   }
 
   @override
+  Future<void> cancelLiveUpdateLastMinuteNotification() async {
+    await _plugin.cancel(notificationIdLiveUpdateLastMinute);
+  }
+
+  @override
   Future<void> updateEventNotification({
     required String title,
     required String text,
   }) async {
-    await _plugin.show(
-      notificationIdEvent,
-      title,
-      text,
-      _eventDetails(title, text),
-    );
+    await _plugin.show(notificationIdEvent, title, text, _eventDetails());
   }
 
   @override
@@ -79,7 +93,7 @@ class NotificationServiceImpl implements NotificationService {
     await _plugin.cancel(notificationIdEvent);
   }
 
-  NotificationDetails _liveUpdateDetails(String title, String text) {
+  NotificationDetails _liveUpdateDetails() {
     return const NotificationDetails(
       android: AndroidNotificationDetails(
         _channelIdLiveUpdates,
@@ -96,7 +110,7 @@ class NotificationServiceImpl implements NotificationService {
     );
   }
 
-  NotificationDetails _eventDetails(String title, String text) {
+  NotificationDetails _eventDetails() {
     return const NotificationDetails(
       android: AndroidNotificationDetails(
         _channelIdEvents,

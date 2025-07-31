@@ -115,12 +115,20 @@ class TimeServiceImpl implements TimeService {
     if (userPresence == UserPresence.UNLOCKED) {
       // update session time
       sessionTimeMillis += Constants.updateInterval.inMilliseconds;
+      // callback exactly on time and not 1 second later
       int absoluteToleranceMillis =
           (sessionTimeMaxMinutes +
               Constants.sessionTimeToleranceMax.inMinutes) *
           60 *
           1000;
-      // callback exactly on time and not 1 second later
+
+      int toleranceMillisLastMinute = absoluteToleranceMillis - (60 * 1000);
+      bool isToleranceLastMinute = false;
+      if (sessionTimeMillis > toleranceMillisLastMinute) {
+        if (sessionTimeMillis - Constants.updateInterval.inMilliseconds <= toleranceMillisLastMinute) {
+          isToleranceLastMinute = true;
+        }
+      }
       bool isToleranceExceeded = false;
       if (sessionTimeMillis > absoluteToleranceMillis) {
         if (sessionTimeMillis - Constants.updateInterval.inMilliseconds <=
@@ -143,6 +151,9 @@ class TimeServiceImpl implements TimeService {
       );
 
       listener?.onPhoneTimeIncreased();
+      if (isToleranceLastMinute) {
+        listener?.onLastToleranceMinuteStarted();
+      }
       if (isToleranceExceeded) {
         listener?.onToleranceExceeded();
       }

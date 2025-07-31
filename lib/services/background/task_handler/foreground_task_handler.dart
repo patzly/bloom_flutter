@@ -69,6 +69,8 @@ class ForegroundTaskHandler extends TaskHandler implements TimeListener {
   void onPhoneTimeIncreased() {
     double sessionTimeToleranceFraction =
         timeService.getSessionTimeToleranceFraction();
+    int sessionTimeToleranceMinutes =
+        timeService.getSessionTimeToleranceMillis() ~/ 1000 ~/ 60;
     if (sessionTimeToleranceFraction > 0 && sessionTimeToleranceFraction < 1) {
       // create live update
       int breakTimeMillis = timeService.getBreakTimeMillis();
@@ -77,26 +79,48 @@ class ForegroundTaskHandler extends TaskHandler implements TimeListener {
             milliseconds: breakTimeMillis,
           ).toPrettyStringRoundSecondsUp();
       int remainingMillis = timeService.getSessionTimeRemainingMillis();
-      String remainingString =
-          Duration(
-            milliseconds: remainingMillis,
-          ).toPrettyStringRoundSecondsDown();
-      notificationService.updateLiveUpdateNotification(
-        title: "Deine Blume braucht Wasser!",
-        text:
-            "Leg dein Smartphone für mindestens $breakTimeString weg, damit sie ausreichend gegossen wird. Ansonsten vertrocknet sie in $remainingString.",
-      );
+      Duration remaining = Duration(milliseconds: remainingMillis);
+      // Create different notification based on last tolerance minute
+      if (sessionTimeToleranceMinutes <
+          Constants.sessionTimeToleranceMax.inMinutes - 1) {
+        String remainingStringMinutes =
+            remaining.toPrettyStringRoundSecondsDown();
+        notificationService.updateLiveUpdateNotification(
+          title: "Deine Blume braucht Wasser!",
+          text:
+              "Leg dein Smartphone für mindestens $breakTimeString weg, damit sie ausreichend gegossen wird. Ansonsten vertrocknet sie in $remainingStringMinutes.",
+        );
+      } else {
+        String remainingString = remaining.toPrettyStringShortest();
+        notificationService.updateLiveUpdateNotification(
+          title: "Deine Blume vertrocknet in $remainingString!",
+          text:
+              "Leg dein Smartphone jetzt für mindestens $breakTimeString weg, damit sie ausreichend gegossen wird.",
+        );
+      }
     }
+  }
+
+  @override
+  void onLastToleranceMinuteStarted() {
+    notificationService.cancelLiveUpdateNotification();
   }
 
   @override
   void onToleranceExceeded() {
     notificationService.cancelLiveUpdateNotification();
+    notificationService.cancelLiveUpdateLastMinuteNotification();
+    notificationService.updateEventNotification(
+      title: "Deine Blume ist vertrocknet!",
+      text:
+      "Leg dein Smartphone für heute weg und versuche, dich morgen an deine Zeitlimits zu halten.",
+    );
   }
 
   @override
   void onBreak() {
     notificationService.cancelLiveUpdateNotification();
+    notificationService.cancelLiveUpdateLastMinuteNotification();
   }
 
   void _update() async {
