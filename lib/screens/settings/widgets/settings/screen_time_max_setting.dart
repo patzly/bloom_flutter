@@ -11,14 +11,20 @@ import 'package:material_symbols_icons/material_symbols_icons.dart';
 class ScreenTimeMaxSetting extends StatelessWidget {
   final BloomModel model;
 
-  const ScreenTimeMaxSetting({super.key, required this.model});
+  final Future<Duration?> Function(BuildContext context, Duration initialDuration) showDialogFn;
+
+  const ScreenTimeMaxSetting({
+    super.key,
+    required this.model,
+    this.showDialogFn = showDurationDialog,
+  });
 
   @override
   Widget build(BuildContext context) {
     final controller = BlocProvider.of<BloomController>(context);
     return SettingWithIcon(
       onTap: () {
-        showDurationDialog(context, model.screenTimeMax).then((duration) {
+        showDialogFn(context, model.screenTimeMax).then((duration) {
           if (duration != null) {
             if (duration.inMinutes < 1) {
               duration = const Duration(minutes: 1);

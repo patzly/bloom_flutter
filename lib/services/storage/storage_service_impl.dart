@@ -8,8 +8,9 @@ class StorageServiceImpl implements StorageService {
 
   StorageServiceImpl._(this._prefs);
 
+  StorageServiceImpl.testConstructor(this._prefs);
+
   static Future<StorageServiceImpl> create() async {
-    // Ensure Flutter bindings before accessing shared preferences
     WidgetsFlutterBinding.ensureInitialized();
     final prefs = await SharedPreferences.getInstance();
     return StorageServiceImpl._(prefs);
