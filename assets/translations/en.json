@@ -11,7 +11,7 @@
     "stop": "Stop service"
   },
   "permission": {
-    "dialog_title": "Permission permanently denied. Please allow Bloom to show notifications in the system settings.",
+    "dialog_title": "Permission required",
     "dialog_msg": "In the next dialog, please allow Bloom to show notifications to keep the background service running and to warn you when you exceed your time limits.",
     "dialog_msg_denied": "Permission permanently denied. Please allow Bloom to show notifications in the system settings.",
     "info": "The service is required to track screen time and displays a low-priority persistent notification to stay alive.",
