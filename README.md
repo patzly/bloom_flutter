@@ -14,7 +14,9 @@ This project is a graded assignment for the Mobile Applications lecture at HTWG 
 ## Screenshots
 
 <a href="https://raw.githubusercontent.com/patzly/bloom_flutter/main/assets/github/screenshots/home_screen.png"><img src="assets/github/screenshots/home_screen.png" alt="Home Screen" height="240px"/></a>
+<a href="https://raw.githubusercontent.com/patzly/bloom_flutter/main/assets/github/screenshots/settings_screen.png"><img src="assets/github/screenshots/dark_home_screen.png" alt="Settings Screen" height="240px"/></a>
 <a href="https://raw.githubusercontent.com/patzly/bloom_flutter/main/assets/github/screenshots/settings_screen.png"><img src="assets/github/screenshots/settings_screen.png" alt="Settings Screen" height="240px"/></a>
+
 
 ## 🧭 Vision
 
