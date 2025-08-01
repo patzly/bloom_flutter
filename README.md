@@ -89,3 +89,5 @@ Getting the foreground task up running and communicating with the main app was q
 That's why localization and other Flutter features are not available in the foreground task, even a singleton of [time_service_impl](https://github.com/patzly/bloom_flutter/blob/main/lib/services/time/time_service_impl.dart) can't be created in [bloom_app.dart](https://github.com/patzly/bloom_flutter/blob/main/lib/bloom_app.dart) and passed through.
 Instead, the foreground task gets its own instance of [time_service_impl](https://github.com/patzly/bloom_flutter/blob/main/lib/services/time/time_service_impl.dart) [here](https://github.com/patzly/bloom_flutter/blob/4baf656917e4aafcc6573df3d47637072c2aa880/lib/services/background/background_service_android_impl.dart#L15).
 The data required by the controller to manipulate the state is send by the foreground task via [callback](https://github.com/patzly/bloom_flutter/blob/4baf656917e4aafcc6573df3d47637072c2aa880/lib/controller/bloom_controller_impl.dart#L187), which then updates the state accordingly.
+
+<img alt='Architecture diagram' src='assets/github/diagram.png'/>
